@@ -1,0 +1,7 @@
+.DS_Store
+/Carthage
+/Pods
+Podfile.lock
+nostrings ios.xcworkspace
+nostrings ios.xcodeproj/xcuserdata/*
+nostrings ios.xcodeproj/project.xcworkspace
