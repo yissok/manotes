@@ -14,6 +14,7 @@ struct ContentView: View {
 
     var body: some View {
         NavigationSplitView {
+            Label("hi", systemImage: "bolt.fill")
             List {
                 ForEach(items) { item in
                     NavigationLink {
