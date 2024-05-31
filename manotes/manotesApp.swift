@@ -26,8 +26,15 @@ struct manotesApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView().onOpenURL { (url) in
-                let decoded = url.absoluteString.replacingOccurrences(of: "\(appNameUrl)://?result=", with: "").decodeUrl()!
-                print("modifiedString: "+decoded)
+                let input = url.queryParameters!["input"]!
+                print("input: "+input)
+                switch url.host() {
+                case "":
+                    print("generic host")
+                default:
+                    print("other host")
+                    break
+                }
             }
         }
         .modelContainer(sharedModelContainer)
