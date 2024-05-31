@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var content:String = ""
     //https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app
-    var shtctcall = "shortcuts://x-callback-url/run-shortcut?name=manoteSHTCT&input=U2FsdGVkX19Q9jDIsdqtAWE8aO/BgSRaQPgn2XHcd90=&x-error=manotesURL://&x-cancel=manotesURL://&x-success=manotesURL://"
+    var shtctcall = "shortcuts://x-callback-url/run-shortcut?name=manoteSHTCT&input=U2FsdGVkX19Q9jDIsdqtAWE8aO/BgSRaQPgn2XHcd90=&x-error="+appNameUrl+"://&x-cancel="+appNameUrl+"://&x-success="+appNameUrl+"://"
     var body: some View {
         Label("hi", systemImage: "bolt.fill")
         TabView {
