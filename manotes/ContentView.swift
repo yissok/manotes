@@ -6,57 +6,60 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
+    @State private var content:String = ""
+    //https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app
+    var shtctcall = "shortcuts://x-callback-url/run-shortcut?name=manoteSHTCT&input=U2FsdGVkX19Q9jDIsdqtAWE8aO/BgSRaQPgn2XHcd90=&x-error=manotesURL://&x-cancel=manotesURL://&x-success=manotesURL://"
     var body: some View {
-        NavigationSplitView {
-            Label("hi", systemImage: "bolt.fill")
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+        Label("hi", systemImage: "bolt.fill")
+        TabView {
+            VStack {
+                TextEditor(text: $content)
+                    .border(.green)
+                Button(action: {
+                    let shortcut = URL(string: shtctcall)!
+                    UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)
+                }) {
+                  HStack{
+                    Text("send back to shortcut")
+                  }
+                  .padding()
+                  .foregroundColor(Color.white)
+                  .background(Color.blue)
+                  .cornerRadius(8)
+                  .shadow(radius: 8)
                 }
-                .onDelete(perform: deleteItems)
+                .padding()
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .tabItem {
+                Image(systemName: "message")
             }
-        } detail: {
-            Text("Select an item")
+            .tag(1)
+        }
+        .onAppear(perform: start)
+        .onContinueUserActivity(UN_ID) { userActivity in
+            content=""
+            print("on continue")
+//            let intent = userActivity.interaction?.intent as? RCliteIntent
+//            print(intent?.text)
+//            content=intent?.text!
         }
     }
+    func start() {
+        print("started main view")
+        let a = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String ?? ""
+        let aa = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? ""
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
+        print(a)
+        print(aa)
+        
+//        if (defaults.value(forKey:CONTENT_PASSED) != nil) {
+//            content = defaults.string(forKey:CONTENT_PASSED)!
+//        }
+//        print(defaults.value(forKey:CONTENT_PASSED))
+        let shortcut = URL(string: shtctcall)!
+        UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)
     }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
-    }
-}
-
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }

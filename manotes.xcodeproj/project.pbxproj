@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6518AD6B2C09A84E009148D4 /* globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518AD6A2C09A84E009148D4 /* globals.swift */; };
 		651BEB532C08F41300414B64 /* manotesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BEB522C08F41300414B64 /* manotesApp.swift */; };
 		651BEB552C08F41300414B64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BEB542C08F41300414B64 /* ContentView.swift */; };
 		651BEB572C08F41300414B64 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BEB562C08F41300414B64 /* Item.swift */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6518AD6A2C09A84E009148D4 /* globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = globals.swift; sourceTree = "<group>"; };
+		6518AD6C2C09B5D3009148D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		651BEB4F2C08F41300414B64 /* manotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = manotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		651BEB522C08F41300414B64 /* manotesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = manotesApp.swift; sourceTree = "<group>"; };
 		651BEB542C08F41300414B64 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,11 +99,13 @@
 		651BEB512C08F41300414B64 /* manotes */ = {
 			isa = PBXGroup;
 			children = (
+				6518AD6C2C09B5D3009148D4 /* Info.plist */,
 				651BEB522C08F41300414B64 /* manotesApp.swift */,
 				651BEB542C08F41300414B64 /* ContentView.swift */,
 				651BEB562C08F41300414B64 /* Item.swift */,
 				651BEB582C08F41500414B64 /* Assets.xcassets */,
 				651BEB5A2C08F41500414B64 /* Preview Content */,
+				6518AD6A2C09A84E009148D4 /* globals.swift */,
 			);
 			path = manotes;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6518AD6B2C09A84E009148D4 /* globals.swift in Sources */,
 				651BEB552C08F41300414B64 /* ContentView.swift in Sources */,
 				651BEB572C08F41300414B64 /* Item.swift in Sources */,
 				651BEB532C08F41300414B64 /* manotesApp.swift in Sources */,
@@ -429,6 +435,7 @@
 				DEVELOPMENT_TEAM = BR2XN9F953;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = manotes/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -458,6 +465,7 @@
 				DEVELOPMENT_TEAM = BR2XN9F953;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = manotes/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -25,7 +25,9 @@ struct manotesApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().onOpenURL { (url) in
+                print("from url")
+            }
         }
         .modelContainer(sharedModelContainer)
     }
