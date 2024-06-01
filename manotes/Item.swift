@@ -1,10 +1,3 @@
-//
-//  Item.swift
-//  manotes
-//
-//  Created by andrea on 30/05/24.
-//
-
 import Foundation
 import SwiftData
 

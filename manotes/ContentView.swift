@@ -6,7 +6,7 @@ struct ContentView: View {
     @State private var content:String = ""
     @Query private var items: [Entry]
     
-    var shtctcall = "shortcuts://run-shortcut?name="+SHORTCUT_NAME+"&input="
+    var shtctcall = "shortcuts://run-shortcut?name="+SHORTCUT_NAME+"&"+INPUT_LABEL+"="
     
     var body: some View {
         VStack {
@@ -33,7 +33,7 @@ struct ContentView: View {
         }
         .onAppear(perform: start)
         .onOpenURL { (url) in
-            let input = url.queryParameters!["input"]!
+            let input = url.queryParameters![INPUT_LABEL]!
             addItem(input)
             switch url.host() {
             case "":

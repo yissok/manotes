@@ -1,16 +1,10 @@
-//
-//  globals.swift
-//  manotes
-//
-//  Created by andrea on 31/05/24.
-//
-
 import Foundation
 
 let CONTENT_PASSED="CONTENT_PASSED"
 let UN_ID="manotes_uniqueidddddd"
 let APP_NAME_URL="manotesURL"
 let SHORTCUT_NAME="manoteSHTCT"
+let INPUT_LABEL="input"
 
 extension URL {
     public var queryParameters: [String: String]? {
