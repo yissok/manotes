@@ -16,6 +16,7 @@
 		651BEB662C08F41600414B64 /* manotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BEB652C08F41600414B64 /* manotesTests.swift */; };
 		651BEB702C08F41600414B64 /* manotesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BEB6F2C08F41600414B64 /* manotesUITests.swift */; };
 		651BEB722C08F41600414B64 /* manotesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BEB712C08F41600414B64 /* manotesUITestsLaunchTests.swift */; };
+		659897A52C0B76C9007E65A5 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659897A42C0B76C9007E65A5 /* Entry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		651BEB6B2C08F41600414B64 /* manotesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = manotesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		651BEB6F2C08F41600414B64 /* manotesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = manotesUITests.swift; sourceTree = "<group>"; };
 		651BEB712C08F41600414B64 /* manotesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = manotesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		659897A42C0B76C9007E65A5 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				651BEB582C08F41500414B64 /* Assets.xcassets */,
 				651BEB5A2C08F41500414B64 /* Preview Content */,
 				6518AD6A2C09A84E009148D4 /* globals.swift */,
+				659897A42C0B76C9007E65A5 /* Entry.swift */,
 			);
 			path = manotes;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6518AD6B2C09A84E009148D4 /* globals.swift in Sources */,
+				659897A52C0B76C9007E65A5 /* Entry.swift in Sources */,
 				651BEB552C08F41300414B64 /* ContentView.swift in Sources */,
 				651BEB572C08F41300414B64 /* Item.swift in Sources */,
 				651BEB532C08F41300414B64 /* manotesApp.swift in Sources */,

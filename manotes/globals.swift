@@ -9,7 +9,8 @@ import Foundation
 
 let CONTENT_PASSED="CONTENT_PASSED"
 let UN_ID="manotes_uniqueidddddd"
-let appNameUrl="manotesURL"
+let APP_NAME_URL="manotesURL"
+let SHORTCUT_NAME="manoteSHTCT"
 
 extension URL {
     public var queryParameters: [String: String]? {
