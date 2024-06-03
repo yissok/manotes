@@ -1,15 +1,15 @@
 import SwiftUI
 import SwiftData
 
-struct RootItem: View {
+struct RootNote: View {
     @EnvironmentObject var contextProvider: ContextProvider
-    @State private var content:String = ""
-    let item: Entry
+    let item: Note2
     
     var shtctcall = "shortcuts://run-shortcut?name="+SHORTCUT_NAME+"&input="
     
     var body: some View {
         return HStack{
+            Text(item.tag).bold()
             Text(item.name)
             Spacer()
             Button{
@@ -20,6 +20,7 @@ struct RootItem: View {
             .foregroundColor(Color.blue)
             .buttonStyle(PlainButtonStyle())
         }
+        .frame(minHeight: rowHeight, maxHeight: rowHeight)
         
         func callShortcutWith(_ itemValue: String) {
             print("calling shortcut")

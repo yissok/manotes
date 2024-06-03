@@ -6,6 +6,8 @@ let APP_NAME_URL="manotesURL"
 let SHORTCUT_NAME="manoteSHTCT"
 let INPUT_LABEL="input"
 
+let rowHeight:CGFloat=30
+
 extension URL {
     public var queryParameters: [String: String]? {
         guard
