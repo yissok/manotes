@@ -4,12 +4,12 @@ import SwiftData
 @Model
 class Note2: Identifiable {
     var id: String
-    var name: String
-    var tag: String
+    var noteContent: String
+    var parent: Tag?
     
-    init(name: String, tag: String) {
+    init(noteContent: String, parent: Tag?) {
         self.id = UUID().uuidString
-        self.name = name
-        self.tag = tag
+        self.noteContent = noteContent
+        self.parent = parent
     }
 }

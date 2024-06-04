@@ -2,13 +2,14 @@ import Foundation
 import SwiftData
 
 
-func handleNewTagInput(_ name: String, _ context: ModelContext) {
-    addTag(name, context)
+func handleNewTagInput(_ currentTag: String,_ tags: [Tag], _ name: String, _ context: ModelContext) {
+    let existingTag = tags.filter { $0.name.elementsEqual(currentTag) }.first ?? nil
+    addTag(name,existingTag, context)
 }
 
-func handleShortcutInput(_ url: URL, _ context: ModelContext) {
+func handleShortcutInput(_ url: URL,_ tags: [Tag], _ context: ModelContext) {
     let input = url.queryParameters![INPUT_LABEL]!.components(separatedBy:"_")
-    addNote(input[0], input[1], context)
+    addNote(input[0], input[1], context, tags)
     switch url.host() {
     case nil:
         print("generic host")

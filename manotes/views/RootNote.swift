@@ -3,17 +3,19 @@ import SwiftData
 
 struct RootNote: View {
     @EnvironmentObject var contextProvider: ContextProvider
+    @Binding var currentViewParentTag:String
     let item: Note2
     
     var shtctcall = "shortcuts://run-shortcut?name="+SHORTCUT_NAME+"&input="
     
     var body: some View {
         return HStack{
-            Text(item.tag).bold()
-            Text(item.name)
+            Text(item.parent == nil ? currentViewParentTag:item.parent!.name).bold()
+
+            Text(item.noteContent)
             Spacer()
             Button{
-                callShortcutWith(item.name)
+                callShortcutWith(item.noteContent)
             } label: {
                 Image(systemName: "pencil")
             }

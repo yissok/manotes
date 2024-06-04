@@ -169,6 +169,7 @@
 		65723EC72C0E0E8800BE2B31 /* handlers */ = {
 			isa = PBXGroup;
 			children = (
+				65723ECB2C0E118600BE2B31 /* Operations.swift */,
 				65723EBC2C0E037800BE2B31 /* Input.swift */,
 				65723EC82C0E0EA500BE2B31 /* Output.swift */,
 			);
@@ -180,7 +181,6 @@
 			children = (
 				65723EBE2C0E052400BE2B31 /* ContextProvider.swift */,
 				659897A42C0B76C9007E65A5 /* Note2.swift */,
-				65723ECB2C0E118600BE2B31 /* Operations.swift */,
 				65723ECD2C0E11A100BE2B31 /* Tag.swift */,
 			);
 			path = data;

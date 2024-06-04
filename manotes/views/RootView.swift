@@ -4,12 +4,14 @@ import SwiftData
 struct RootView: View {
     
     @State private var presentAlert = false
-    @State private var tag = ""
+    @State private var newTag = ""
+    @State private var currentViewParentTag="root"
     @EnvironmentObject var contextProvider: ContextProvider
+    @Query private var tags: [Tag]
     
     var body: some View {
         return NavigationView{
-            ItemList()
+            ItemList(tagParent: nil, currentViewParentTag: $currentViewParentTag)
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Button{
@@ -31,9 +33,9 @@ struct RootView: View {
                         }
                         .foregroundColor(Color.yellow)
                         .alert("Tag name", isPresented: $presentAlert, actions: {
-                            TextField("Username", text: $tag)
+                            TextField("Username", text: $newTag)
                             Button("Ok", action: {
-                                handleNewTagInput(tag, contextProvider.context!)
+                                handleNewTagInput(currentViewParentTag,tags,newTag, contextProvider.context!)
                             })
                             Button("Cancel", role: .cancel, action: {})
                         }, message: {
@@ -52,7 +54,7 @@ struct RootView: View {
         }
         .onAppear(perform: start)
         .onOpenURL { (url) in
-            handleShortcutInput(url, contextProvider.context!)
+            handleShortcutInput(url, tags, contextProvider.context!)
         }
         
         
