@@ -7,7 +7,7 @@ struct RootView: View {
     @State private var newTag = ""
     @State private var currentViewParentTag="root"
     @EnvironmentObject var contextProvider: ContextProvider
-    @Query private var tags: [Tag]
+    @Query private var tags: [TreeNode]
     
     var body: some View {
         return NavigationView{

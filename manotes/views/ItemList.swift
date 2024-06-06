@@ -3,47 +3,62 @@ import SwiftData
 
 struct ItemList: View {
     @EnvironmentObject var contextProvider: ContextProvider
-    @Query private var notes: [Note2]
-    @Query private var tags: [Tag]
-    @Binding var currentViewParentTag:String
-    var tagParent:Tag?
     
-    init(tagParent: Tag?, currentViewParentTag:Binding<String>) {
+    @Query private var folders: [TreeNode]
+    @Query private var files: [TreeNode]
+    
+    @Binding var currentViewParentTag:String
+    @State var tagParent:TreeNode?
+    
+    init(tagParent: TreeNode?, currentViewParentTag:Binding<String>) {
         self._currentViewParentTag=currentViewParentTag
+        initCoreData(tagParent: tagParent)
+    }
+    mutating func initCoreData(tagParent: TreeNode?) {
         self.tagParent=tagParent
         if tagParent != nil {
             let id = tagParent!.persistentModelID
-            let predicate = #Predicate<Note2> { note in
-                note.parent!.persistentModelID==id
+            let predicateFolders = #Predicate<TreeNode> { note in
+                note.parent!.persistentModelID==id && note.content == nil
             }
-            _notes = Query(filter: predicate)
+            _folders = Query(filter: predicateFolders)
+            let predicateFiles = #Predicate<TreeNode> { note in
+                note.parent!.persistentModelID==id && note.content != nil
+            }
+            _files = Query(filter: predicateFiles)
         } else { // if root level notes
-            let predicate = #Predicate<Note2> { note in
-                note.parent==nil
+            let predicateFolders = #Predicate<TreeNode> { note in
+                note.parent==nil && note.content == nil
             }
-            _notes = Query(filter: predicate)
+            _folders = Query(filter: predicateFolders)
+            let predicateFiles = #Predicate<TreeNode> { note in
+                note.parent==nil && note.content != nil
+            }
+            _files = Query(filter: predicateFiles)
         }
     }
     
     var body: some View {
         return VStack{
             Text(tagParent == nil ? currentViewParentTag:tagParent!.name)
-//            Text(tagParent.notes.last!.name)
+                .onChange(of: currentViewParentTag) {
+//                    initCoreData(tagParent: tagParent)
+                }
             List{
-                ForEach(tags) { tag in
-                    RootTag(item: tag)
+                ForEach(folders) { tag in
+                    RootTag(currentViewParentTag: $currentViewParentTag, tagParent: $tagParent, item: tag)
                 }
                 .onDelete { indexes in
                     for index in indexes {
-                        deleteTag(tags[index], contextProvider.context!)
+                        deleteTag(folders[index], contextProvider.context!)
                     }
                 }
-                ForEach(notes) { item in
-                    RootNote(currentViewParentTag: $currentViewParentTag, item: item)
+                ForEach(files) { file in
+                    RootNote(currentViewParentTag: $currentViewParentTag, item: file)
                 }
                 .onDelete { indexes in
                     for index in indexes {
-                        deleteItem(notes[index], contextProvider.context!)
+                        deleteItem(files[index], contextProvider.context!)
                     }
                 }
             }

@@ -4,22 +4,22 @@ import SwiftData
 struct RootNote: View {
     @EnvironmentObject var contextProvider: ContextProvider
     @Binding var currentViewParentTag:String
-    let item: Note2
+    let item: TreeNode
     
     var shtctcall = "shortcuts://run-shortcut?name="+SHORTCUT_NAME+"&input="
     
     var body: some View {
         return HStack{
-            Text(item.parent == nil ? currentViewParentTag:item.parent!.name).bold()
+            Text(item.parent == nil ? currentViewParentTag : item.parent!.name).bold()
 
-            Text(item.noteContent)
+            Text(item.content ?? "no_content")
             Spacer()
             Button{
-                callShortcutWith(item.noteContent)
+                callShortcutWith(item.content ?? "no_content")
             } label: {
                 Image(systemName: "pencil")
             }
-            .foregroundColor(Color.blue)
+            .foregroundColor(Color.yellow)
             .buttonStyle(PlainButtonStyle())
         }
         .frame(minHeight: rowHeight, maxHeight: rowHeight)

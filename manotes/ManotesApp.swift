@@ -8,6 +8,6 @@ struct manotesApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: [Note2.self, Tag.self])
+        .modelContainer(for: TreeNode.self)
     }
 }
