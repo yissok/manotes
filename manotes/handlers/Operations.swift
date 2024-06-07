@@ -16,9 +16,15 @@ func addTag(_ itemTag: String,_ parent: TreeNode?, _ context: ModelContext) {
 
 func addNote(_ itemTag: String, _ itemValue: String, _ context: ModelContext,_ tags: [TreeNode]) {
     print("adding note")
-    let existingTag = tags.filter { $0.name.elementsEqual(itemTag) }.first ?? nil
+    var existingTag = tags.filter { $0.name.elementsEqual(itemTag) }.first ?? nil
     let newNote = TreeNode(content: itemValue, name:itemTag,parent: existingTag)
-    context.insert(newNote)
+    
+    if (existingTag != nil){
+        existingTag!.children.append(newNote)
+        context.insert(existingTag!)
+    } else {
+        context.insert(newNote)
+    }
 }
 
 func deleteTag(_ item: TreeNode, _ context: ModelContext) {

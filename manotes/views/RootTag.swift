@@ -7,25 +7,9 @@ struct RootTag: View {
     
     var body: some View {
         return HStack{
-            Text(item.name)
-            
-            NavigationLink {
-                ItemList(folders: item.children)
-            } label: {
-                VStack {
-                    Image(systemName: "folder")
-                }
-                .padding()
-            }.simultaneousGesture(TapGesture().onEnded {
-                print("simultaneousGesture!")
-            })
-//            Button{
-//                currentViewParentTag=item.name
-//                tagParent=item
-//            } label: {
-//                Image(systemName: "folder")
-//            }
-//            .foregroundColor(Color.blue)
+            NavigationLink(item.name) {
+                ItemList(nodes: item.children)
+            }
         }
         .frame(minHeight: rowHeight, maxHeight: rowHeight)
         
