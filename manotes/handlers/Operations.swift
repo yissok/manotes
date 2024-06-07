@@ -6,7 +6,12 @@ import SwiftData
 func addTag(_ itemTag: String,_ parent: TreeNode?, _ context: ModelContext) {
     print("adding tag")
     let item = TreeNode(content:nil, name: itemTag, parent: parent)
-    context.insert(item)
+    if (item.parent != nil){
+        item.parent?.children.append(item)
+        context.insert(item.parent!)
+    } else {
+        context.insert(item)
+    }
 }
 
 func addNote(_ itemTag: String, _ itemValue: String, _ context: ModelContext,_ tags: [TreeNode]) {

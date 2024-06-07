@@ -7,11 +7,12 @@ struct RootView: View {
     @State private var newTag = ""
     @State private var currentViewParentTag="root"
     @EnvironmentObject var contextProvider: ContextProvider
-    @Query private var tags: [TreeNode]
+    @Query(filter: #Predicate<TreeNode> { $0.parent == nil },
+           sort: [SortDescriptor(\TreeNode.name)] ) private var tags: [TreeNode]
     
     var body: some View {
         return NavigationView{
-            ItemList(tagParent: nil, currentViewParentTag: $currentViewParentTag)
+            ItemList(folders: tags)
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Button{
@@ -33,7 +34,8 @@ struct RootView: View {
                         }
                         .foregroundColor(Color.yellow)
                         .alert("Tag name", isPresented: $presentAlert, actions: {
-                            TextField("Username", text: $newTag)
+                            TextField("parent", text: $currentViewParentTag)
+                            TextField("new", text: $newTag)
                             Button("Ok", action: {
                                 handleNewTagInput(currentViewParentTag,tags,newTag, contextProvider.context!)
                             })

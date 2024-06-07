@@ -3,14 +3,13 @@ import SwiftData
 
 struct RootNote: View {
     @EnvironmentObject var contextProvider: ContextProvider
-    @Binding var currentViewParentTag:String
     let item: TreeNode
     
     var shtctcall = "shortcuts://run-shortcut?name="+SHORTCUT_NAME+"&input="
     
     var body: some View {
         return HStack{
-            Text(item.parent == nil ? currentViewParentTag : item.parent!.name).bold()
+            Text(item.parent == nil ? "currentViewParentTag" : item.parent!.name).bold()
 
             Text(item.content ?? "no_content")
             Spacer()
