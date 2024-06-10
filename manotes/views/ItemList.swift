@@ -6,35 +6,40 @@ struct ItemList: View {
     
     @State private var presentAlert = false
     @State private var newTag = ""
-    @State private var currentViewParentTag="root"
-    var nodes:[TreeNode]
     
+    var nodesGlobal:[TreeNode]
+    var parent:TreeNode?
+
     var body: some View {
-        return 
+        let parentName:String=(parent==nil ? "root":parent?.name)!
+        var filteredTags:[TreeNode]=nodesGlobal.filter { $0.content == nil && $0.parent == parent }
+        var filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.parent == parent }
+        return
                 VStack{
-//                    Text(tagParent == nil ? "aa":tagParent!.name)
-//                        .onChange(of: currentViewParentTag) {
-//        //                    initCoreData(tagParent: tagParent)
-//                        }
-                    
-                    List{
-                        ForEach(nodes.filter { $0.content==nil }) { node in
-                            RootTag(item: node)
+                    Text(parentName)
+                    List {
+                        ForEach(filteredTags, id: \.self) { node in
+                            RootTag(nodesGlobal: nodesGlobal, item: node)
                         }
                         .onDelete { indexes in
                             for index in indexes {
-                                deleteTag(nodes[index], contextProvider.context!)
+                                if let globalIndex = nodesGlobal.firstIndex(of: filteredTags[index]) {
+                                    deleteTag(nodesGlobal[globalIndex], contextProvider.context!)
+                                }
                             }
                         }
-                        ForEach(nodes.filter { $0.content != nil }) { node in
+                        ForEach(filteredNotes, id: \.self) { node in
                             RootNote(item: node)
                         }
                         .onDelete { indexes in
                             for index in indexes {
-                                deleteItem(nodes[index], contextProvider.context!)
+                                if let globalIndex = nodesGlobal.firstIndex(of: filteredNotes[index]) {
+                                    deleteItem(nodesGlobal[globalIndex], contextProvider.context!)
+                                }
                             }
                         }
-                }
+                    }
+
             }
                 .toolbar {
                     ToolbarItemGroup(placement: .bottomBar) {
@@ -42,20 +47,21 @@ struct ItemList: View {
                             Button{
                                 
                                 presentAlert=true
+                                
+                                handleNewTagInput(parentName,nodesGlobal,randomString(length: 4), contextProvider.context!)
                             } label: {
                                 Image(systemName: "folder.badge.plus")
                             }
                             .foregroundColor(Color.yellow)
-                            .alert("Tag name", isPresented: $presentAlert, actions: {
-                                TextField("parent", text: $currentViewParentTag)
-                                TextField("new", text: $newTag)
-                                Button("Ok", action: {
-                                    handleNewTagInput(currentViewParentTag,nodes,newTag, contextProvider.context!)
-                                })
-                                Button("Cancel", role: .cancel, action: {})
-                            }, message: {
-                                Text("Enter the name for the tag folder")
-                            })
+//                            .alert("Tag name", isPresented: $presentAlert, actions: {
+//                                TextField(parentName, text: $newTag)
+//                                Button("Ok", action: {
+//                                    handleNewTagInput(parentName,nodesGlobal,newTag, contextProvider.context!)
+//                                })
+//                                Button("Cancel", role: .cancel, action: {})
+//                            }, message: {
+//                                Text("Enter the name for the tag folder")
+//                            })
                             Spacer()
                             Button{
                                 
@@ -76,7 +82,10 @@ struct ItemList: View {
                         .foregroundColor(Color.yellow)
                     }
                 }
-        
+        func randomString(length: Int) -> String {
+          let letters = "abcdefghijklmnopqrstuvwxyz"
+          return String((0..<length).map{ _ in letters.randomElement()! })
+        }
     }
 }
 

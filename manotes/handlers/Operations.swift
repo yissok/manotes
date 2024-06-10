@@ -9,6 +9,7 @@ func addTag(_ itemTag: String,_ parent: TreeNode?, _ context: ModelContext) {
     if (item.parent != nil){
         item.parent?.children.append(item)
         context.insert(item.parent!)
+        context.insert(item)
     } else {
         context.insert(item)
     }
@@ -16,7 +17,7 @@ func addTag(_ itemTag: String,_ parent: TreeNode?, _ context: ModelContext) {
 
 func addNote(_ itemTag: String, _ itemValue: String, _ context: ModelContext,_ tags: [TreeNode]) {
     print("adding note")
-    var existingTag = tags.filter { $0.name.elementsEqual(itemTag) }.first ?? nil
+    var existingTag = tags.filter { $0.name.caseInsensitiveCompare(itemTag) == .orderedSame }.first ?? nil
     let newNote = TreeNode(content: itemValue, name:itemTag,parent: existingTag)
     
     if (existingTag != nil){
@@ -28,11 +29,11 @@ func addNote(_ itemTag: String, _ itemValue: String, _ context: ModelContext,_ t
 }
 
 func deleteTag(_ item: TreeNode, _ context: ModelContext) {
-    print("deleting note")
+    print("deleteTag")
     context.delete(item)
 }
 
 func deleteItem(_ item: TreeNode, _ context: ModelContext) {
-    print("deleting note")
+    print("delete note")
     context.delete(item)
 }
