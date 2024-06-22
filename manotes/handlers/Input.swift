@@ -8,6 +8,10 @@ func handleNewTagInput(_ currentTag: String,_ tags: [TreeNode], _ name: String, 
     addTag(name,existingTag, context)
 }
 
+func handleNewNoteInput(_ currentTag: String,_ tags: [TreeNode], _ name: String, _ context: ModelContext) {
+    addNote(currentTag,name,context, tags)
+}
+
 func handleShortcutInput(_ url: URL,_ tags: [TreeNode], _ context: ModelContext) {
     let input = url.queryParameters![INPUT_LABEL]!.components(separatedBy:"_")
     addNote(input[0], input[1], context, tags)

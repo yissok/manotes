@@ -12,8 +12,8 @@ struct ItemList: View {
 
     var body: some View {
         let parentName:String=(parent==nil ? "root":parent?.name)!
-        var filteredTags:[TreeNode]=nodesGlobal.filter { $0.content == nil && $0.parent == parent }
-        var filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.parent == parent }
+        let filteredTags:[TreeNode]=nodesGlobal.filter { $0.content == nil && $0.parent == parent }
+        let filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.parent == parent }
         return
                 VStack{
                     Text(parentName)
@@ -64,7 +64,7 @@ struct ItemList: View {
 //                            })
                             Spacer()
                             Button{
-                                
+                                handleNewNoteInput(parentName,nodesGlobal,"iam a test note", contextProvider.context!)
                             } label: {
                                 Image(systemName: "square.and.pencil")
                             }
