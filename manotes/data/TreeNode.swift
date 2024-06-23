@@ -15,4 +15,25 @@ class TreeNode: Identifiable {
         self.name = name
         self.parent = parent
     }
+    
+    // SERIALISATION CLIENT SIDE IS NOT NECESSARY ATM IF EVERY ADDITION TO THE TREE IS SINGLE BRANCH TREES, ALL WE NEED IS A METHOD THAT GIVEN A TAG/NOTE, GETS ALL PARENTS TILL ROOT
+//    static func serialise(_ filesystem:TreeNode) -> String{
+//        return serialiseRec(filesystem, "", LB_ROOT);
+//    }
+//    
+//    static func serialiseRec(_ filesystem:TreeNode, _ serialised:String, _ folderLevel:String) -> String{
+//        let currentNode:TreeNode = getCurrentNode(filesystem, folderLevel)
+//        return "";
+//    }
+    
+    static func getSingleBranchTree(_ filesystem:TreeNode) -> String{
+        return "a";
+    }
+    static func getCurrentNode(_ filesystem:TreeNode, _ folderLevel:String) -> TreeNode{
+        return TreeNode(content: "", name: "", parent: nil)
+    }
+    
+    static func deSerialise(_ strFilesystem:String) -> TreeNode{
+        return TreeNode(content: "", name: "", parent: nil)
+    }
 }

@@ -5,6 +5,10 @@ let UN_ID="manotes_uniqueidddddd"
 let APP_NAME_URL="manotesURL"
 let SHORTCUT_NAME="manoteSHTCT"
 let INPUT_LABEL="input"
+let LB_ROOT = "ROOT";
+let SERIAL_SEPARATOR = "-";
+let SERIAL_BACKWARDS = "_";
+let SERIAL_CONTENT_SEPARATOR = ":";
 
 let rowHeight:CGFloat=30
 
