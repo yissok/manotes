@@ -4,7 +4,6 @@ import SwiftData
 
 func handleNewTagInput(_ currentTag: String,_ tags: [TreeNode], _ name: String, _ context: ModelContext) {
     let existingTag = tags.filter { $0.name.caseInsensitiveCompare(currentTag) == .orderedSame }.first ?? nil
-    //TODO recursive search, for now just 1 layer deeper is possible
     addTag(name,existingTag, context)
 }
 
