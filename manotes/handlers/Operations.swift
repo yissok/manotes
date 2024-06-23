@@ -37,10 +37,21 @@ func deleteTag(_ item: TreeNode, _ context: ModelContext) {
     } else {
         print("deleteNote: "+(item.content ?? "n/a"))
     }
+    removeChildReference(item, context)
     context.delete(item)
 }
 
 func deleteItem(_ item: TreeNode, _ context: ModelContext) {
     print("delete note")
+    removeChildReference(item, context)
+    context.delete(item)
+}
+
+func removeChildReference(_ item: TreeNode, _ context: ModelContext) {
+    print("delete ref")
+    if let index = item.parent?.children.firstIndex(of: item) {
+        item.parent?.children.remove(at: index)
+        try! context.save()
+    }
     context.delete(item)
 }
