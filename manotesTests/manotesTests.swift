@@ -33,19 +33,7 @@ extension ContentView {
         }
     }
 }
-struct ContentView: View {
-    @State private var viewModel: ViewModel
 
-    var body: some View {
-        NavigationStack {
-        }
-    }
-    
-    init(modelContext: ModelContext) {
-        let viewModel = ViewModel(modelContext: modelContext)
-        _viewModel = State(initialValue: viewModel)
-    }
-}
 
 final class manotesTests: XCTestCase {
     var container: ModelContainer!
@@ -103,19 +91,3 @@ final class manotesTests: XCTestCase {
         XCTAssertEqual(result, "a", "The getSingleBranchTree method should return 'a'")
     }
 }
-
-        // Adding children to the first child of the root
-//        let child1_1 = TreeNode(content: "Child 1.1 content", name: "Child 1.1", parent: child1)
-//        let child1_2 = TreeNode(content: "Child 1.2 content", name: "Child 1.2", parent: child1)
-//        child1.children.append(child1_1)
-//        try context.save()
-//        child1.children.append(child1_2)
-//        try context.save()
-//
-//        // Adding children to the second child of the root
-//        let child2_1 = TreeNode(content: "Child 2.1 content", name: "Child 2.1", parent: child2)
-//        let child2_2 = TreeNode(content: "Child 2.2 content", name: "Child 2.2", parent: child2)
-//        child2.children.append(child2_1)
-//        try context.save()
-//        child2.children.append(child2_2)
-//        try context.save()
