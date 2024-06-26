@@ -14,6 +14,7 @@ class TreeNode: Identifiable {
         self.content = content
         self.name = name
         self.parent = parent
+        children = []
     }
     
     static func getSingleBranchTree(_ filesystem:TreeNode) -> String{
