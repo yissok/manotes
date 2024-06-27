@@ -45,33 +45,28 @@ final class manotesTests: XCTestCase {
 
         let sut = ContentView.ViewModel(modelContext: container.mainContext)
 
-//        let context = container.viewContext
-        let root = TreeNode(content: "Root Content", name: "Root", parent: nil)
+        let root = TreeNode(content: nil, name: "ROOT", parent: nil)
         sut.add(newNode: root)
         
-        let child1 = TreeNode(content: "Child 1 Content", name: "Child 1", parent: root)
-        let child2 = TreeNode(content: "Child 2 Content", name: "Child 2", parent: root)
-        root.children.append(contentsOf: [child1, child2])
-        sut.add(newNode: child1)
-        sut.add(newNode: child2)
+        let nintendo = TreeNode(content: nil, name: "Nintendo", parent: root)
+        root.children.append(contentsOf: [nintendo])
+        sut.add(newNode: nintendo)
         
-        let child1_1 = TreeNode(content: "Child 1.1 Content", name: "Child 1.1", parent: child1)
-        let child1_2 = TreeNode(content: "Child 1.2 Content", name: "Child 1.2", parent: child1)
-        child1.children.append(contentsOf: [child1_1, child1_2])
-        sut.add(newNode: child1_1)
-        sut.add(newNode: child1_2)
+        let smash = TreeNode(content: nil, name: "Smash", parent: nintendo)
+        let zelda = TreeNode(content: nil, name: "Zelda", parent: nintendo)
+        nintendo.children.append(contentsOf: [smash, zelda])
+        sut.add(newNode: smash)
+        sut.add(newNode: zelda)
         
-        let child2_1 = TreeNode(content: "Child 2.1 Content", name: "Child 2.1", parent: child2)
-        let child2_2 = TreeNode(content: "Child 2.2 Content", name: "Child 2.2", parent: child2)
-        child2.children.append(contentsOf: [child2_1, child2_2])
-        sut.add(newNode: child2_1)
-        sut.add(newNode: child2_2)
+        let link = TreeNode(content: nil, name: "Link", parent: zelda)
+        zelda.children.append(link)
+        sut.add(newNode: link)
         
-        let child1_1_1 = TreeNode(content: "Child 1.1.1 Content", name: "Child 1.1.1", parent: child1_1)
-        child1_1.children.append(child1_1_1)
-        sut.add(newNode: child1_1_1)
+        let sword = TreeNode(content: "iamasword", name: "Sword", parent: link)
+        link.children.append(sword)
+        sut.add(newNode: sword)
         
-        XCTAssertEqual(sut.fetchData().count, 8)
+        XCTAssertEqual(sut.fetchData().count, 6)
         
         
         func printTree(node: TreeNode, level: Int = 0) {
@@ -87,7 +82,7 @@ final class manotesTests: XCTestCase {
 
         printTree(node: root)
         
-        let result = TreeNode.getSingleBranchTree(root)
-        XCTAssertEqual(result, "a", "The getSingleBranchTree method should return 'a'")
+        var result = TreeNode.serialise(root)
+        XCTAssertEqual(result, "ROOT-Nintendo-Smash-_-Zelda-Link-Sword:iamasword-_-_-_-")
     }
 }

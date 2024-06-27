@@ -17,11 +17,21 @@ class TreeNode: Identifiable {
         children = []
     }
     
-    static func getSingleBranchTree(_ filesystem:TreeNode) -> String{
-        return "a";
+    static func serialise(_ node:TreeNode) -> String{
+        var serialisedTMP:String=""
+        if isFolder(node) {
+            serialisedTMP+=node.name+"-"
+            for child in node.children.sorted(by: { $0.name < $1.name }) {
+                serialisedTMP+=serialise(child)+(isFolder(child) ? "_-" : "")
+            }
+        } else {
+            serialisedTMP+=node.name+":"+node.content!+"-"
+        }
+        return serialisedTMP
     }
-    static func getCurrentNode(_ filesystem:TreeNode, _ folderLevel:String) -> TreeNode{
-        return TreeNode(content: "", name: "", parent: nil)
+    
+    static func isFolder(_ filesystem:TreeNode) -> Bool{
+        return filesystem.content==nil
     }
     
     static func deSerialise(_ strFilesystem:String) -> TreeNode{

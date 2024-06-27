@@ -10,8 +10,12 @@
 # TODO
 
 NEXT EPISODE:
+- deserialise
+- sort in backend too
+
 - allow unsafe note taking mode for user convenience (encrypted notes can't be read within the app)
-- serialise into tree string
 - add core data client changelog + field for each log that tells if it was uploaded or not
 
 GRAVE:
+- serialise into tree string
+- go through children in alphabetical order for serialisation (both here and backend)
