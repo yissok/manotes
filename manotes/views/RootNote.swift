@@ -9,7 +9,8 @@ struct RootNote: View {
     
     var body: some View {
         return HStack{
-            Text(item.parent == nil ? "currentViewParentTag" : item.parent!.name).bold()
+//            Text(item.parent == nil ? "currentViewParentTag" : item.parent!.name).bold()
+            Text(item.name).bold()
 
             Text(item.content ?? "no_content")
             Spacer()

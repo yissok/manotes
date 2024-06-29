@@ -6,6 +6,7 @@ struct ItemList: View {
     
     @State private var presentAlert = false
     @State private var newTag = ""
+    @State private var treeInput: String = "primaa-seconda-terzaa"
     
     var nodesGlobal:[TreeNode]
     var parent:TreeNode?
@@ -39,6 +40,16 @@ struct ItemList: View {
                             }
                         }
                     }
+                    
+                    
+                    
+                    TextField("treeInput", text: $treeInput)
+                    Button{
+                        TreeNode.insertTree(treeInput,nodesGlobal, context: contextProvider.context!)
+                    } label: {
+                        Image(systemName: "folder.badge.plus")
+                    }
+                    .foregroundColor(Color.yellow)
 
             }
                 .toolbar {

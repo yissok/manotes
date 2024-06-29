@@ -8,7 +8,7 @@ struct RootTag: View {
     
     var body: some View {
         return HStack{
-            Text(item.parent == nil ? "r" : item.parent!.name).bold()
+//            Text(item.parent == nil ? "r" : item.parent!.name).bold()
             NavigationLink(item.name) {
                 ItemList(nodesGlobal: nodesGlobal, parent: item)
             }

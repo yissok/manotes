@@ -31,14 +31,23 @@ class TreeNode: Identifiable {
     }
     
     
-    static func deserialise(_ serialisedTree: String, context: ModelContext) -> TreeNode {
-        let rootNode = TreeNode(content: nil, name: "ROOT", parent: nil)
-        context.insert(rootNode)
-        var currentNode = rootNode
-        var stack: [TreeNode] = [rootNode]
+    static func insertTree(_ serialisedTree: String, _ nodesGlobal:[TreeNode], context: ModelContext) -> [TreeNode] {
         
-        let elements = serialisedTree.split(separator: "-")
+        var elements = serialisedTree.split(separator: "-")
+        var currentNode:TreeNode?
+        let existingTags=nodesGlobal.filter { $0.name == elements[0] && $0.content == nil }
+        if existingTags.count==1 {
+            currentNode = existingTags.first!
+            elements.removeFirst()
+        } else {
+            print(existingTags.count)
+            currentNode=nil
+        }
+        var stack: [TreeNode]=[]
         for element in elements {
+            if element == "ROOT" {
+                continue
+            }
             if element == "_" {
                 stack.removeLast()
                 if let parent = stack.last {
@@ -46,17 +55,34 @@ class TreeNode: Identifiable {
                 }
             } else if element.contains(":") {
                 let note = element.split(separator: ":")
-                let noteName = String(note[0])
-                let noteContent = String(note[1])
+                let noteName = note.count==1 ? String(Int(Date().timeIntervalSince1970.truncate(places: 3)*1000)) : String(note[0])
+                let noteContent = note.count==1 ? String(note[0]) : String(note[1])
                 let noteNode = TreeNode(content: noteContent, name: noteName, parent: currentNode)
-                currentNode.children.append(noteNode)
+                if (currentNode != nil){
+                    currentNode!.children.append(noteNode)
+                }
                 context.insert(noteNode)
             } else {
-                let folderNode = TreeNode(content: nil, name: String(element), parent: currentNode)
-                currentNode.children.append(folderNode)
-                stack.append(folderNode)
+                let folderNode:TreeNode?
+                if (currentNode != nil){
+                    if (currentNode!.children.filter { $0.name == element && $0.content == nil }.count>0) {
+                        currentNode=nodesGlobal.filter { $0.name == element && $0.content == nil }.first!
+                        stack.append(currentNode!)
+                        continue
+                    }
+                    folderNode=TreeNode(content: nil, name: String(element), parent: currentNode)
+                    currentNode!.children.append(folderNode!)
+                } else{
+                    folderNode=TreeNode(content: nil, name: String(element), parent: currentNode)
+                }
+                
+                if (nodesGlobal.filter { $0.name == element && $0.content == nil }.count>0) {
+                    print("refusing to add duplicate folder"+element)
+                    return []
+                }
+                stack.append(folderNode!)
                 currentNode = folderNode
-                context.insert(folderNode)
+                context.insert(folderNode!)
             }
             do {
                 try context.save()
@@ -64,7 +90,7 @@ class TreeNode: Identifiable {
                 print("Failed to save context: \(error)")
             }
         }
-        return rootNode
+        return nodesGlobal
     }
     
     static func isFolder(_ node: TreeNode) -> Bool {
