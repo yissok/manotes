@@ -10,7 +10,9 @@
 # TODO
 
 NEXT EPISODE:
-- deserialise
+- input field in main view where you can paste serialised tree and updates existing tree with new one
+    - if conflicts, allow for export of current local and replace with new
+- have global versioning so that client knows which branches to pull from server
 - sort in backend too
 
 - allow unsafe note taking mode for user convenience (encrypted notes can't be read within the app)
@@ -19,3 +21,4 @@ NEXT EPISODE:
 GRAVE:
 - serialise into tree string
 - go through children in alphabetical order for serialisation (both here and backend)
+- deserialise

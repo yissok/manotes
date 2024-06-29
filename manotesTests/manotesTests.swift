@@ -79,10 +79,12 @@ final class manotesTests: XCTestCase {
                 printTree(node: child, level: level + 1)
             }
         }
-
-        printTree(node: root)
         
         var result = TreeNode.serialise(root)
         XCTAssertEqual(result, "ROOT-Nintendo-Smash-_-Zelda-Link-Sword:iamasword-_-_-_-")
+        
+        
+        var root2 = TreeNode.deserialise(result, context: container.mainContext)
+        printTree(node: root2)
     }
 }
