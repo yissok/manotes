@@ -10,6 +10,8 @@
 # TODO
 
 NEXT EPISODE:
+- all add tags/notes that existed before should use new `insertTree` function, this will make things easier because all changes can be applied like an onion
+- fix test
 - input field in main view where you can paste serialised tree and updates existing tree with new one
     - if conflicts, allow for export of current local and replace with new
 - have global versioning so that client knows which branches to pull from server
