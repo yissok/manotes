@@ -39,3 +39,10 @@ func printTree(node: TreeNode, level: Int = 0) {
         printTree(node: child, level: level + 1)
     }
 }
+
+func unwrapNote(noteStr: String) -> TreeNode{
+    let note = noteStr.split(separator: ":")
+    let noteName = note.count==1 ? String(Int(Date().timeIntervalSince1970.truncate(places: 3)*1000)) : String(note[0])
+    let noteContent = note.count==1 ? String(note[0]) : String(note[1])
+    return TreeNode(content: noteContent, name: noteName, parent: nil)
+}

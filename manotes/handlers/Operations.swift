@@ -3,34 +3,22 @@ import SwiftData
 
 
 
-func addTagViaSerial(_ itemTag: String, _ name: String, _ content: String?,_ parent: String, _ context: ModelContext) {
+func generateSerialTree(_ parent: String,_ tags: [TreeNode], _ name: String?, _ content: String?, _ context: ModelContext) -> String {
     print("adding tag")
+    let parentTag = tags.filter { $0.name.caseInsensitiveCompare(parent) == .orderedSame }.first ?? nil
+    let tree=parentChain(parentTag)+"-"+addNoteOrTag(content, name)
+    return tree
 }
-func addTag(_ itemTag: String,_ parent: TreeNode?, _ context: ModelContext) {
-    print("adding tag")
-    let item = TreeNode(content:nil, name: itemTag, parent: parent)
-    if (item.parent != nil){
-        item.parent?.children.append(item)
-        context.insert(item.parent!)
-        context.insert(item)
-    } else {
-        context.insert(item)
+
+func parentChain(_ parentTag: TreeNode?) -> String {
+    if parentTag==nil || parentTag!.parent==nil {
+        return "ROOT"
     }
+    return parentChain(parentTag!.parent!)+"-"+parentTag!.name
 }
-func addNoteViaSerial(_ itemTag: String, _ name: String?, _ content: String, _ parent: String, _ context: ModelContext) {
-    print("adding note")
-}
-func addNote(_ itemTag: String, _ itemValue: String, _ context: ModelContext,_ tags: [TreeNode]) {
-    print("adding note")
-    let existingTag = tags.filter { $0.name.caseInsensitiveCompare(itemTag) == .orderedSame }.first ?? nil
-    let newNote = TreeNode(content: itemValue, name:itemTag,parent: existingTag)
-    
-    if (existingTag != nil){
-        existingTag!.children.append(newNote)
-        context.insert(existingTag!)
-    } else {
-        context.insert(newNote)
-    }
+
+func addNoteOrTag(_ content: String?, _ name: String?) -> String {
+    return content==nil ? name! : SERIAL_CONTENT_SEPARATOR+content!
 }
 
 func deleteTag(_ item: TreeNode, _ context: ModelContext) {

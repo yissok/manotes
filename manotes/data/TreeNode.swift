@@ -50,13 +50,9 @@ class TreeNode: Identifiable {
                 print("does not support node removals")
                 return []
             } else if element.contains(":") {
-                let note = element.split(separator: ":")
-                let noteName = note.count==1 ? String(Int(Date().timeIntervalSince1970.truncate(places: 3)*1000)) : String(note[0])
-                let noteContent = note.count==1 ? String(note[0]) : String(note[1])
-                let noteNode = TreeNode(content: noteContent, name: noteName, parent: currentNode)
-                if (currentNode != nil){
-                    currentNode.children.append(noteNode)
-                }
+                let note = unwrapNote(noteStr: String(element))
+                let noteNode = TreeNode(content: note.content, name: note.name, parent: currentNode)
+                currentNode.children.append(noteNode)
                 context.insert(noteNode)
             } else {
                 
