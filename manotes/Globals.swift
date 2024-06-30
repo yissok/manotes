@@ -28,3 +28,14 @@ extension Double {
         return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
     }
 }
+
+func printTree(node: TreeNode, level: Int = 0) {
+    let indent = String(repeating: "  ", count: level)
+    print("\(indent)\(node.name) (id: \(node.id))")
+    if let content = node.content {
+        print("\(indent)  Content: \(content)")
+    }
+    for child in node.children {
+        printTree(node: child, level: level + 1)
+    }
+}

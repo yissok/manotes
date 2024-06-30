@@ -7,9 +7,23 @@ struct RootView: View {
     @Query private var nodesGlobal: [TreeNode]
     
     var body: some View {
+        
+        func preStart() -> TreeNode {
+            print("pre started main view")
+            let rootList: [TreeNode]=nodesGlobal.filter({ $0.name == LB_ROOT })
+            if rootList.isEmpty {
+                let root = TreeNode(content: nil, name: LB_ROOT, parent: nil)
+                contextProvider.context!.insert(root)
+                return root
+            } else {
+                printTree(node: rootList.first!)
+                return nodesGlobal.filter({ $0.name == LB_ROOT }).first!
+            }
+        }
+        let root = preStart()
         return NavigationStack{
             VStack{
-                ItemList(nodesGlobal: nodesGlobal, parent: nil)
+                ItemList(nodesGlobal: nodesGlobal, parent: root)
             }
             
         }
@@ -17,7 +31,6 @@ struct RootView: View {
         .onOpenURL { (url) in
             handleShortcutInput(url, nodesGlobal, contextProvider.context!)
         }
-        
         
         
         func start() {

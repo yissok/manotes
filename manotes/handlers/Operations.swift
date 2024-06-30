@@ -3,6 +3,9 @@ import SwiftData
 
 
 
+func addTagViaSerial(_ itemTag: String, _ name: String, _ content: String?,_ parent: String, _ context: ModelContext) {
+    print("adding tag")
+}
 func addTag(_ itemTag: String,_ parent: TreeNode?, _ context: ModelContext) {
     print("adding tag")
     let item = TreeNode(content:nil, name: itemTag, parent: parent)
@@ -14,7 +17,9 @@ func addTag(_ itemTag: String,_ parent: TreeNode?, _ context: ModelContext) {
         context.insert(item)
     }
 }
-
+func addNoteViaSerial(_ itemTag: String, _ name: String?, _ content: String, _ parent: String, _ context: ModelContext) {
+    print("adding note")
+}
 func addNote(_ itemTag: String, _ itemValue: String, _ context: ModelContext,_ tags: [TreeNode]) {
     print("adding note")
     let existingTag = tags.filter { $0.name.caseInsensitiveCompare(itemTag) == .orderedSame }.first ?? nil

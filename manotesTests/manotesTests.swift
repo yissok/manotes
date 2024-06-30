@@ -45,7 +45,7 @@ final class manotesTests: XCTestCase {
 
         let sut = ContentView.ViewModel(modelContext: container.mainContext)
 
-        let root = TreeNode(content: nil, name: "ROOT", parent: nil)
+        let root = TreeNode(content: nil, name: LB_ROOT, parent: nil)
         sut.add(newNode: root)
         
         let nintendo = TreeNode(content: nil, name: "Nintendo", parent: root)
@@ -68,23 +68,11 @@ final class manotesTests: XCTestCase {
         
         XCTAssertEqual(sut.fetchData().count, 6)
         
-        
-        func printTree(node: TreeNode, level: Int = 0) {
-            let indent = String(repeating: "  ", count: level)
-            print("\(indent)\(node.name) (id: \(node.id))")
-            if let content = node.content {
-                print("\(indent)  Content: \(content)")
-            }
-            for child in node.children {
-                printTree(node: child, level: level + 1)
-            }
-        }
-        
         var result = TreeNode.serialise(root)
         XCTAssertEqual(result, "ROOT-Nintendo-Smash-_-Zelda-Link-Sword:iamasword-_-_-_-")
         
         
-        var root2 = TreeNode.deserialise(result, context: container.mainContext)
+        var root2 = TreeNode.insertTree(result, <#[TreeNode]#>, context: container.mainContext)
         printTree(node: root2)
     }
 }

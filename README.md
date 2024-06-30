@@ -21,6 +21,7 @@ NEXT EPISODE:
 - add core data client changelog + field for each log that tells if it was uploaded or not
 
 GRAVE:
+- create root node if no exist
 - serialise into tree string
 - go through children in alphabetical order for serialisation (both here and backend)
 - deserialise

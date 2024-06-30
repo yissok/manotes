@@ -34,55 +34,53 @@ class TreeNode: Identifiable {
     static func insertTree(_ serialisedTree: String, _ nodesGlobal:[TreeNode], context: ModelContext) -> [TreeNode] {
         
         var elements = serialisedTree.split(separator: "-")
-        var currentNode:TreeNode?
-        let existingTags=nodesGlobal.filter { $0.name == elements[0] && $0.content == nil }
-        if existingTags.count==1 {
-            currentNode = existingTags.first!
-            elements.removeFirst()
-        } else {
-            print(existingTags.count)
-            currentNode=nil
-        }
+        var currentNode:TreeNode=nodesGlobal.filter { $0.name == LB_ROOT }.first!
         var stack: [TreeNode]=[]
         for element in elements {
-            if element == "ROOT" {
-                continue
-            }
             if element == "_" {
+                if stack.count==0 {
+                    print("malformed tree, going above root level")
+                    return []
+                }
                 stack.removeLast()
                 if let parent = stack.last {
                     currentNode = parent
                 }
+            } else if element.contains("!") {
+                print("does not support node removals")
+                return []
             } else if element.contains(":") {
                 let note = element.split(separator: ":")
                 let noteName = note.count==1 ? String(Int(Date().timeIntervalSince1970.truncate(places: 3)*1000)) : String(note[0])
                 let noteContent = note.count==1 ? String(note[0]) : String(note[1])
                 let noteNode = TreeNode(content: noteContent, name: noteName, parent: currentNode)
                 if (currentNode != nil){
-                    currentNode!.children.append(noteNode)
+                    currentNode.children.append(noteNode)
                 }
                 context.insert(noteNode)
             } else {
-                let folderNode:TreeNode?
-                if (currentNode != nil){
-                    if (currentNode!.children.filter { $0.name == element && $0.content == nil }.count>0) {
-                        currentNode=nodesGlobal.filter { $0.name == element && $0.content == nil }.first!
-                        stack.append(currentNode!)
-                        continue
-                    }
-                    folderNode=TreeNode(content: nil, name: String(element), parent: currentNode)
-                    currentNode!.children.append(folderNode!)
-                } else{
-                    folderNode=TreeNode(content: nil, name: String(element), parent: currentNode)
+                
+                if element==LB_ROOT {
+                    stack=[]
+                    stack.append(currentNode)
+                    continue
                 }
+                
+                if (currentNode.children.filter { $0.name == element && $0.content == nil }.count>0) {
+                    currentNode=nodesGlobal.filter { $0.name == element && $0.content == nil }.first!
+                    stack.append(currentNode)
+                    continue
+                }
+                let folderNode:TreeNode=TreeNode(content: nil, name: String(element), parent: currentNode)
+                currentNode.children.append(folderNode)
                 
                 if (nodesGlobal.filter { $0.name == element && $0.content == nil }.count>0) {
                     print("refusing to add duplicate folder"+element)
                     return []
                 }
-                stack.append(folderNode!)
+                stack.append(folderNode)
                 currentNode = folderNode
-                context.insert(folderNode!)
+                context.insert(folderNode)
             }
             do {
                 try context.save()
