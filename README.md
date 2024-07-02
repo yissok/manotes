@@ -10,7 +10,10 @@
 # TODO
 
 NEXT EPISODE:
+- re introduce note from shtct
+- for note name convert to date
 - implement deletion !
+- decryption batch for folder to send to shortcuts
 - fix test
 - input field in main view where you can paste serialised tree and updates existing tree with new one
     - if conflicts, allow for export of current local and replace with new

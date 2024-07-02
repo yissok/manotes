@@ -14,7 +14,8 @@ func handleNewNoteInput(_ currentTag: String,_ tags: [TreeNode], _ content: Stri
 
 func handleShortcutInput(_ url: URL,_ tags: [TreeNode], _ context: ModelContext) {
     let input = url.queryParameters![INPUT_LABEL]!.components(separatedBy:"_")
-//    addNote(input[0], input[1], context, tags)
+    let serial = generateSerialTree( input[0], tags, nil, input[1], context)
+    TreeNode.insertTree(serial, tags, context: context)
     switch url.host() {
     case nil:
         print("generic host")
