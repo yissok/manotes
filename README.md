@@ -10,8 +10,6 @@
 # TODO
 
 NEXT EPISODE:
-- re introduce note from shtct
-- for note name convert to date
 - implement deletion !
 - decryption batch for folder to send to shortcuts
 - fix test
@@ -24,6 +22,8 @@ NEXT EPISODE:
 - add core data client changelog + field for each log that tells if it was uploaded or not
 
 GRAVE:
+- for note name convert to date
+- re introduce note from shtct
 - all add tags/notes that existed before should use new `insertTree` function, this will make things easier because all changes can be applied like an onion
 - create root node if no exist
 - serialise into tree string
