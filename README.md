@@ -10,7 +10,6 @@
 # TODO
 
 NEXT EPISODE:
-- implement deletion !
 - decryption batch for folder to send to shortcuts
 - fix test
 - input field in main view where you can paste serialised tree and updates existing tree with new one
@@ -22,6 +21,7 @@ NEXT EPISODE:
 - add core data client changelog + field for each log that tells if it was uploaded or not
 
 GRAVE:
+- implement deletion !
 - for note name convert to date
 - re introduce note from shtct
 - all add tags/notes that existed before should use new `insertTree` function, this will make things easier because all changes can be applied like an onion

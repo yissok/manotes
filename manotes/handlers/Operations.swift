@@ -6,7 +6,8 @@ import SwiftData
 func generateSerialTree(_ parent: String,_ tags: [TreeNode], _ name: String?, _ content: String?, _ context: ModelContext) -> String {
     print("adding tag")
     let parentTag = tags.filter { $0.name.caseInsensitiveCompare(parent) == .orderedSame }.first ?? nil
-    let tree=parentChain(parentTag)+"-"+addNoteOrTag(content, name)
+    let tree=parentChain(parentTag)+addNoteOrTagOrExcl(content, name)
+    print("executing: "+tree)
     return tree
 }
 
@@ -17,8 +18,8 @@ func parentChain(_ parentTag: TreeNode?) -> String {
     return parentChain(parentTag!.parent!)+"-"+parentTag!.name
 }
 
-func addNoteOrTag(_ content: String?, _ name: String?) -> String {
-    return content==nil ? name! : SERIAL_CONTENT_SEPARATOR+content!
+func addNoteOrTagOrExcl(_ content: String?, _ name: String?) -> String {
+    return content==nil ? (name==nil ? "!" : "-"+name!) : "-"+SERIAL_CONTENT_SEPARATOR+content!
 }
 
 func deleteTag(_ item: TreeNode, _ context: ModelContext) {

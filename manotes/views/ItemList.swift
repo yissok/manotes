@@ -6,7 +6,7 @@ struct ItemList: View {
     
     @State private var presentAlert = false
     @State private var newTag = ""
-    @State private var treeInput: String = "ROOT-Apple-iphone-11-_-12-_-13-_-14-_-15-_-6-_-7-_-8-_-X-_-_-_-Nvidia-_-"
+    @State private var treeInput: String = "ROOT-Apple-iphone-11-_-12-_-13"
     
     var nodesGlobal:[TreeNode]
     var parent:TreeNode?
@@ -15,6 +15,7 @@ struct ItemList: View {
         let parentName:String=(parent==nil ? LB_ROOT:parent?.name)!
         let filteredTags:[TreeNode]=nodesGlobal.filter { $0.content == nil && $0.parent == parent }
         let filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.parent == parent }
+        printTreeNodeNames(treeNodes: nodesGlobal)
         return
                 VStack{
                     Text(parentName)
@@ -23,21 +24,13 @@ struct ItemList: View {
                             RootTag(nodesGlobal: nodesGlobal, item: node)
                         }
                         .onDelete { indexes in
-                            for index in indexes {
-                                if let globalIndex = nodesGlobal.firstIndex(of: filteredTags[index]) {
-                                    deleteTag(nodesGlobal[globalIndex], contextProvider.context!)
-                                }
-                            }
+                            deleteAt(filteredTags, indexes)
                         }
                         ForEach(filteredNotes, id: \.self) { node in
                             RootNote(item: node)
                         }
                         .onDelete { indexes in
-                            for index in indexes {
-                                if let globalIndex = nodesGlobal.firstIndex(of: filteredNotes[index]) {
-                                    deleteItem(nodesGlobal[globalIndex], contextProvider.context!)
-                                }
-                            }
+                            deleteAt(filteredNotes, indexes)
                         }
                     }
                     
@@ -97,6 +90,13 @@ struct ItemList: View {
         func randomString(length: Int) -> String {
           let letters = "abcdefghijklmnopqrstuvwxyz"
           return String((0..<length).map{ _ in letters.randomElement()! })
+        }
+        func deleteAt(_ filteredNodes:[TreeNode], _ indexes:IndexSet) {
+            for index in indexes {
+                if let globalIndex = nodesGlobal.firstIndex(of: filteredNodes[index]) {
+                    handleDeletionInput(nodesGlobal[globalIndex].name, nodesGlobal,contextProvider.context!)
+                }
+            }
         }
     }
 }

@@ -40,6 +40,32 @@ func printTree(node: TreeNode, level: Int = 0) {
     }
 }
 
+func printTreeNodeNames(treeNodes: [TreeNode]) {
+    print("||||||||||||||||||||||||||||||||||||||") // Add newline for better readability
+    for node in treeNodes {
+        printTreeNodeDetails(node: node)
+    }
+    print("______________________________________\n") // Add newline for better readability
+}
+func printTreeNodeDetails(node: TreeNode) {
+    print("Node: \(node.name)")
+    
+    if let parent = node.parent {
+        if node.parent != nil
+        {
+            print("Parent: \(parent.name)")
+        }
+    } else {
+        print("Parent: None")
+    }
+    
+    if !node.children.isEmpty {
+        print("              : \(node.children.map { $0.name }.joined(separator: ", "))")
+    } else {
+        print("              : None")
+    }
+}
+
 func unwrapNote(noteStr: String) -> TreeNode{
     let note = noteStr.split(separator: ":")
     let noteName = note.count==1 ? String(Int(Date().timeIntervalSince1970.truncate(places: 3)*1000)) : String(note[0])

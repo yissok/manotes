@@ -36,7 +36,10 @@ class TreeNode: Identifiable {
         var elements = serialisedTree.split(separator: "-")
         var currentNode:TreeNode=nodesGlobal.filter { $0.name == LB_ROOT }.first!
         var stack: [TreeNode]=[]
-        for element in elements {
+        for elementSub in elements {
+            let element = String(elementSub)
+            let curr = currentNode.name
+            dump(printTreeNodeNames(treeNodes: stack))
             if element == "_" {
                 if stack.count==0 {
                     print("malformed tree, going above root level")
@@ -47,8 +50,11 @@ class TreeNode: Identifiable {
                     currentNode = parent
                 }
             } else if element.contains("!") {
-                print("does not support node removals")
-                return []
+                let matching = nodesGlobal.filter { $0.name == element.dropLast() }
+                if matching.count==0 {
+                    continue
+                }
+                deleteTag(matching.first!, context)
             } else if element.contains(":") {
                 let note = unwrapNote(noteStr: String(element))
                 let noteNode = TreeNode(content: note.content, name: note.name, parent: currentNode)
@@ -67,13 +73,13 @@ class TreeNode: Identifiable {
                     stack.append(currentNode)
                     continue
                 }
-                let folderNode:TreeNode=TreeNode(content: nil, name: String(element), parent: currentNode)
-                currentNode.children.append(folderNode)
                 
                 if (nodesGlobal.filter { $0.name == element && $0.content == nil }.count>0) {
                     print("refusing to add duplicate folder"+element)
-                    return []
+                    continue
                 }
+                let folderNode:TreeNode=TreeNode(content: nil, name: String(element), parent: currentNode)
+                currentNode.children.append(folderNode)
                 stack.append(folderNode)
                 currentNode = folderNode
                 context.insert(folderNode)
