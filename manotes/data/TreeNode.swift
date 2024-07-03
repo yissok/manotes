@@ -39,7 +39,6 @@ class TreeNode: Identifiable {
         for elementSub in elements {
             let element = String(elementSub)
             let curr = currentNode.name
-            dump(printTreeNodeNames(treeNodes: stack))
             if element == "_" {
                 if stack.count==0 {
                     print("malformed tree, going above root level")
@@ -90,6 +89,7 @@ class TreeNode: Identifiable {
                 print("Failed to save context: \(error)")
             }
         }
+//        printTreeNodeNames(treeNodes: nodesGlobal)
         return nodesGlobal
     }
     

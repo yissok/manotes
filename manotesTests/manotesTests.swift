@@ -15,6 +15,13 @@ extension ContentView {
             modelContext.insert(newNode)
             try? modelContext.save()
         }
+        func reset() {
+            do {
+                try modelContext.delete(model: TreeNode.self)
+            } catch {
+                print("Failed to delete students.")
+            }
+        }
         func save() {
             try? modelContext.save()
         }
@@ -43,9 +50,9 @@ final class manotesTests: XCTestCase {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: TreeNode.self, configurations: config)
 
-        let sut = ContentView.ViewModel(modelContext: container.mainContext)
-
-        let root = TreeNode(content: nil, name: LB_ROOT, parent: nil)
+        var sut = ContentView.ViewModel(modelContext: container.mainContext)
+        
+        var root = TreeNode(content: nil, name: LB_ROOT, parent: nil)
         sut.add(newNode: root)
         
         let nintendo = TreeNode(content: nil, name: "Nintendo", parent: root)
@@ -62,17 +69,69 @@ final class manotesTests: XCTestCase {
         zelda.children.append(link)
         sut.add(newNode: link)
         
-        let sword = TreeNode(content: "iamasword", name: "Sword", parent: link)
+        let sword = TreeNode(content: "iamasword", name: "1234567", parent: link)
         link.children.append(sword)
         sut.add(newNode: sword)
         
         XCTAssertEqual(sut.fetchData().count, 6)
         
         var result = TreeNode.serialise(root)
-        XCTAssertEqual(result, "ROOT-Nintendo-Smash-_-Zelda-Link-Sword:iamasword-_-_-_-")
+        XCTAssertEqual(result, "ROOT-Nintendo-Smash-_-Zelda-Link-1234567:iamasword-_-_-_-")
+        print("asserted ====================================")
+        sut.reset()
+        sut = ContentView.ViewModel(modelContext: container.mainContext)
+        var nodesGlobal:[TreeNode]=[]
+        root = TreeNode(content: nil, name: LB_ROOT, parent: nil)
+        sut.add(newNode: root)
+        nodesGlobal.append(root)
         
         
-        var root2 = TreeNode.insertTree(result, <#[TreeNode]#>, context: container.mainContext)
-        printTree(node: root2)
+        TreeNode.insertTree(result, nodesGlobal, context: container.mainContext)
+        
+        let expected="""
+||||||||||||||||||||||||||||||||||||||
+Node: 1234567
+Parent: Link
+content: iamasword
+Node: Link
+Parent: Zelda
+Node: Nintendo
+Parent: ROOT
+Node: ROOT
+Parent: None
+Node: Smash
+Parent: Nintendo
+Node: Zelda
+Parent: Nintendo
+______________________________________
+
+"""
+        XCTAssertEqual(strTreeNodeNames(treeNodes: sut.fetchData()), expected)
+    }
+    
+    func strTreeNodeNames(treeNodes: [TreeNode]) -> String {
+        var str:String=""
+        str.append("||||||||||||||||||||||||||||||||||||||\n") // Add newline for better readability
+        for node in treeNodes {
+            str.append(printTreeNodeDetails(node: node))
+        }
+        str.append("______________________________________\n") // Add newline for better readability
+        return str
+    }
+    func printTreeNodeDetails(node: TreeNode) -> String {
+        var str:String=""
+        str.append("Node: \(node.name)\n")
+        
+        if let parent = node.parent {
+            str.append("Parent: \(parent.name)\n")
+        } else {
+            str.append("Parent: None\n")
+        }
+        
+        if node.content != nil
+        {
+            str.append("content: \(node.content ?? "none")\n")
+        }
+        return str
     }
 }

@@ -11,16 +11,16 @@
 
 NEXT EPISODE:
 - decryption batch for folder to send to shortcuts
-- fix test
-- input field in main view where you can paste serialised tree and updates existing tree with new one
-    - if conflicts, allow for export of current local and replace with new
+- if conflicts, allow for export of current local and replace with new
 - have global versioning so that client knows which branches to pull from server
-- sort in backend too
 
 - allow unsafe note taking mode for user convenience (encrypted notes can't be read within the app)
 - add core data client changelog + field for each log that tells if it was uploaded or not
 
 GRAVE:
+- fix test
+- sort in backend too
+- input field in main view where you can paste serialised tree and updates existing tree with new one
 - implement deletion !
 - for note name convert to date
 - re introduce note from shtct

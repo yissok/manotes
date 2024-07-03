@@ -16,7 +16,6 @@ struct RootView: View {
                 contextProvider.context!.insert(root)
                 return root
             } else {
-                printTree(node: rootList.first!)
                 return nodesGlobal.filter({ $0.name == LB_ROOT }).first!
             }
         }

@@ -29,17 +29,6 @@ extension Double {
     }
 }
 
-func printTree(node: TreeNode, level: Int = 0) {
-    let indent = String(repeating: "  ", count: level)
-    print("\(indent)\(node.name) (id: \(node.id))")
-    if let content = node.content {
-        print("\(indent)  Content: \(content)")
-    }
-    for child in node.children {
-        printTree(node: child, level: level + 1)
-    }
-}
-
 func printTreeNodeNames(treeNodes: [TreeNode]) {
     print("||||||||||||||||||||||||||||||||||||||") // Add newline for better readability
     for node in treeNodes {
@@ -51,14 +40,15 @@ func printTreeNodeDetails(node: TreeNode) {
     print("Node: \(node.name)")
     
     if let parent = node.parent {
-        if node.parent != nil
-        {
-            print("Parent: \(parent.name)")
-        }
+        print("Parent: \(parent.name)")
     } else {
         print("Parent: None")
     }
     
+    if node.content != nil
+    {
+        print("content: \(node.content ?? "none")")
+    }
     if !node.children.isEmpty {
         print("              : \(node.children.map { $0.name }.joined(separator: ", "))")
     } else {
