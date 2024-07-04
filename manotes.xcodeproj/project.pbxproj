@@ -23,6 +23,8 @@
 		65723ECC2C0E118600BE2B31 /* Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65723ECB2C0E118600BE2B31 /* Operations.swift */; };
 		65723ED02C0E12D400BE2B31 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65723ECF2C0E12D400BE2B31 /* ItemList.swift */; };
 		65723ED22C0E1A9700BE2B31 /* RootTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65723ED12C0E1A9700BE2B31 /* RootTag.swift */; };
+		659761152C372A3700C2F199 /* FolderPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659761142C372A3700C2F199 /* FolderPopup.swift */; };
+		659761172C372E4A00C2F199 /* InputOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659761162C372E4A00C2F199 /* InputOverlay.swift */; };
 		65B9EAD82C11936F00FCFDEB /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B9EAD72C11936F00FCFDEB /* TreeNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +66,8 @@
 		65723ECB2C0E118600BE2B31 /* Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
 		65723ECF2C0E12D400BE2B31 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		65723ED12C0E1A9700BE2B31 /* RootTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTag.swift; sourceTree = "<group>"; };
+		659761142C372A3700C2F199 /* FolderPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderPopup.swift; sourceTree = "<group>"; };
+		659761162C372E4A00C2F199 /* InputOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputOverlay.swift; sourceTree = "<group>"; };
 		65B9EAD72C11936F00FCFDEB /* TreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,6 +164,8 @@
 				65723ECF2C0E12D400BE2B31 /* ItemList.swift */,
 				65723ED12C0E1A9700BE2B31 /* RootTag.swift */,
 				65723EC52C0E075E00BE2B31 /* RootNote.swift */,
+				659761142C372A3700C2F199 /* FolderPopup.swift */,
+				659761162C372E4A00C2F199 /* InputOverlay.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -316,10 +322,12 @@
 				65723ED22C0E1A9700BE2B31 /* RootTag.swift in Sources */,
 				65723EC92C0E0EA500BE2B31 /* Output.swift in Sources */,
 				6518AD6B2C09A84E009148D4 /* Globals.swift in Sources */,
+				659761172C372E4A00C2F199 /* InputOverlay.swift in Sources */,
 				65723EBD2C0E037800BE2B31 /* Input.swift in Sources */,
 				65723ED02C0E12D400BE2B31 /* ItemList.swift in Sources */,
 				651BEB552C08F41300414B64 /* ContentView.swift in Sources */,
 				65B9EAD82C11936F00FCFDEB /* TreeNode.swift in Sources */,
+				659761152C372A3700C2F199 /* FolderPopup.swift in Sources */,
 				65723EC42C0E065C00BE2B31 /* RootView.swift in Sources */,
 				65723EBF2C0E052400BE2B31 /* ContextProvider.swift in Sources */,
 				651BEB532C08F41300414B64 /* ManotesApp.swift in Sources */,

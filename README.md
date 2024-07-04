@@ -18,6 +18,7 @@ NEXT EPISODE:
 - add core data client changelog + field for each log that tells if it was uploaded or not
 
 GRAVE:
+- proper folder input
 - fix test
 - sort in backend too
 - input field in main view where you can paste serialised tree and updates existing tree with new one
