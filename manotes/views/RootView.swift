@@ -37,7 +37,7 @@ struct RootView: View {
         }
         .onAppear(perform: start)
         .onOpenURL { (url) in
-            handleShortcutInput(url, nodesGlobal, contextProvider.context!)
+            //when being called by url from other app
         }
         
         
@@ -60,6 +60,8 @@ struct RootView: View {
                         if fileURL.pathExtension == "txt" {
                             if let fileContent = try? String(contentsOf: fileURL, encoding: .utf8) {
                                 print("File content: \(fileContent)")
+                                handleShortcutInput(fileContent, nodesGlobal, contextProvider.context!)
+                                try FileManager.default.removeItem(at: fileURL)
                             }
                         }
                     }
