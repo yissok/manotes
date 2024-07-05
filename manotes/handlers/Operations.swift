@@ -23,7 +23,7 @@ func addNoteOrTagOrExcl(_ content: String?, _ name: String?) -> String {
 }
 
 func deleteTag(_ item: TreeNode, _ context: ModelContext) {
-    item.children.forEach { child in
+    item.children!.forEach { child in
         deleteTag(child, context)
     }
     if (item.content==nil) {
@@ -43,8 +43,8 @@ func deleteItem(_ item: TreeNode, _ context: ModelContext) {
 
 func removeChildReference(_ item: TreeNode, _ context: ModelContext) {
     print("delete ref")
-    if let index = item.parent?.children.firstIndex(of: item) {
-        item.parent?.children.remove(at: index)
+    if let index = item.parent?.children!.firstIndex(of: item) {
+        item.parent?.children!.remove(at: index)
         try! context.save()
     }
     context.delete(item)

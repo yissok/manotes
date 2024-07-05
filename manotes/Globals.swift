@@ -49,8 +49,8 @@ func printTreeNodeDetails(node: TreeNode) {
     {
         print("content: \(node.content ?? "none")")
     }
-    if !node.children.isEmpty {
-        print("              : \(node.children.map { $0.name }.joined(separator: ", "))")
+    if !node.children!.isEmpty {
+        print("              : \(node.children!.map { $0.name }.joined(separator: ", "))")
     } else {
         print("              : None")
     }

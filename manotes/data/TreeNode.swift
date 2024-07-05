@@ -3,11 +3,14 @@ import SwiftData
 
 @Model
 class TreeNode: Identifiable {
-    var id: String
-    var name: String
-    var content: String?
-    var children: [TreeNode] = []
-    var parent: TreeNode?
+    var id: String=""
+    var name: String=""
+    var content: String?=nil
+    var children: [TreeNode]? = []
+    var parent: TreeNode?=nil
+    
+    @Relationship(inverse: \TreeNode.parent) var childrenINVERSE: [TreeNode]?
+    @Relationship(inverse: \TreeNode.children) var parentINVERSE: TreeNode?
     
     init(content: String?, name: String, parent:TreeNode?) {
         self.id = UUID().uuidString
@@ -21,7 +24,7 @@ class TreeNode: Identifiable {
         var serialisedTMP:String=""
         if isFolder(node) {
             serialisedTMP+=node.name+"-"
-            for child in node.children.sorted(by: { $0.name < $1.name }) {
+            for child in node.children!.sorted(by: { $0.name < $1.name }) {
                 serialisedTMP+=serialise(child)+(isFolder(child) ? "_-" : "")
             }
         } else {
@@ -57,7 +60,7 @@ class TreeNode: Identifiable {
             } else if element.contains(":") {
                 let note = unwrapNote(noteStr: String(element))
                 let noteNode = TreeNode(content: note.content, name: note.name, parent: currentNode)
-                currentNode.children.append(noteNode)
+                currentNode.children!.append(noteNode)
                 context.insert(noteNode)
             } else {
                 
@@ -67,7 +70,7 @@ class TreeNode: Identifiable {
                     continue
                 }
                 
-                if (currentNode.children.filter { $0.name == element && $0.content == nil }.count>0) {
+                if (currentNode.children!.filter { $0.name == element && $0.content == nil }.count>0) {
                     currentNode=nodesGlobal.filter { $0.name == element && $0.content == nil }.first!
                     stack.append(currentNode)
                     continue
@@ -78,7 +81,7 @@ class TreeNode: Identifiable {
                     continue
                 }
                 let folderNode:TreeNode=TreeNode(content: nil, name: String(element), parent: currentNode)
-                currentNode.children.append(folderNode)
+                currentNode.children!.append(folderNode)
                 stack.append(folderNode)
                 currentNode = folderNode
                 context.insert(folderNode)

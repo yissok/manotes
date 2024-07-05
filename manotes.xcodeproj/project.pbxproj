@@ -58,6 +58,7 @@
 		651BEB6B2C08F41600414B64 /* manotesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = manotesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		651BEB6F2C08F41600414B64 /* manotesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = manotesUITests.swift; sourceTree = "<group>"; };
 		651BEB712C08F41600414B64 /* manotesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = manotesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6546792F2C3810B700E47CF5 /* manotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = manotes.entitlements; sourceTree = "<group>"; };
 		65723EBC2C0E037800BE2B31 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		65723EBE2C0E052400BE2B31 /* ContextProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextProvider.swift; sourceTree = "<group>"; };
 		65723EC32C0E065C00BE2B31 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -119,6 +120,7 @@
 		651BEB512C08F41300414B64 /* manotes */ = {
 			isa = PBXGroup;
 			children = (
+				6546792F2C3810B700E47CF5 /* manotes.entitlements */,
 				65723ECA2C0E113400BE2B31 /* data */,
 				65723EC72C0E0E8800BE2B31 /* handlers */,
 				65723EC02C0E061B00BE2B31 /* views */,
@@ -493,8 +495,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = manotes/manotes.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"manotes/Preview Content\"";
 				DEVELOPMENT_TEAM = BR2XN9F953;
 				ENABLE_PREVIEWS = YES;
@@ -512,6 +516,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yissok.manotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -523,8 +528,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = manotes/manotes.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"manotes/Preview Content\"";
 				DEVELOPMENT_TEAM = BR2XN9F953;
 				ENABLE_PREVIEWS = YES;
@@ -542,6 +549,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yissok.manotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

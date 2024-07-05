@@ -10,6 +10,8 @@
 # TODO
 
 NEXT EPISODE:
+- get all files under Shortcuts/manotes/ files app folder
+- restrict folder input chars and length and copypaste
 - decryption batch for folder to send to shortcuts
 - if conflicts, allow for export of current local and replace with new
 - have global versioning so that client knows which branches to pull from server

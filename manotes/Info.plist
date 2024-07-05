@@ -15,5 +15,21 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSUbiquitousContainers</key>
+	<dict>
+		<key>iCloud.com.yissok.manotes</key>
+		<dict>
+			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
+			<true/>
+			<key>NSUbiquitousContainerName</key>
+			<string>manotes</string>
+			<key>NSUbiquitousContainerSupportedFolderLevels</key>
+			<string>None</string>
+		</dict>
+	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>
