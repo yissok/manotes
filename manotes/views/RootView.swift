@@ -4,6 +4,7 @@ import SwiftData
 var firstInit:Bool=false
 struct RootView: View {
     
+    @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var contextProvider: ContextProvider
     @Query private var nodesGlobal: [TreeNode]
     
@@ -35,13 +36,23 @@ struct RootView: View {
             }
             
         }
-        .onAppear(perform: start)
+//        .onAppear(perform: start)
         .onOpenURL { (url) in
             //when being called by url from other app
         }
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            if newPhase == .active {
+                print("foregr")
+                pickUpFiles()
+            } else if newPhase == .inactive {
+                print("Inactive")
+            } else if newPhase == .background {
+                print("Background")
+            }
+        }
         
         
-        func start() {
+        func pickUpFiles() {
             print("started main view")
             
             if let iCloudURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents") {

@@ -47,6 +47,7 @@ struct ItemList: View {
                             withAnimation {
                                 showPanel.toggle()
                                 zSwap.toggle()
+                                isNewFolderNameFocused=true
                             }
                         } label: {
                             Image(systemName: "folder.badge.plus")

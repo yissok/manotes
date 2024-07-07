@@ -7,14 +7,17 @@ struct FolderPopup: View {
     @Binding var folderName: String
     @FocusState.Binding var isNewFolderNameFocused: Bool
     
+    let height:CGFloat=60
+    let horizPadSpace:CGFloat=60
+    let fontSz:CGFloat=20
     
     var body: some View {
         return
             VStack {
                 TextField("Folder", text: $folderName)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 100)
-                    .font(Font.system(size: 30, design: .default))
+                    .frame(height: height)
+                    .font(Font.system(size: fontSz, design: .default))
                     .textFieldStyle(PlainTextFieldStyle())
                     .padding([.horizontal], 20)
                     .background(Color(.systemBackground))
@@ -25,7 +28,7 @@ struct FolderPopup: View {
                             isNewFolderNameFocused=true
                         }
                     }
-                    .padding()
+                    .padding([.horizontal], horizPadSpace)
                 
                 HStack {
                     Button(action: {
@@ -34,15 +37,17 @@ struct FolderPopup: View {
                         }
                     }) {
                         Text("Add")
-                            .frame(height: 100)
+                            .frame(height: height)
                             .frame(maxWidth: .infinity)
-                            .font(Font.system(size: 30, design: .default))
+                            .font(Font.system(size: fontSz, design: .default))
                             .background(Color.gray.opacity(0.2))
                             .cornerRadius(8)
                             .foregroundColor(.white)
                     }
-                }.padding()
-            }.frame(height: 300)
+                }
+                .padding([.horizontal], horizPadSpace)
+            }
+            .frame(height: 300)
             .background(Color(.systemBackground).opacity(0)) // Set the background to transparent
             .cornerRadius(10)
             .shadow(radius: 10)
