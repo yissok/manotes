@@ -25,6 +25,7 @@
 		65723ED22C0E1A9700BE2B31 /* RootTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65723ED12C0E1A9700BE2B31 /* RootTag.swift */; };
 		659761152C372A3700C2F199 /* FolderPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659761142C372A3700C2F199 /* FolderPopup.swift */; };
 		659761172C372E4A00C2F199 /* InputOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659761162C372E4A00C2F199 /* InputOverlay.swift */; };
+		65A0EB8F2C415E46009652E8 /* TreeMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A0EB8E2C415E46009652E8 /* TreeMetadata.swift */; };
 		65B9EAD82C11936F00FCFDEB /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B9EAD72C11936F00FCFDEB /* TreeNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		65723ED12C0E1A9700BE2B31 /* RootTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTag.swift; sourceTree = "<group>"; };
 		659761142C372A3700C2F199 /* FolderPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderPopup.swift; sourceTree = "<group>"; };
 		659761162C372E4A00C2F199 /* InputOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputOverlay.swift; sourceTree = "<group>"; };
+		65A0EB8E2C415E46009652E8 /* TreeMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeMetadata.swift; sourceTree = "<group>"; };
 		65B9EAD72C11936F00FCFDEB /* TreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				65723EBE2C0E052400BE2B31 /* ContextProvider.swift */,
+				65A0EB8E2C415E46009652E8 /* TreeMetadata.swift */,
 				65B9EAD72C11936F00FCFDEB /* TreeNode.swift */,
 			);
 			path = data;
@@ -332,6 +335,7 @@
 				659761152C372A3700C2F199 /* FolderPopup.swift in Sources */,
 				65723EC42C0E065C00BE2B31 /* RootView.swift in Sources */,
 				65723EBF2C0E052400BE2B31 /* ContextProvider.swift in Sources */,
+				65A0EB8F2C415E46009652E8 /* TreeMetadata.swift in Sources */,
 				651BEB532C08F41300414B64 /* ManotesApp.swift in Sources */,
 				65723EC62C0E075E00BE2B31 /* RootNote.swift in Sources */,
 				65723ECC2C0E118600BE2B31 /* Operations.swift in Sources */,

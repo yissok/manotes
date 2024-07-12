@@ -90,10 +90,18 @@ class TreeNode: Identifiable {
                 try context.save()
             } catch {
                 print("Failed to save context: \(error)")
+                return []
             }
         }
-//        printTreeNodeNames(treeNodes: nodesGlobal)
+        incrementCommitVersion()
         return nodesGlobal
+    }
+    
+    static func incrementCommitVersion()  {
+        let tmp:TreeMetadata=treeMeta[0]
+        contextProvider.context!.delete(tmp)
+        contextProvider.context!.insert(TreeMetadata(versionNumber: tmp.versionNumber+1))
+        try! contextProvider.context!.save()
     }
     
     static func isFolder(_ node: TreeNode) -> Bool {

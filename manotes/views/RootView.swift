@@ -1,20 +1,27 @@
 import SwiftUI
 import SwiftData
 
-var firstInit:Bool=false
+var startedFirstTime:Bool=false
 struct RootView: View {
     
     @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var contextProvider: ContextProvider
     @Query private var nodesGlobal: [TreeNode]
     
+    @Query private var treeMeta: [TreeMetadata]
+    
     var body: some View {
         
         
         func preStart() {
-            if !firstInit {
-                print("pre started main view")
-                firstInit=true
+            if !startedFirstTime {
+                print("started first time")
+                startedFirstTime=true
+                if treeMeta.count == 0 {
+                    contextProvider.context!.insert(TreeMetadata(versionNumber: 0))
+                    
+                }
+                
             }
         }
         
@@ -43,7 +50,8 @@ struct RootView: View {
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if newPhase == .active {
                 print("foregr")
-                pickUpFiles()
+                pickUpShortcutNotes()
+                pickLatestFileHistory()
             } else if newPhase == .inactive {
                 print("Inactive")
             } else if newPhase == .background {
@@ -52,7 +60,11 @@ struct RootView: View {
         }
         
         
-        func pickUpFiles() {
+        func pickLatestFileHistory() {
+            print("pickLatestFileHistory: ",treeMeta[0].versionNumber)
+            
+        }
+        func pickUpShortcutNotes() {
             print("started main view")
             
             if let iCloudURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents") {
