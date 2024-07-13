@@ -47,6 +47,7 @@ final class manotesTests: XCTestCase {
     
     
     @MainActor func testTreeNodeInitialization()  throws {
+        print("\n\n\n\n\n")
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: TreeNode.self, configurations: config)
 
@@ -56,28 +57,28 @@ final class manotesTests: XCTestCase {
         sut.add(newNode: root)
         
         let nintendo = TreeNode(content: nil, name: "Nintendo", parent: root)
-        root.children.append(contentsOf: [nintendo])
+        root.children!.append(contentsOf: [nintendo])
         sut.add(newNode: nintendo)
         
         let smash = TreeNode(content: nil, name: "Smash", parent: nintendo)
         let zelda = TreeNode(content: nil, name: "Zelda", parent: nintendo)
-        nintendo.children.append(contentsOf: [smash, zelda])
+        nintendo.children!.append(contentsOf: [smash, zelda])
         sut.add(newNode: smash)
         sut.add(newNode: zelda)
         
         let link = TreeNode(content: nil, name: "Link", parent: zelda)
-        zelda.children.append(link)
+        zelda.children!.append(link)
         sut.add(newNode: link)
         
         let sword = TreeNode(content: "iamasword", name: "1234567", parent: link)
-        link.children.append(sword)
+        link.children!.append(sword)
         sut.add(newNode: sword)
         
         XCTAssertEqual(sut.fetchData().count, 6)
         
         var result = TreeNode.serialise(root)
         XCTAssertEqual(result, "ROOT-Nintendo-Smash-_-Zelda-Link-1234567:iamasword-_-_-_-")
-        print("asserted ====================================")
+        print("asserted 1")
         sut.reset()
         sut = ContentView.ViewModel(modelContext: container.mainContext)
         var nodesGlobal:[TreeNode]=[]
@@ -107,6 +108,8 @@ ______________________________________
 
 """
         XCTAssertEqual(strTreeNodeNames(treeNodes: sut.fetchData()), expected)
+        print("asserted 2")
+        print("\n\n\n\n\n")
     }
     
     func strTreeNodeNames(treeNodes: [TreeNode]) -> String {
