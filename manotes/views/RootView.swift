@@ -7,9 +7,8 @@ struct RootView: View {
     @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var contextProvider: ContextProvider
     @Query private var nodesGlobal: [TreeNode]
-    
-    @Query private var treeMeta: [TreeMetadata]
-    
+    @AppStorage(UD_VERSION_NUMBER) private var versionNumber:Int?
+
     var body: some View {
         
         
@@ -17,9 +16,8 @@ struct RootView: View {
             if !startedFirstTime {
                 print("started first time")
                 startedFirstTime=true
-                if treeMeta.count == 0 {
-                    contextProvider.context!.insert(TreeMetadata(versionNumber: 0))
-                    
+                if versionNumber == nil {
+                    versionNumber=0
                 }
                 
             }
@@ -61,25 +59,21 @@ struct RootView: View {
         
         
         func pickLatestFileHistory() {
-            print("pickLatestFileHistory: ",treeMeta[0].versionNumber)
+            print("pickLatestFileHistory: ",versionNumber)
             
         }
         func pickUpShortcutNotes() {
             print("started main view")
+            do {
+                try writeToFile(input: "", path: ".test")
+            } catch let error {
+                print(error.localizedDescription)
+            }
             
             if let iCloudURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents") {
-                
-                let fileURL = iCloudURL.appendingPathComponent(".test")
-
-                try? "".data(using: .utf8)?.write(to: fileURL)
-                // List all files in the directory
                 do {
                     let fileURLs = try FileManager.default.contentsOfDirectory(at: iCloudURL, includingPropertiesForKeys: nil)
-                    // Print the file URLs or do something with them
                     for fileURL in fileURLs {
-                        print("Found file: \(fileURL)")
-                        // Here you can read the file content if needed
-                        // For example, let's read the content of a text file
                         if fileURL.pathExtension == "txt" {
                             if let fileContent = try? String(contentsOf: fileURL, encoding: .utf8) {
                                 print("File content: \(fileContent)")

@@ -6,11 +6,22 @@ let APP_NAME_URL="manotesURL"
 let SHORTCUT_NAME="manoteSHTCT"
 let INPUT_LABEL="input"
 let LB_ROOT = "ROOT";
+
+let UD_VERSION_NUMBER = "versionNumber";
+
+let DIR_HISTORY = "history";
+
 let SERIAL_SEPARATOR = "-";
 let SERIAL_BACKWARDS = "_";
 let SERIAL_CONTENT_SEPARATOR = ":";
 
 let rowHeight:CGFloat=30
+
+
+
+
+
+
 
 extension URL {
     public var queryParameters: [String: String]? {
@@ -29,12 +40,46 @@ extension Double {
     }
 }
 
-func printTreeNodeNames(treeNodes: [TreeNode]) {
-    print("||||||||||||||||||||||||||||||||||||||") // Add newline for better readability
-    for node in treeNodes {
-        printTreeNodeDetails(node: node)
+
+
+
+
+
+enum DocumentsDirError: Error {
+    case dirNotFound
+}
+
+func createHistoryIfNotExist() throws {
+    if let iCloudURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents") {
+        let fileURL = iCloudURL.appendingPathComponent(DIR_HISTORY)
+        if !FileManager.default.fileExists(atPath: fileURL.absoluteString) {
+            do {
+                try FileManager.default.createDirectory(atPath: fileURL.path, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription);
+                throw DocumentsDirError.dirNotFound
+            }
+        }
+    } else {
+        throw DocumentsDirError.dirNotFound
     }
-    print("______________________________________\n") // Add newline for better readability
+}
+
+func writeToFile(input:String, path:String) throws {
+    if let iCloudURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents") {
+        let fileURL = iCloudURL.appendingPathComponent(path)
+        try? input.data(using: .utf8)?.write(to: fileURL)
+    } else {
+        throw DocumentsDirError.dirNotFound
+    }
+}
+
+func printTreeNodeNames(treeNodes: [TreeNode]) {
+//    print("||||||||||||||||||||||||||||||||||||||") // Add newline for better readability
+//    for node in treeNodes {
+//        printTreeNodeDetails(node: node)
+//    }
+//    print("______________________________________\n") // Add newline for better readability
 }
 func printTreeNodeDetails(node: TreeNode) {
     print("Node: \(node.name)")

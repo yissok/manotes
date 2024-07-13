@@ -93,15 +93,31 @@ class TreeNode: Identifiable {
                 return []
             }
         }
-        incrementCommitVersion()
+        commit(serialisedTree)
         return nodesGlobal
     }
     
+    static func commit(_ serialisedTree:String)  {
+        if(persistCommitChangeToFile(serialisedTree)){
+            incrementCommitVersion()
+        }
+        
+    }
+    
+    static func persistCommitChangeToFile(_ serialisedTree:String) -> Bool {
+        do {
+            try createHistoryIfNotExist()
+            let fileName=String(UserDefaults.standard.integer(forKey: UD_VERSION_NUMBER))
+            try writeToFile(input: serialisedTree, path: DIR_HISTORY+"/"+fileName+".txt")
+            return true
+        } catch let error {
+            print(error.localizedDescription)
+            return false
+        }
+    }
+    
     static func incrementCommitVersion()  {
-        let tmp:TreeMetadata=treeMeta[0]
-        contextProvider.context!.delete(tmp)
-        contextProvider.context!.insert(TreeMetadata(versionNumber: tmp.versionNumber+1))
-        try! contextProvider.context!.save()
+        UserDefaults.standard.set(UserDefaults.standard.integer(forKey: UD_VERSION_NUMBER)+1, forKey: UD_VERSION_NUMBER)
     }
     
     static func isFolder(_ node: TreeNode) -> Bool {
