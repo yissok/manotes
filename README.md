@@ -10,6 +10,8 @@
 # TODO
 
 NEXT EPISODE:
+- action button to collect all notes in current folder and send them to shortcut
+- abstract shortcut 1 level for creating notes for a specific tagfolder e.g. thoughts
 - last version file so devices know when to sync
     - at every startup and before each write action, do a pull on the version file and update if increased in the meantime
     - when pulling, you will know exactly the paths of the files you are missing because you can retrieve last version in o1 and you already have the old version in userdefaults, so loop through paths old version -> file last version
@@ -18,7 +20,7 @@ NEXT EPISODE:
     - allow note edit
     - allow single note view
     - allow all notes in current folder view
-        - will require new protocol accepting multiple enc strings and editing shortcut's js to list out contents
+        - ~~will require new protocol accepting multiple enc strings and editing shortcut's js to list out contents~~
 - not enc work
     - differentiate enc/non enc notes
     - allow new note not enc input
