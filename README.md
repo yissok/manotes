@@ -17,6 +17,8 @@ NEXT EPISODE:
     - when pulling, you will know exactly the paths of the files you are missing because you can retrieve last version in o1 and you already have the old version in userdefaults, so loop through paths old version -> file last version
 - reset version btn + version label
 - back to shortcut
+    - better ui for buttons
+        - 
     - allow note edit
     - allow single note view
     - allow all notes in current folder view

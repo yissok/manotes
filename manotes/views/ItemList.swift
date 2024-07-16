@@ -68,7 +68,7 @@ struct ItemList: View {
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Button{
-                        
+                            callShortcutWith(stackContent(filteredNotes) ?? "no_content")
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
@@ -93,6 +93,15 @@ struct ItemList: View {
             
 
         }
+                     
+         func stackContent(_ filteredNotes: [TreeNode]) -> String {
+             var res=""
+             filteredNotes.forEach { note in
+                 res = res+note.content!.replacingOccurrences(of: "%3D", with: "")+"\n"
+             }
+             return res
+         }
+                     
         func randomString(length: Int) -> String {
           let letters = "abcdefghijklmnopqrstuvwxyz"
           return String((0..<length).map{ _ in letters.randomElement()! })

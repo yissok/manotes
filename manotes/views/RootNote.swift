@@ -5,7 +5,6 @@ struct RootNote: View {
     @EnvironmentObject var contextProvider: ContextProvider
     let item: TreeNode
     
-    var shtctcall = "shortcuts://run-shortcut?name="+SHORTCUT_NAME+"&input="
     
     var body: some View {
         let formatter3 = DateFormatter()
@@ -26,11 +25,6 @@ struct RootNote: View {
         }
         .frame(minHeight: rowHeight, maxHeight: rowHeight)
         
-        func callShortcutWith(_ itemValue: String) {
-            print("calling shortcut")
-            let shortcut = URL(string: shtctcall+itemValue)!
-            UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)
-        }
         
     }
 }

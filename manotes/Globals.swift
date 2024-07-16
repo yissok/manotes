@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 let CONTENT_PASSED="CONTENT_PASSED"
 let UN_ID="manotes_uniqueidddddd"
@@ -6,6 +7,8 @@ let APP_NAME_URL="manotesURL"
 let SHORTCUT_NAME="manoteSHTCT"
 let INPUT_LABEL="input"
 let LB_ROOT = "ROOT";
+
+var shtctcall = "shortcuts://run-shortcut?name="+SHORTCUT_NAME+"&input="
 
 let UD_VERSION_NUMBER = "versionNumber";
 
@@ -47,6 +50,13 @@ extension Double {
 
 enum DocumentsDirError: Error {
     case dirNotFound
+}
+
+
+func callShortcutWith(_ itemValue: String) {
+    print("calling shortcut")
+    let shortcut = URL(string: shtctcall+itemValue)!
+    UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)
 }
 
 func createHistoryIfNotExist() throws {
