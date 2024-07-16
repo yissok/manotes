@@ -68,7 +68,9 @@ struct ItemList: View {
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Button{
-                            callShortcutWith(stackContent(filteredNotes) ?? "no_content")
+                        if filteredNotes.count>0{
+                            callShortcutWith(parentName+"\n"+stackContent(filteredNotes) ?? "no_content")
+                        }
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
@@ -97,7 +99,7 @@ struct ItemList: View {
          func stackContent(_ filteredNotes: [TreeNode]) -> String {
              var res=""
              filteredNotes.forEach { note in
-                 res = res+note.content!.replacingOccurrences(of: "%3D", with: "")+"\n"
+                 res = res+note.name+"_"+note.content!.replacingOccurrences(of: "%3D", with: "")+"\n"
              }
              return res
          }
