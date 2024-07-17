@@ -38,6 +38,8 @@ class TreeNode: Identifiable {
         
         var elements = serialisedTree.split(separator: "-")
         var currentNode:TreeNode=nodesGlobal.filter { $0.name == LB_ROOT }.first!
+        var nodeToMove:TreeNode
+        var movingNode=false
         var stack: [TreeNode]=[]
         for elementSub in elements {
             let element = String(elementSub)
@@ -62,6 +64,16 @@ class TreeNode: Identifiable {
                 let noteNode = TreeNode(content: note.content, name: note.name, parent: currentNode)
                 currentNode.children!.append(noteNode)
                 context.insert(noteNode)
+            }
+             else if element.contains("<>") {
+                 if(!movingNode) {
+                     movingNode=true
+                     currentNode=nodesGlobal.filter { $0.name == element && $0.content == nil }.first!
+                     nodeToMove=currentNode
+                     deleteTag(nodeToMove, context)
+                 }
+                 nodeToMove.parent=nodesGlobal.filter { $0.name == element && $0.content == nil }.first!
+                 nodeToMove.parent.children!.append(nodeToMove)
             } else {
                 
                 if element==LB_ROOT {
