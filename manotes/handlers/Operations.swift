@@ -10,6 +10,25 @@ func generateSerialTree(_ parent: String,_ tags: [TreeNode], _ name: String?, _ 
     print("executing: "+tree)
     return tree
 }
+func generateSerialTreeForMoving(_ toMove: String, _ destination: String,_ tags: [TreeNode], _ context: ModelContext) -> String {
+    print("generateSerialTreeForMoving")
+    var toMoveNode = tags.filter { $0.name == toMove && $0.content == nil }.first!
+    let toMoveNodeChain=parentChain(toMoveNode)+"<>"
+    let backToRootChain = getChainToGetBackToRoot(toMoveNodeChain)
+    var destNode = tags.filter { $0.name == destination && $0.content == nil }.first!
+    let destNodeChain=parentChain(destNode).replacingOccurrences(of: "ROOT-", with: "")+"<>"
+    print("generateSerialTreeForMoving: "+toMoveNodeChain+backToRootChain+destNodeChain)
+    return toMoveNodeChain+backToRootChain+destNodeChain
+}
+
+func getChainToGetBackToRoot(_ chain: String) -> String {
+    var res = ""
+    for _ in 0..<chain.numberOfOccurrencesOf(string: "-") {
+        res += "-_"
+    }
+    res += "-"
+    return res
+}
 
 func parentChain(_ parentTag: TreeNode?) -> String {
     if parentTag==nil || parentTag!.parent==nil {
@@ -33,6 +52,13 @@ func deleteTag(_ item: TreeNode, _ context: ModelContext) {
     }
     removeChildReference(item, context)
     context.delete(item)
+}
+
+
+func moveChildrenToNewParent(_ old: TreeNode, _ new: TreeNode, _ context: ModelContext) {
+    old.children!.forEach { child in
+        child.parent=new
+    }
 }
 
 func deleteItem(_ item: TreeNode, _ context: ModelContext) {

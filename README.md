@@ -21,8 +21,6 @@ NEXT EPISODE:
         - 
     - allow note edit
     - allow single note view
-    - allow all notes in current folder view
-        - ~~will require new protocol accepting multiple enc strings and editing shortcut's js to list out contents~~
 - not enc work
     - differentiate enc/non enc notes
     - allow new note not enc input
@@ -31,6 +29,9 @@ NEXT EPISODE:
 - restrict folder input chars and length and copypaste
 
 GRAVE:
+- move protocol
+- allow all notes in current folder view
+    - ~~will require new protocol accepting multiple enc strings and editing shortcut's js to list out contents~~
 - history folder in files
     - txt files
     - version number file name

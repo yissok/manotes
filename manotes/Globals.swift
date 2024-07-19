@@ -21,7 +21,11 @@ let SERIAL_CONTENT_SEPARATOR = ":";
 let rowHeight:CGFloat=30
 
 
-
+enum OverlayAction {
+    case unset
+    case newFolder
+    case moveNode
+}
 
 
 
@@ -36,7 +40,11 @@ extension URL {
         }
     }
 }
-
+extension String {
+    func numberOfOccurrencesOf(string: String) -> Int {
+        return self.components(separatedBy:string).count - 1
+    }
+}
 extension Double {
     func truncate(places : Int)-> Double {
         return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
@@ -85,11 +93,11 @@ func writeToFile(input:String, path:String) throws {
 }
 
 func printTreeNodeNames(treeNodes: [TreeNode]) {
-//    print("||||||||||||||||||||||||||||||||||||||") // Add newline for better readability
-//    for node in treeNodes {
-//        printTreeNodeDetails(node: node)
-//    }
-//    print("______________________________________\n") // Add newline for better readability
+    print("||||||||||||||||||||||||||||||||||||||") // Add newline for better readability
+    for node in treeNodes {
+        printTreeNodeDetails(node: node)
+    }
+    print("______________________________________\n") // Add newline for better readability
 }
 func printTreeNodeDetails(node: TreeNode) {
     print("Node: \(node.name)")

@@ -7,6 +7,7 @@ struct ItemList: View {
     @State private var showPanel = false
     @State private var zSwap:Bool = false
     @State private var presentNoteInput = false
+    @State private var ovelayAction:OverlayAction = OverlayAction.unset
     @State private var newTag = ""
     @State private var treeInput: String = "ROOT-Apple-iphone-11-_-12-_-13"
     @State private var folderName: String = ""
@@ -14,6 +15,7 @@ struct ItemList: View {
     
     var nodesGlobal:[TreeNode]
     var parent:TreeNode?
+    @State private var selectedNode:TreeNode?
 
     var body: some View {
         let parentName:String=(parent==nil ? LB_ROOT:parent?.name)!
@@ -26,7 +28,7 @@ struct ItemList: View {
                 Text(parentName)
                 List {
                     ForEach(filteredTags, id: \.self) { node in
-                        RootTag(nodesGlobal: nodesGlobal, item: node)
+                        RootTag(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, zSwap: $zSwap, isNewFolderNameFocused: $isNewFolderNameFocused, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
                     }
                     .onDelete { indexes in
                         deleteAt(filteredTags, indexes)
@@ -48,6 +50,7 @@ struct ItemList: View {
                                 showPanel.toggle()
                                 zSwap.toggle()
                                 isNewFolderNameFocused=true
+                                ovelayAction=OverlayAction.newFolder
                             }
                         } label: {
                             Image(systemName: "folder.badge.plus")
@@ -78,7 +81,7 @@ struct ItemList: View {
                 }
             }
             .zIndex(zSwap ? 0 : 1)
-            InputOverlay(showPanel: $showPanel, zSwap: $zSwap, folderName: $folderName, isNewFolderNameFocused: $isNewFolderNameFocused)
+            InputOverlay(showPanel: $showPanel, zSwap: $zSwap, folderName: $folderName, isNewFolderNameFocused: $isNewFolderNameFocused, ovelayAction: $ovelayAction)
                 .zIndex(zSwap ? 1 : 0)
             FolderPopup(showPanel: $showPanel, zSwap: $zSwap, folderName: $folderName, isNewFolderNameFocused: $isNewFolderNameFocused)
                 .zIndex(zSwap ? 2 : 0)
@@ -87,7 +90,7 @@ struct ItemList: View {
                 .onChange(of: zSwap) {
                     if !zSwap && folderName != "" {
                         print("new folder name.")
-                        handleNewTagInput(parentName,nodesGlobal,folderName, contextProvider.context!)
+                        handleNewTagInput(ovelayAction==OverlayAction.newFolder ? parentName : selectedNode!.name,nodesGlobal,folderName, contextProvider.context!, ovelayAction)
                         folderName=""
                     }
                 }

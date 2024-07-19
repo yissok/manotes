@@ -38,12 +38,11 @@ class TreeNode: Identifiable {
         
         var elements = serialisedTree.split(separator: "-")
         var currentNode:TreeNode=nodesGlobal.filter { $0.name == LB_ROOT }.first!
-        var nodeToMove:TreeNode
+        var nodeToMove:TreeNode=TreeNode(content: "", name: "", parent: nil)
         var movingNode=false
         var stack: [TreeNode]=[]
         for elementSub in elements {
             let element = String(elementSub)
-            let curr = currentNode.name
             if element == "_" {
                 if stack.count==0 {
                     print("malformed tree, going above root level")
@@ -66,14 +65,16 @@ class TreeNode: Identifiable {
                 context.insert(noteNode)
             }
              else if element.contains("<>") {
+                 let moveEl = element.replacingOccurrences(of: "<>", with: "")
                  if(!movingNode) {
                      movingNode=true
-                     currentNode=nodesGlobal.filter { $0.name == element && $0.content == nil }.first!
+                     currentNode=nodesGlobal.filter { $0.name == moveEl && $0.content == nil }.first!
                      nodeToMove=currentNode
-                     deleteTag(nodeToMove, context)
+                     continue
                  }
-                 nodeToMove.parent=nodesGlobal.filter { $0.name == element && $0.content == nil }.first!
-                 nodeToMove.parent.children!.append(nodeToMove)
+                 var newParent = nodesGlobal.filter { $0.name == moveEl && $0.content == nil }.first!
+                 nodeToMove.parent=newParent
+                 newParent.children!.append(nodeToMove)
             } else {
                 
                 if element==LB_ROOT {

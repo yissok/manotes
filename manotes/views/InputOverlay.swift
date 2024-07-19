@@ -6,10 +6,12 @@ struct InputOverlay: View {
     @Binding var zSwap:Bool
     @Binding var folderName: String
     @FocusState.Binding var isNewFolderNameFocused: Bool
+    @Binding var ovelayAction:OverlayAction
     
     
     var body: some View {
-        return Color.yellow.opacity(showPanel ? 0.4 : 0)
+        let col = ovelayAction==OverlayAction.newFolder ? Color.yellow : Color.green
+        return col.opacity(showPanel ? 0.4 : 0)
             .edgesIgnoringSafeArea(.all)
             .transition(.opacity)
             .animation(.easeInOut, value: showPanel)

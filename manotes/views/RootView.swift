@@ -16,6 +16,8 @@ struct RootView: View {
             if !startedFirstTime {
                 print("started first time")
                 startedFirstTime=true
+                removeEverythingNotConnectedToRoot()
+                removeHeadlessNodes()
                 if versionNumber == nil {
                     versionNumber=0
                 }
@@ -61,6 +63,21 @@ struct RootView: View {
         func pickLatestFileHistory() {
             print("pickLatestFileHistory: ",versionNumber)
             
+        }
+        
+        
+        func removeEverythingNotConnectedToRoot() {
+            print("removeEverythingNotConnectedToRoot: ")
+            nodesGlobal.filter { $0.parent==nil &&  $0.name != LB_ROOT }.forEach { item in
+                deleteTag(item, contextProvider.context!)
+            }
+        }
+        
+        func removeHeadlessNodes() {
+            print("removeHeadlessNodes: ")
+            nodesGlobal.filter { $0.parent==nil &&  $0.name=="" }.forEach { item in
+                contextProvider.context!.delete(item)
+            }
         }
         func pickUpShortcutNotes() {
             print("started main view")
