@@ -18,7 +18,7 @@ struct InputOverlay: View {
 
     var body: some View {
         let col = overlayAction==OverlayAction.newFolder ? Color.yellow : Color.green
-        return col.opacity(showPanel ? 0.4 : 0)
+        return col.opacity(showPanel ? 0.7 : 0)
             .edgesIgnoringSafeArea(.all)
             .transition(.opacity)
             .animation(.easeInOut, value: showPanel)

@@ -10,8 +10,6 @@
 # TODO
 
 NEXT EPISODE:
-- improve modularity of overlay
-- fix overlay touch over navigation stack
 - simplify insert tree logic
 - action button to collect all notes in current folder and send them to shortcut
 - abstract shortcut 1 level for creating notes for a specific tagfolder e.g. thoughts
@@ -32,6 +30,8 @@ NEXT EPISODE:
 - restrict folder input chars and length and copypaste
 
 GRAVE:
+- improve modularity of overlay
+- fix overlay touch over navigation stack
 - move protocol
 - allow all notes in current folder view
     - ~~will require new protocol accepting multiple enc strings and editing shortcut's js to list out contents~~

@@ -37,11 +37,14 @@ struct RootView: View {
         }
         preStart()
         let root = initRoot()
-        return NavigationStack{
+        return VStack{NavigationStack{
             VStack{
                 ItemList(nodesGlobal: nodesGlobal, parent: root)
             }
             
+        }
+            
+//            PopupContainer(showPanel: $showPanel, folderName: $folderName, ovelayAction: $ovelayAction, nodesGlobal: nodesGlobal, parentName: parentName, selectedNode: $selectedNode)
         }
 //        .onAppear(perform: start)
         .onOpenURL { (url) in
