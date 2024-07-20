@@ -28,6 +28,9 @@ func handleDeletionInput(_ currentTag: String,_ tags: [TreeNode], _ context: Mod
 
 func handleShortcutInput(_ encStr: String,_ tags: [TreeNode], _ context: ModelContext) {
     let input = encStr.components(separatedBy:"_")
+    if input.count<2 {
+        return
+    }
     let serial = generateSerialTree( input[0], tags, nil, input[1], context)
     TreeNode.insertTree(serial, tags, context: context)
 }

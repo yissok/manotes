@@ -11,17 +11,21 @@
 
 NEXT EPISODE:
 - simplify insert tree logic
-- action button to collect all notes in current folder and send them to shortcut
 - abstract shortcut 1 level for creating notes for a specific tagfolder e.g. thoughts
-- last version file so devices know when to sync
-    - at every startup and before each write action, do a pull on the version file and update if increased in the meantime
-    - when pulling, you will know exactly the paths of the files you are missing because you can retrieve last version in o1 and you already have the old version in userdefaults, so loop through paths old version -> file last version
-- reset version btn + version label
-- back to shortcut
-    - better ui for buttons
-        - 
-    - allow note edit
-    - allow single note view
+- version stuff
+    - pull from icloud repo             ------at every startup and before each write action, do a pull on the version file and update if increased in the meantime         ------when pulling, you will know exactly the paths of the files you are missing because you can retrieve last version in o1 and you already have the old version in userdefaults, so loop through paths old version -> file last version
+    - allow to navigate to whatever version
+    - allow to keep current state of tree and forget all history
+- ui options
+    - change top 3 dots select
+        - will allow to bulk move or bulk delete
+    - have eye button next to top folder name to view all notes in this folder
+    - keep pressed item for actions
+        - NOTESONLY: note edit
+        - NOTESONLY: single note view
+        - delete
+        - move
+        - TAGSONLY: view all notes in this folder
 - not enc work
     - differentiate enc/non enc notes
     - allow new note not enc input
@@ -30,6 +34,7 @@ NEXT EPISODE:
 - restrict folder input chars and length and copypaste
 
 GRAVE:
+- reset version btn + version label
 - improve modularity of overlay
 - fix overlay touch over navigation stack
 - move protocol

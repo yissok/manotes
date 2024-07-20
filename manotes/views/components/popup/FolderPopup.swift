@@ -49,7 +49,6 @@ struct FolderPopup: View {
                             .font(Font.system(size: fontSz, design: .default))
                             .background(Color(.systemBackground))
                             .cornerRadius(8)
-                            .foregroundColor(.white)
                     }
                 }
                 .padding([.horizontal], horizPadSpace)

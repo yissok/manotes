@@ -1,5 +1,7 @@
 import SwiftUI
 import SwiftData
+import CommonCrypto
+
 
 var startedFirstTime:Bool=false
 struct RootView: View {
@@ -37,14 +39,20 @@ struct RootView: View {
         }
         preStart()
         let root = initRoot()
-        return VStack{NavigationStack{
+        return NavigationStack{
             VStack{
+                HStack{
+                    Text(String(versionNumber!))
+                    Button{
+                        versionNumber=0
+                        deleteAllHistory()
+                    } label: {
+                        Image(systemName: "delete.left")
+                    }
+                    .foregroundColor(Color.yellow)
+                }
                 ItemList(nodesGlobal: nodesGlobal, parent: root)
             }
-            
-        }
-            
-//            PopupContainer(showPanel: $showPanel, folderName: $folderName, ovelayAction: $ovelayAction, nodesGlobal: nodesGlobal, parentName: parentName, selectedNode: $selectedNode)
         }
 //        .onAppear(perform: start)
         .onOpenURL { (url) in
@@ -68,7 +76,7 @@ struct RootView: View {
             
         }
         
-        
+
         func removeEverythingNotConnectedToRoot() {
             print("removeEverythingNotConnectedToRoot: ")
             nodesGlobal.filter { $0.parent==nil &&  $0.name != LB_ROOT }.forEach { item in
@@ -85,7 +93,7 @@ struct RootView: View {
         func pickUpShortcutNotes() {
             print("started main view")
             do {
-                try writeToFile(input: "", path: ".test")
+                try createHistoryIfNotExist()
             } catch let error {
                 print(error.localizedDescription)
             }
@@ -94,6 +102,7 @@ struct RootView: View {
                 do {
                     let fileURLs = try FileManager.default.contentsOfDirectory(at: iCloudURL, includingPropertiesForKeys: nil)
                     for fileURL in fileURLs {
+                        print("File fileURL: \(fileURL)")
                         if fileURL.pathExtension == "txt" {
                             if let fileContent = try? String(contentsOf: fileURL, encoding: .utf8) {
                                 print("File content: \(fileContent)")
@@ -101,6 +110,21 @@ struct RootView: View {
                                 try FileManager.default.removeItem(at: fileURL)
                             }
                         }
+                    }
+                } catch {
+                    print("Error while enumerating files \(iCloudURL.path): \(error.localizedDescription)")
+                }
+            } else {
+                print("iCloud is not available or not configured properly")
+            }
+        }
+        
+        func deleteAllHistory() {
+            if let iCloudURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents/history") {
+                do {
+                    let fileURLs = try FileManager.default.contentsOfDirectory(at: iCloudURL, includingPropertiesForKeys: nil)
+                    for fileURL in fileURLs {
+                        try FileManager.default.removeItem(at: fileURL)
                     }
                 } catch {
                     print("Error while enumerating files \(iCloudURL.path): \(error.localizedDescription)")

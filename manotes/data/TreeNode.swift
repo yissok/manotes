@@ -111,8 +111,8 @@ class TreeNode: Identifiable {
     }
     
     static func commit(_ serialisedTree:String)  {
-        if(persistCommitChangeToFile(serialisedTree)){
-            incrementCommitVersion()
+        if(!persistCommitChangeToFile(serialisedTree)){
+            decreaseCommitVersion()
         }
         
     }
@@ -120,7 +120,9 @@ class TreeNode: Identifiable {
     static func persistCommitChangeToFile(_ serialisedTree:String) -> Bool {
         do {
             try createHistoryIfNotExist()
-            let fileName=String(UserDefaults.standard.integer(forKey: UD_VERSION_NUMBER))
+            let newVersion=UserDefaults.standard.integer(forKey: UD_VERSION_NUMBER)+1
+            UserDefaults.standard.set(newVersion, forKey: UD_VERSION_NUMBER)
+            let fileName=String(newVersion)
             try writeToFile(input: serialisedTree, path: DIR_HISTORY+"/"+fileName+".txt")
             return true
         } catch let error {
@@ -129,8 +131,8 @@ class TreeNode: Identifiable {
         }
     }
     
-    static func incrementCommitVersion()  {
-        UserDefaults.standard.set(UserDefaults.standard.integer(forKey: UD_VERSION_NUMBER)+1, forKey: UD_VERSION_NUMBER)
+    static func decreaseCommitVersion()  {
+        UserDefaults.standard.set(UserDefaults.standard.integer(forKey: UD_VERSION_NUMBER)-1, forKey: UD_VERSION_NUMBER)
     }
     
     static func isFolder(_ node: TreeNode) -> Bool {
