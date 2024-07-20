@@ -3,10 +3,15 @@ import SwiftData
 
 struct FolderPopup: View {
     @Binding var showPanel:Bool
-    @Binding var zSwap:Bool
     @Binding var folderName: String
     @FocusState.Binding var isNewFolderNameFocused: Bool
-    
+    @State var zSwap:Bool
+    init(showPanel: Binding<Bool>, folderName: Binding<String>, isNewFolderNameFocused: FocusState<Bool>.Binding) {
+        self._showPanel = showPanel
+        self._folderName = folderName
+        self._isNewFolderNameFocused = isNewFolderNameFocused
+        self._zSwap = State<Bool>(wrappedValue: showPanel.wrappedValue)
+    }
     let height:CGFloat=60
     let horizPadSpace:CGFloat=60
     let fontSz:CGFloat=20

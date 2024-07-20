@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftData
 
-struct RootNote: View {
+struct Note: View {
     @EnvironmentObject var contextProvider: ContextProvider
     let item: TreeNode
     
@@ -10,7 +10,6 @@ struct RootNote: View {
         let formatter3 = DateFormatter()
         formatter3.dateFormat = "d MMM HH:mm:ss"
         return HStack{
-//            Text(item.parent == nil ? "currentViewParentTag" : item.parent!.name).bold()
             Text(formatter3.string(from: (Date(timeIntervalSince1970: (Double(item.name)! / 1000.0))))).bold()
 
             Text(item.content ?? "no_content")

@@ -10,6 +10,9 @@
 # TODO
 
 NEXT EPISODE:
+- improve modularity of overlay
+- fix overlay touch over navigation stack
+- simplify insert tree logic
 - action button to collect all notes in current folder and send them to shortcut
 - abstract shortcut 1 level for creating notes for a specific tagfolder e.g. thoughts
 - last version file so devices know when to sync

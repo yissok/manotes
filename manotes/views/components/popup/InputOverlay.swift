@@ -3,14 +3,21 @@ import SwiftData
 
 struct InputOverlay: View {
     @Binding var showPanel:Bool
-    @Binding var zSwap:Bool
     @Binding var folderName: String
+    @Binding<OverlayAction> var overlayAction:OverlayAction
+    
     @FocusState.Binding var isNewFolderNameFocused: Bool
-    @Binding var ovelayAction:OverlayAction
-    
-    
+    @State var zSwap:Bool
+    init(showPanel: Binding<Bool>, folderName: Binding<String>, overlayAction: Binding<OverlayAction>, isNewFolderNameFocused: FocusState<Bool>.Binding) {
+        self._showPanel = showPanel
+        self._folderName = folderName
+        self._overlayAction = overlayAction
+        self._isNewFolderNameFocused = isNewFolderNameFocused
+        self._zSwap = State<Bool>(wrappedValue: showPanel.wrappedValue)
+    }
+
     var body: some View {
-        let col = ovelayAction==OverlayAction.newFolder ? Color.yellow : Color.green
+        let col = overlayAction==OverlayAction.newFolder ? Color.yellow : Color.green
         return col.opacity(showPanel ? 0.4 : 0)
             .edgesIgnoringSafeArea(.all)
             .transition(.opacity)

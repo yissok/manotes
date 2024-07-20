@@ -5,13 +5,11 @@ struct ItemList: View {
     @EnvironmentObject var contextProvider: ContextProvider
     
     @State private var showPanel = false
-    @State private var zSwap:Bool = false
     @State private var presentNoteInput = false
     @State private var ovelayAction:OverlayAction = OverlayAction.unset
     @State private var newTag = ""
     @State private var treeInput: String = "ROOT-Apple-iphone-11-_-12-_-13"
     @State private var folderName: String = ""
-    @FocusState private var isNewFolderNameFocused: Bool
     
     var nodesGlobal:[TreeNode]
     var parent:TreeNode?
@@ -28,13 +26,13 @@ struct ItemList: View {
                 Text(parentName)
                 List {
                     ForEach(filteredTags, id: \.self) { node in
-                        RootTag(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, zSwap: $zSwap, isNewFolderNameFocused: $isNewFolderNameFocused, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
+                        Tag(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
                     }
                     .onDelete { indexes in
                         deleteAt(filteredTags, indexes)
                     }
                     ForEach(filteredNotes, id: \.self) { node in
-                        RootNote(item: node)
+                        Note(item: node)
                     }
                     .onDelete { indexes in
                         deleteAt(filteredNotes, indexes)
@@ -48,15 +46,13 @@ struct ItemList: View {
                             
                             withAnimation {
                                 showPanel.toggle()
-                                zSwap.toggle()
-                                isNewFolderNameFocused=true
                                 ovelayAction=OverlayAction.newFolder
                             }
                         } label: {
                             Image(systemName: "folder.badge.plus")
                         }
                         .foregroundColor(Color.yellow)
-                        .allowsHitTesting(!zSwap)
+                        .allowsHitTesting(!showPanel)//make buttons untouchable when popup is active
                         Spacer()
                         Button{
                             presentNoteInput=true
@@ -65,6 +61,7 @@ struct ItemList: View {
                             Image(systemName: "square.and.pencil")
                         }
                         .foregroundColor(Color.yellow)
+                        .allowsHitTesting(!showPanel)//make buttons untouchable when popup is active
                     }
                 }
             }
@@ -78,25 +75,10 @@ struct ItemList: View {
                         Image(systemName: "ellipsis.circle")
                     }
                     .foregroundColor(Color.yellow)
+                    .allowsHitTesting(!showPanel)//make buttons untouchable when popup is active
                 }
             }
-            .zIndex(zSwap ? 0 : 1)
-            InputOverlay(showPanel: $showPanel, zSwap: $zSwap, folderName: $folderName, isNewFolderNameFocused: $isNewFolderNameFocused, ovelayAction: $ovelayAction)
-                .zIndex(zSwap ? 1 : 0)
-            FolderPopup(showPanel: $showPanel, zSwap: $zSwap, folderName: $folderName, isNewFolderNameFocused: $isNewFolderNameFocused)
-                .zIndex(zSwap ? 2 : 0)
-            
-            Toggle("Light", isOn: $zSwap)
-                .onChange(of: zSwap) {
-                    if !zSwap && folderName != "" {
-                        print("new folder name.")
-                        handleNewTagInput(ovelayAction==OverlayAction.newFolder ? parentName : selectedNode!.name,nodesGlobal,folderName, contextProvider.context!, ovelayAction)
-                        folderName=""
-                    }
-                }
-                .opacity(0)
-            
-
+            PopupContainer(showPanel: $showPanel, folderName: $folderName, ovelayAction: $ovelayAction, nodesGlobal: nodesGlobal, parentName: parentName, selectedNode: $selectedNode)
         }
                      
          func stackContent(_ filteredNotes: [TreeNode]) -> String {
