@@ -40,7 +40,7 @@ struct FolderPopup: View {
                     }
                     .padding([.horizontal], horizPadSpace)
                     .onReceive(Just(folderName)) { newValue in
-                        let allowedCharacters = "ADFSHJKLCXZGQERWIOPUTYqrweituypofadshjklgvzcxmn1234078956"
+                        let allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
                         let filtered = newValue.filter { allowedCharacters.contains($0) }
                         if filtered != newValue {
                             self.folderName = filtered

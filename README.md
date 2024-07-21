@@ -45,6 +45,7 @@ NEXT EPISODE:
         - TAGSONLY: view all notes in this folder
 
 GRAVE:
+- prevent moving parent folder to one of its children
 - restrict folder input chars and length and copypaste
 - lowercase tags
 - abstract shortcut 1 level for creating notes for a specific tagfolder e.g. thoughts

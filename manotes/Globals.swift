@@ -93,11 +93,11 @@ func writeToFile(input:String, path:String) throws {
 }
 
 func printTreeNodeNames(treeNodes: [TreeNode]) {
-//    print("||||||||||||||||||||||||||||||||||||||") // Add newline for better readability
-//    for node in treeNodes {
-//        printTreeNodeDetails(node: node)
-//    }
-//    print("______________________________________\n") // Add newline for better readability
+    print("||||||||||||||||||||||||||||||||||||||") // Add newline for better readability
+    for node in treeNodes {
+        printTreeNodeDetails(node: node)
+    }
+    print("______________________________________\n") // Add newline for better readability
 }
 func printTreeNodeDetails(node: TreeNode) {
     print("Node: \(node.name)")

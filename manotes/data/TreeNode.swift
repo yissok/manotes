@@ -43,6 +43,11 @@ class TreeNode: Identifiable {
         var stack: [TreeNode]=[]
         for elementSub in elements {
             let element = String(elementSub)
+            if nodeToMove.name != "" {
+                if element == nodeToMove.name {
+                    return []
+                }
+            }
             if element == "_" {
                 if stack.count==0 {
                     print("malformed tree, going above root level")

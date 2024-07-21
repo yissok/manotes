@@ -18,6 +18,7 @@ struct RootView: View {
             if !startedFirstTime {
                 print("started first time")
                 startedFirstTime=true
+//                removeEverything()
                 removeEverythingNotConnectedToRoot()
                 removeHeadlessNodes()
                 if versionNumber == nil {
@@ -50,6 +51,12 @@ struct RootView: View {
                         Image(systemName: "delete.left")
                     }
                     .foregroundColor(Color.yellow)
+                    Button{
+                        removeEverything()
+                    } label: {
+                        Image(systemName: "eraser.fill")
+                    }
+                    .foregroundColor(Color.yellow)
                 }
                 ItemList(nodesGlobal: nodesGlobal, parent: root)
             }
@@ -76,6 +83,14 @@ struct RootView: View {
             
         }
         
+
+        func removeEverything() {
+            print("removeEverythingNotConnectedToRoot: ")
+            nodesGlobal.forEach { item in
+                deleteItem(item, contextProvider.context!)
+            }
+            initRoot()
+        }
 
         func removeEverythingNotConnectedToRoot() {
             print("removeEverythingNotConnectedToRoot: ")
