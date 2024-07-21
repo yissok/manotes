@@ -1,7 +1,10 @@
 import SwiftUI
 import SwiftData
+import Combine
 
 struct FolderPopup: View {
+    @Environment(\.colorScheme) var colorScheme
+
     @Binding var showPanel:Bool
     @Binding var folderName: String
     @Binding<OverlayAction> var overlayAction:OverlayAction
@@ -36,6 +39,13 @@ struct FolderPopup: View {
                         }
                     }
                     .padding([.horizontal], horizPadSpace)
+                    .onReceive(Just(folderName)) { newValue in
+                        let allowedCharacters = "ADFSHJKLCXZGQERWIOPUTYqrweituypofadshjklgvzcxmn1234078956"
+                        let filtered = newValue.filter { allowedCharacters.contains($0) }
+                        if filtered != newValue {
+                            self.folderName = filtered
+                        }
+                    }
                 
                 HStack {
                     Button(action: {
@@ -48,6 +58,7 @@ struct FolderPopup: View {
                             .frame(maxWidth: .infinity)
                             .font(Font.system(size: fontSz, design: .default))
                             .background(Color(.systemBackground))
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                             .cornerRadius(8)
                     }
                 }

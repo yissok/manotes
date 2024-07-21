@@ -4,18 +4,20 @@ import SwiftData
 
 
 func generateSerialTree(_ parent: String,_ tags: [TreeNode], _ name: String?, _ content: String?, _ context: ModelContext) -> String {
+    let lowCParent=parent.lowercased()
     print("adding tag")
-    let parentTag = tags.filter { $0.name.caseInsensitiveCompare(parent) == .orderedSame }.first ?? nil
+    let parentTag = tags.filter { $0.name.caseInsensitiveCompare(lowCParent) == .orderedSame }.first ?? nil
     let tree=parentChain(parentTag)+addNoteOrTagOrExcl(content, name)
     print("executing: "+tree)
     return tree
 }
 func generateSerialTreeForMoving(_ toMove: String, _ destination: String,_ tags: [TreeNode], _ context: ModelContext) -> String {
+    let lowCDestination=destination.lowercased()
     print("generateSerialTreeForMoving")
     var toMoveNode = tags.filter { $0.name == toMove && $0.content == nil }.first!
     let toMoveNodeChain=parentChain(toMoveNode)+"<>"
     let backToRootChain = getChainToGetBackToRoot(toMoveNodeChain)
-    var destNode = tags.filter { $0.name == destination && $0.content == nil }.first!
+    var destNode = tags.filter { $0.name == lowCDestination && $0.content == nil }.first!
     let destNodeChain=parentChain(destNode).replacingOccurrences(of: "ROOT-", with: "")+"<>"
     print("generateSerialTreeForMoving: "+toMoveNodeChain+backToRootChain+destNodeChain)
     return toMoveNodeChain+backToRootChain+destNodeChain
