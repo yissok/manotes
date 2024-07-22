@@ -77,7 +77,7 @@ final class manotesTests: XCTestCase {
         XCTAssertEqual(sut.fetchData().count, 6)
         
         var result = TreeNode.serialise(root)
-        XCTAssertEqual(result, "ROOT-Nintendo-Smash-_-Zelda-Link-1234567:iamasword-_-_-_-")
+        XCTAssertEqual(result, "root-Nintendo-Smash-_-Zelda-Link-1234567:iamasword-_-_-_-")
         print("asserted 1")
         sut.reset()
         sut = ContentView.ViewModel(modelContext: container.mainContext)
@@ -97,8 +97,8 @@ content: iamasword
 Node: Link
 Parent: Zelda
 Node: Nintendo
-Parent: ROOT
-Node: ROOT
+Parent: root
+Node: root
 Parent: None
 Node: Smash
 Parent: Nintendo

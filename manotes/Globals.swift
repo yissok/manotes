@@ -6,7 +6,9 @@ let UN_ID="manotes_uniqueidddddd"
 let APP_NAME_URL="manotesURL"
 let SHORTCUT_NAME="manoteSHTCT"
 let INPUT_LABEL="input"
-let LB_ROOT = "ROOT";
+let LB_ROOT = "root";
+let NOENC_LABEL="NOENC_"
+let YESENC_LABEL="YESENC_"
 
 var shtctcall = "shortcuts://run-shortcut?name="+SHORTCUT_NAME+"&input="
 
@@ -16,7 +18,7 @@ let DIR_HISTORY = "history";
 
 let SERIAL_SEPARATOR = "-";
 let SERIAL_BACKWARDS = "_";
-let SERIAL_CONTENT_SEPARATOR = ":";
+let NOTE_DELIMITER = ":";
 
 let rowHeight:CGFloat=30
 
@@ -43,6 +45,24 @@ extension URL {
 extension String {
     func numberOfOccurrencesOf(string: String) -> Int {
         return self.components(separatedBy:string).count - 1
+    }
+    
+    func encodeUrl() -> String {
+        return self.addingPercentEncoding( withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+    }
+    
+    func decodeUrl() -> String {
+        return self.removingPercentEncoding!
+    }
+    
+    var base64Decoded: String? {
+        guard let decodedData = Data(base64Encoded: self) else { return nil }
+        return String(data: decodedData, encoding: .utf8)
+    }
+
+    var base64Encoded: String? {
+        let plainData = data(using: .utf8)
+        return plainData?.base64EncodedString()
     }
 }
 extension Double {
@@ -123,5 +143,5 @@ func unwrapNote(noteStr: String) -> TreeNode{
     let note = noteStr.split(separator: ":")
     let noteName = note.count==1 ? String(Int(Date().timeIntervalSince1970.truncate(places: 3)*1000)) : String(note[0])
     let noteContent = note.count==1 ? String(note[0]) : String(note[1])
-    return TreeNode(content: noteContent, name: noteName, parent: nil)
+    return TreeNode(content: noteContent.decodeUrl(), name: noteName, parent: nil)
 }

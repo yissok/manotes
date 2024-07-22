@@ -10,13 +10,9 @@
 # TODO
 
 NEXT EPISODE:
-- github integration
-    - upon note take
-        - working copy add action in main shortcut
-        - append tag to message
-    - end of day push
-        - commit using message in file
-        - delete message.txt
+- convert no enc shtct input to base64
+- move notes button
+- fix date of notes not being the date in the name of the file
 - not enc work
     - shortcuts
         - allow new note not enc input flag in middleware shortcut
@@ -45,6 +41,14 @@ NEXT EPISODE:
         - TAGSONLY: view all notes in this folder
 
 GRAVE:
+- github integration
+    - upon note take
+        - working copy add action in main shortcut
+        - append tag to message
+    - end of day push
+        - commit using message in file
+        - delete message.txt
+- fixed moving to nonexisting
 - prevent moving parent folder to one of its children
 - restrict folder input chars and length and copypaste
 - lowercase tags

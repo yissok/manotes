@@ -17,8 +17,11 @@ func generateSerialTreeForMoving(_ toMove: String, _ destination: String,_ tags:
     var toMoveNode = tags.filter { $0.name == toMove && $0.content == nil }.first!
     let toMoveNodeChain=parentChain(toMoveNode)+"<>"
     let backToRootChain = getChainToGetBackToRoot(toMoveNodeChain)
-    var destNode = tags.filter { $0.name == lowCDestination && $0.content == nil }.first!
-    let destNodeChain=parentChain(destNode).replacingOccurrences(of: "ROOT-", with: "")+"<>"
+    var destNode =  tags.filter { $0.name == lowCDestination && $0.content == nil }.first ?? TreeNode(content: "", name: "", parent: nil)
+    if destNode.name == "" {
+        return ""
+    }
+    let destNodeChain = parentChain(destNode).replacingOccurrences(of: LB_ROOT+"-", with: "")+"<>"
     print("generateSerialTreeForMoving: "+toMoveNodeChain+backToRootChain+destNodeChain)
     return toMoveNodeChain+backToRootChain+destNodeChain
 }
@@ -34,13 +37,23 @@ func getChainToGetBackToRoot(_ chain: String) -> String {
 
 func parentChain(_ parentTag: TreeNode?) -> String {
     if parentTag==nil || parentTag!.parent==nil {
-        return "ROOT"
+        return LB_ROOT
     }
     return parentChain(parentTag!.parent!)+"-"+parentTag!.name
 }
 
 func addNoteOrTagOrExcl(_ content: String?, _ name: String?) -> String {
-    return content==nil ? (name==nil ? "!" : "-"+name!) : "-"+SERIAL_CONTENT_SEPARATOR+content!
+    var tmpContent = content
+    var isEncrypted = false
+    if tmpContent != nil {
+        if tmpContent!.starts(with: NOENC_LABEL) {
+            tmpContent=tmpContent!.replacingOccurrences(of: NOENC_LABEL, with: "")
+        } else if tmpContent!.starts(with: YESENC_LABEL){
+            tmpContent=tmpContent!.replacingOccurrences(of: YESENC_LABEL, with: "")
+            isEncrypted=true
+        }
+    }
+    return tmpContent==nil ? (name==nil ? "!" : "-"+name!) : "-"+NOTE_DELIMITER+(isEncrypted ? "@" : "")+tmpContent!
 }
 
 func deleteTag(_ item: TreeNode, _ context: ModelContext) {

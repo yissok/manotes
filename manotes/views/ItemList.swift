@@ -8,7 +8,7 @@ struct ItemList: View {
     @State private var presentNoteInput = false
     @State private var ovelayAction:OverlayAction = OverlayAction.unset
     @State private var newTag = ""
-    @State private var treeInput: String = "ROOT-Apple-iphone-11-_-12-_-13"
+    @State private var treeInput: String = "root-Apple-iphone-11-_-12-_-13"
     @State private var folderName: String = ""
     
     var nodesGlobal:[TreeNode]
@@ -33,6 +33,7 @@ struct ItemList: View {
                     }
                     ForEach(filteredNotes, id: \.self) { node in
                         Note(item: node)
+                            .listRowBackground(node.enc ? Color.red : Color.green)
                     }
                     .onDelete { indexes in
                         deleteAt(filteredNotes, indexes)
@@ -56,7 +57,7 @@ struct ItemList: View {
                         Spacer()
                         Button{
                             presentNoteInput=true
-                            handleNewNoteInput(parentName,nodesGlobal,"iam a test note", contextProvider.context!)
+                            handleNewNoteInput(parentName,nodesGlobal,"iam a test note".base64Encoded!, contextProvider.context!)
                         } label: {
                             Image(systemName: "square.and.pencil")
                         }
