@@ -84,8 +84,8 @@ struct ItemList: View {
                      
          func stackContent(_ filteredNotes: [TreeNode]) -> String {
              var res=""
-             filteredNotes.forEach { note in
-                 res = res+note.name+"_"+note.content!.replacingOccurrences(of: "%3D", with: "")+"\n"
+             filteredNotes.filter{$0.enc}.forEach { note in
+                 res = res+note.name+"_"+note.content!.decodeUrl()+"\n"
              }
              return res
          }

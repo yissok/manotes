@@ -10,6 +10,7 @@ class TreeNodeSerial {
     var movingNode:Bool
     var stack: [TreeNode]
     var element: String
+    var noteDate: String
     
     init(nodesGlobal: [TreeNode], context:ModelContext) {
         self.nodesGlobal = nodesGlobal
@@ -19,6 +20,12 @@ class TreeNodeSerial {
         movingNode=false
         stack=[]
         element=""
+        noteDate="0"
+    }
+    
+    convenience init(nodesGlobal: [TreeNode], context:ModelContext, noteDate: String) {
+        self.init(nodesGlobal: nodesGlobal, context:context)
+        self.noteDate=noteDate
     }
     
     func serialise(_ node:TreeNode) -> String{
@@ -40,7 +47,7 @@ class TreeNodeSerial {
         case stop
     }
     
-    func insertTree(_ serialisedTree: String, _ nodesGlobal:[TreeNode], context: ModelContext) -> [TreeNode] {
+    func insertTree(_ serialisedTree: String) -> [TreeNode] {
         var elements = serialisedTree.split(separator: "-")
         for elementSub in elements {
             var toBeContinued = FlowContinuation.proceed
@@ -104,7 +111,7 @@ class TreeNodeSerial {
     }
     
     func addNote() -> FlowContinuation {
-        let note = unwrapNote(noteStr: String(element))
+        let note = unwrapNote(noteStr: String(element), noteDate: noteDate)
         let noteNode = TreeNode(content: (note.enc ? "@" : "")+note.content!, name: note.name, parent: currentNode)
         currentNode.children!.append(noteNode)
         context.insert(noteNode)

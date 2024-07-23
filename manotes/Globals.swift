@@ -139,9 +139,20 @@ func printTreeNodeDetails(node: TreeNode) {
     }
 }
 
-func unwrapNote(noteStr: String) -> TreeNode{
+func unwrapNote(noteStr: String, noteDate: String) -> TreeNode{
+    var noteName:String
     let note = noteStr.split(separator: ":")
-    let noteName = note.count==1 ? String(Int(Date().timeIntervalSince1970.truncate(places: 3)*1000)) : String(note[0])
+    if noteDate=="0"{
+        noteName = note.count==1 ? String(Int(Date().timeIntervalSince1970.truncate(places: 3)*1000)) : String(note[0])
+    } else {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy_HH-mm-ss"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        let date = dateFormatter.date(from: noteDate)
+        let timeInterval = date!.timeIntervalSince1970
+        print("Time in seconds: \(Int(timeInterval))")
+        noteName = note.count==1 ? String(Int(timeInterval)*1000) : String(note[0])
+    }
     let noteContent = note.count==1 ? String(note[0]) : String(note[1])
     return TreeNode(content: noteContent.decodeUrl(), name: noteName, parent: nil)
 }

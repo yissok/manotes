@@ -76,7 +76,7 @@ final class manotesTests: XCTestCase {
         
         XCTAssertEqual(sut.fetchData().count, 6)
         
-        var result = TreeNode.serialise(root)
+        var result = TreeNodeSerial(nodesGlobal: [], context: container.mainContext).serialise(root)
         XCTAssertEqual(result, "root-Nintendo-Smash-_-Zelda-Link-1234567:iamasword-_-_-_-")
         print("asserted 1")
         sut.reset()
@@ -87,7 +87,8 @@ final class manotesTests: XCTestCase {
         nodesGlobal.append(root)
         
         
-        TreeNode.insertTree(result, nodesGlobal, context: container.mainContext)
+        
+        TreeNodeSerial(nodesGlobal: nodesGlobal, context: container.mainContext).insertTree(result)
         
         let expected="""
 ||||||||||||||||||||||||||||||||||||||

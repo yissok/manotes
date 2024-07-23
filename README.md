@@ -10,16 +10,9 @@
 # TODO
 
 NEXT EPISODE:
-- convert no enc shtct input to base64
 - move notes button
-- fix date of notes not being the date in the name of the file
+- courier font for everything
 - not enc work
-    - shortcuts
-        - allow new note not enc input flag in middleware shortcut
-        - in main shortcut pick up correct enc/noenc js text based on middleware instruction
-        - add new chunk in thoughts_my%20thought -> NOENC_thoughts_my%20thought / YESENC_thoughts_GHY378ds7F8g7ty==
-        - change handleShortcutInput to accept new chunk
-    - differentiate enc/non enc notes in tree representation
     - allow to tap view note
     - allow user to edit note (disallow enc edit)
 - simplify insert tree logic
@@ -41,6 +34,16 @@ NEXT EPISODE:
         - TAGSONLY: view all notes in this folder
 
 GRAVE:
+- not enc work
+    - shortcuts
+        - allow new note not enc input flag in middleware shortcut
+        - in main shortcut pick up correct enc/noenc js text based on middleware instruction
+        - add new chunk in thoughts_my%20thought -> NOENC_thoughts_my%20thought / YESENC_thoughts_GHY378ds7F8g7ty==
+        - change handleShortcutInput to accept new chunk
+    - differentiate enc/non enc notes in tree representation
+- convert no enc shtct input to base64
+- fix date of notes not being the date in the name of the file
+- list pass only enc notes
 - github integration
     - upon note take
         - working copy add action in main shortcut

@@ -7,15 +7,28 @@ struct Note: View {
     
     
     var body: some View {
-        let formatter3 = DateFormatter()
-        formatter3.dateFormat = "d MMM HH:mm:ss"
+        let formatterDate = DateFormatter()
+        formatterDate.dateFormat = "d MMM yy"
+        let formatterTime = DateFormatter()
+        formatterTime.dateFormat = "HH:mm:ss"
         return HStack{
-            Text(formatter3.string(from: (Date(timeIntervalSince1970: (Double(item.name)! / 1000.0))))).bold()
+            VStack(alignment: .trailing) {
+                Text(formatterDate.string(from: Date(timeIntervalSince1970: Double(item.name)! / 1000.0)))
+                    .font(.custom("Courier", size: 12))
+                    .bold()
+                Text(formatterTime.string(from: Date(timeIntervalSince1970: Double(item.name)! / 1000.0)))
+                    .font(.custom("Courier", size: 12))
+                    .bold()
+            }
+            .padding(.leading, -10)
+            .padding(.trailing, 5)
             if item.enc{
                 Text(item.content ?? "no_content")
+                    .font(.custom("Courier", size: 12))
             } else
             {
                 Text(((item.content?.base64Decoded?.replacingOccurrences(of: item.parent!.name+" ", with: "") ?? "no_content")!))
+                    .font(.custom("Courier", size: 12))
             }
             Spacer()
             Button{
@@ -31,4 +44,8 @@ struct Note: View {
         
     }
 }
+
+//#Preview {
+//    Note(item: TreeNode(content: "aa", name: "1721726280", parent: nil))
+//}
 

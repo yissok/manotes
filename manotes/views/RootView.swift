@@ -121,7 +121,7 @@ struct RootView: View {
                         if fileURL.pathExtension == "txt" {
                             if let fileContent = try? String(contentsOf: fileURL, encoding: .utf8) {
                                 print("File content: \(fileContent)")
-                                handleShortcutInput(fileContent, nodesGlobal, contextProvider.context!)
+                                handleShortcutInput(fileContent, nodesGlobal, contextProvider.context!, noteDate: extractFilenameWithoutExtension(from: fileURL.absoluteString)!)
                                 try FileManager.default.removeItem(at: fileURL)
                             }
                         }
@@ -131,6 +131,26 @@ struct RootView: View {
                 }
             } else {
                 print("iCloud is not available or not configured properly")
+            }
+        }
+        func extractFilenameWithoutExtension(from urlString: String) -> String? {
+            // Regular expression pattern to match the filename without the extension
+            let pattern = ".*/([^/]+)\\.txt$"
+
+            do {
+                let regex = try NSRegularExpression(pattern: pattern, options: [])
+                let nsString = urlString as NSString
+                let results = regex.matches(in: urlString, options: [], range: NSRange(location: 0, length: nsString.length))
+                
+                if let match = results.first {
+                    let filenameWithoutExtension = nsString.substring(with: match.range(at: 1))
+                    return filenameWithoutExtension
+                } else {
+                    return nil
+                }
+            } catch {
+                print("Invalid regex: \(error.localizedDescription)")
+                return nil
             }
         }
         
