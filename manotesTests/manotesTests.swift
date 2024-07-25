@@ -76,7 +76,7 @@ final class manotesTests: XCTestCase {
         
         XCTAssertEqual(sut.fetchData().count, 6)
         
-        var result = TreeNodeSerial(nodesGlobal: [], context: container.mainContext).serialise(root)
+        var result = TreeNodeSerial(nodesGlobal: [TreeNode(content: nil, name: "root", parent: nil)], context: container.mainContext).serialise(root)
         XCTAssertEqual(result, "root-Nintendo-Smash-_-Zelda-Link-1234567:iamasword-_-_-_-")
         print("asserted 1")
         sut.reset()

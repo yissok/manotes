@@ -10,16 +10,14 @@
 # TODO
 
 NEXT EPISODE:
-- move notes button
-- courier font for everything
+- new unenc note within app textarea
+- have readme as part of app
+- delete in bulk
+- order last modified
+- remove double tag
 - not enc work
     - allow to tap view note
     - allow user to edit note (disallow enc edit)
-- simplify insert tree logic
-- version stuff
-    - pull from icloud repo             ------at every startup and before each write action, do a pull on the version file and update if increased in the meantime         ------when pulling, you will know exactly the paths of the files you are missing because you can retrieve last version in o1 and you already have the old version in userdefaults, so loop through paths old version -> file last version
-    - allow to navigate to whatever version
-    - allow to keep current state of tree and forget all history
 - ui options
     - change top 3 dots select
         - will allow to bulk move or bulk delete
@@ -32,8 +30,17 @@ NEXT EPISODE:
         - delete
         - move
         - TAGSONLY: view all notes in this folder
+- squash history
+- version stuff
+    - pull from icloud repo             ------at every startup and before each write action, do a pull on the version file and update if increased in the meantime         ------when pulling, you will know exactly the paths of the files you are missing because you can retrieve last version in o1 and you already have the old version in userdefaults, so loop through paths old version -> file last version
+    - allow to navigate to whatever version
+    - allow to keep current state of tree and forget all history
 
 GRAVE:
+- strange quick animation when deleting first item
+- courier font for everything
+- move notes button
+- simplify insert tree logic
 - not enc work
     - shortcuts
         - allow new note not enc input flag in middleware shortcut

@@ -6,6 +6,7 @@ struct ContentView: View {
         let contextProvider = ContextProvider(context: context)
         return RootView()
             .environmentObject(contextProvider)
+            .environment(\.font, Font.custom("Courier", size: 14))
         
     }
 }

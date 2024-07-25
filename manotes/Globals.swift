@@ -147,7 +147,7 @@ func unwrapNote(noteStr: String, noteDate: String) -> TreeNode{
     } else {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy_HH-mm-ss"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.timeZone = TimeZone.current
         let date = dateFormatter.date(from: noteDate)
         let timeInterval = date!.timeIntervalSince1970
         print("Time in seconds: \(Int(timeInterval))")

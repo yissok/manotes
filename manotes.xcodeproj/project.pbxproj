@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		650FC1522C52C754007254B6 /* MoveBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FC1512C52C754007254B6 /* MoveBtn.swift */; };
+		650FC1542C52CFD0007254B6 /* deletePlayground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FC1532C52CFD0007254B6 /* deletePlayground.swift */; };
 		6518AD6B2C09A84E009148D4 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518AD6A2C09A84E009148D4 /* Globals.swift */; };
 		651BEB532C08F41300414B64 /* ManotesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BEB522C08F41300414B64 /* ManotesApp.swift */; };
 		651BEB552C08F41300414B64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BEB542C08F41300414B64 /* ContentView.swift */; };
@@ -48,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		650FC1512C52C754007254B6 /* MoveBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveBtn.swift; sourceTree = "<group>"; };
+		650FC1532C52CFD0007254B6 /* deletePlayground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = deletePlayground.swift; sourceTree = "<group>"; };
 		6518AD6A2C09A84E009148D4 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		6518AD6C2C09B5D3009148D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		651BEB4F2C08F41300414B64 /* manotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = manotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +175,7 @@
 				65723ECF2C0E12D400BE2B31 /* ItemList.swift */,
 				65723ED12C0E1A9700BE2B31 /* Tag.swift */,
 				65723EC52C0E075E00BE2B31 /* Note.swift */,
+				650FC1532C52CFD0007254B6 /* deletePlayground.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -199,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				65B81CAA2C4BA80B002CC136 /* popup */,
+				650FC1512C52C754007254B6 /* MoveBtn.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -346,6 +352,7 @@
 				65723ED22C0E1A9700BE2B31 /* Tag.swift in Sources */,
 				65723EC92C0E0EA500BE2B31 /* Output.swift in Sources */,
 				6518AD6B2C09A84E009148D4 /* Globals.swift in Sources */,
+				650FC1542C52CFD0007254B6 /* deletePlayground.swift in Sources */,
 				659761172C372E4A00C2F199 /* InputOverlay.swift in Sources */,
 				65723EBD2C0E037800BE2B31 /* Input.swift in Sources */,
 				6554DE692C4D796500E8CCBE /* TreeNodeSerial.swift in Sources */,
@@ -357,6 +364,7 @@
 				65723EBF2C0E052400BE2B31 /* ContextProvider.swift in Sources */,
 				651BEB532C08F41300414B64 /* ManotesApp.swift in Sources */,
 				65723EC62C0E075E00BE2B31 /* Note.swift in Sources */,
+				650FC1522C52C754007254B6 /* MoveBtn.swift in Sources */,
 				65B81CAC2C4BA842002CC136 /* PopupContainer.swift in Sources */,
 				65723ECC2C0E118600BE2B31 /* Operations.swift in Sources */,
 			);

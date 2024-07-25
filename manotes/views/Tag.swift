@@ -15,17 +15,7 @@ struct Tag: View {
                 ItemList(nodesGlobal: nodesGlobal, parent: item)
             }
             Spacer()
-            Button{
-                withAnimation {
-                    showPanel.toggle()
-                    ovelayAction=OverlayAction.moveNode
-                    selectedNode=item
-                }
-            } label: {
-                Image(systemName: "arrow.up.and.down.and.arrow.left.and.right")
-            }
-            .foregroundColor(Color.yellow)
-            .buttonStyle(PlainButtonStyle())
+            MoveBtn(item: item, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
         }
         .frame(minHeight: rowHeight, maxHeight: rowHeight)
         

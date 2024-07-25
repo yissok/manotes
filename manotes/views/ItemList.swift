@@ -17,26 +17,34 @@ struct ItemList: View {
 
     var body: some View {
         let parentName:String=(parent==nil ? LB_ROOT:parent?.name)!
-        let filteredTags:[TreeNode]=nodesGlobal.filter { $0.content == nil && $0.parent == parent }
-        let filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.parent == parent }
+        var filteredTags:[TreeNode]=nodesGlobal.filter { $0.content == nil && $0.parent == parent }
+        var filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.parent == parent }
         printTreeNodeNames(treeNodes: nodesGlobal)
         return ZStack
         {
             VStack {
                 Text(parentName)
                 List {
-                    ForEach(filteredTags, id: \.self) { node in
+                    ForEach(filteredTags, id: \.id) { node in
                         Tag(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
                     }
                     .onDelete { indexes in
-                        deleteAt(filteredTags, indexes)
+                        filteredTags.remove(atOffsets: indexes)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                            deleteAt(filteredTags, indexes)
+                        }
                     }
-                    ForEach(filteredNotes, id: \.self) { node in
-                        Note(item: node)
+                    ForEach(filteredNotes, id: \.id) { node in
+                        Note(item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
                             .listRowBackground(node.enc ? Color.red : Color.green)
                     }
                     .onDelete { indexes in
-                        deleteAt(filteredNotes, indexes)
+                        
+                        filteredNotes.remove(atOffsets: indexes)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                            deleteAt(filteredNotes, indexes)
+                        }
                     }
                 }
             }
@@ -80,6 +88,7 @@ struct ItemList: View {
                 }
             }
             PopupContainer(showPanel: $showPanel, folderName: $folderName, ovelayAction: $ovelayAction, nodesGlobal: nodesGlobal, parentName: parentName, selectedNode: $selectedNode)
+//            deletePlayground()
         }
                      
          func stackContent(_ filteredNotes: [TreeNode]) -> String {

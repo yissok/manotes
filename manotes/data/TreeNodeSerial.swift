@@ -122,11 +122,11 @@ class TreeNodeSerial {
         let moveEl = element.replacingOccurrences(of: "<>", with: "")
         if(!movingNode) {
             movingNode=true
-            currentNode=nodesGlobal.filter { $0.name == moveEl && $0.content == nil }.first!
+            currentNode=nodesGlobal.filter { $0.name == moveEl }.first!
             nodeToMove=currentNode
             return FlowContinuation.skip
         }
-        var newParent = nodesGlobal.filter { $0.name == moveEl && $0.content == nil }.first!
+        var newParent = nodesGlobal.filter { $0.name == moveEl }.first!
         nodeToMove.parent=newParent
         newParent.children!.append(nodeToMove)
         return FlowContinuation.proceed
