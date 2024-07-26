@@ -29,10 +29,11 @@ struct ItemList: View {
                         Tag(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
                     }
                     .onDelete { indexes in
+                        let filteredTagsTemp=filteredTags
                         filteredTags.remove(atOffsets: indexes)
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            deleteAt(filteredTags, indexes)
+                            deleteAt(filteredTagsTemp, indexes)
                         }
                     }
                     ForEach(filteredNotes, id: \.id) { node in
@@ -40,10 +41,10 @@ struct ItemList: View {
                             .listRowBackground(node.enc ? Color.red : Color.green)
                     }
                     .onDelete { indexes in
-                        
+                        let filteredNotesTemp=filteredNotes
                         filteredNotes.remove(atOffsets: indexes)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            deleteAt(filteredNotes, indexes)
+                            deleteAt(filteredNotesTemp, indexes)
                         }
                     }
                 }

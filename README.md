@@ -37,6 +37,7 @@ NEXT EPISODE:
     - allow to keep current state of tree and forget all history
 
 GRAVE:
+- delete index issue caused by animation fix
 - strange quick animation when deleting first item
 - courier font for everything
 - move notes button
