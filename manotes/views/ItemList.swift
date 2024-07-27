@@ -28,16 +28,7 @@ struct ItemList: View {
         {
             VStack {
                 Text(parentName)
-                List(filteredTags+filteredNotes, id: \.id, selection: $selectedNodes) {node in
-                    if node.content==nil{
-                        Tag(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
-                    }
-                    else
-                    {
-                        Note(item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
-                            .listRowBackground(node.enc ? Color.red : Color.green)
-                    }
-                    /*
+                List(selection: $selectedNodes) {
                     ForEach(filteredTags, id: \.id) { node in
                         Tag(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
                     }
@@ -60,7 +51,6 @@ struct ItemList: View {
                             deleteAt(filteredNotesTemp, indexes)
                         }
                     }
-                     */
                 }
             }
             .toolbar {
@@ -84,7 +74,10 @@ struct ItemList: View {
                                 print("move")
                                 selectedNodes.forEach { st in
                                     i += 1
-                                    print("\(i): \(nodesGlobal.filter{$0.id==st}.first!.name)")
+                                    let toBeMoved = nodesGlobal.filter{$0.id==st}.first
+                                    if toBeMoved != nil{
+                                        print("\(i): \(toBeMoved!.name )")
+                                    }
                                 }
                             } else {
                                 withAnimation {
@@ -108,7 +101,10 @@ struct ItemList: View {
                                 print("delete")
                                 selectedNodes.forEach { st in
                                     i += 1
-                                    print("\(i): \(nodesGlobal.filter{$0.id==st}.first!.name)")
+                                    let toBeMoved = nodesGlobal.filter{$0.id==st}.first
+                                    if toBeMoved != nil{
+                                        print("\(i): \(toBeMoved!.name )")
+                                    }
                                 }
                             } else {
                                 presentNoteInput=true

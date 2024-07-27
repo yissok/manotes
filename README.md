@@ -36,6 +36,7 @@ NEXT EPISODE:
 - delete protection on folder level (you are deleting folders containing 143 notes, are you sure)
 - arrows for undo redo
     - when going backin time and settling on previous version, when making new change in there, the whole downstream redo tree will be deleted, add warning popup (if you commit this change you won't be able to click redo)
+- minimise across code filtering queries
 - squash history
 - version stuff
     - pull from icloud repo             ------at every startup and before each write action, do a pull on the version file and update if increased in the meantime         ------when pulling, you will know exactly the paths of the files you are missing because you can retrieve last version in o1 and you already have the old version in userdefaults, so loop through paths old version -> file last version
