@@ -2,7 +2,7 @@ import Foundation
 import SwiftData
 
 @Model
-class TreeNode: Identifiable {
+class TreeNode: Identifiable, Hashable {
     var id: String=""
     var name: String=""
     var content: String?=nil

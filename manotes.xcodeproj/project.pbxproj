@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		650FC1522C52C754007254B6 /* MoveBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FC1512C52C754007254B6 /* MoveBtn.swift */; };
 		650FC1542C52CFD0007254B6 /* deletePlayground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FC1532C52CFD0007254B6 /* deletePlayground.swift */; };
+		65183C2E2C53BA4700E633B4 /* LongInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65183C2D2C53BA4700E633B4 /* LongInput.swift */; };
 		6518AD6B2C09A84E009148D4 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518AD6A2C09A84E009148D4 /* Globals.swift */; };
 		651BEB532C08F41300414B64 /* ManotesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BEB522C08F41300414B64 /* ManotesApp.swift */; };
 		651BEB552C08F41300414B64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BEB542C08F41300414B64 /* ContentView.swift */; };
@@ -26,7 +27,7 @@
 		65723ECC2C0E118600BE2B31 /* Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65723ECB2C0E118600BE2B31 /* Operations.swift */; };
 		65723ED02C0E12D400BE2B31 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65723ECF2C0E12D400BE2B31 /* ItemList.swift */; };
 		65723ED22C0E1A9700BE2B31 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65723ED12C0E1A9700BE2B31 /* Tag.swift */; };
-		659761152C372A3700C2F199 /* FolderPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659761142C372A3700C2F199 /* FolderPopup.swift */; };
+		659761152C372A3700C2F199 /* ShortInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659761142C372A3700C2F199 /* ShortInput.swift */; };
 		659761172C372E4A00C2F199 /* InputOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659761162C372E4A00C2F199 /* InputOverlay.swift */; };
 		65B81CAC2C4BA842002CC136 /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B81CAB2C4BA842002CC136 /* PopupContainer.swift */; };
 		65B9EAD82C11936F00FCFDEB /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B9EAD72C11936F00FCFDEB /* TreeNode.swift */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		650FC1512C52C754007254B6 /* MoveBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveBtn.swift; sourceTree = "<group>"; };
 		650FC1532C52CFD0007254B6 /* deletePlayground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = deletePlayground.swift; sourceTree = "<group>"; };
+		65183C2D2C53BA4700E633B4 /* LongInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongInput.swift; sourceTree = "<group>"; };
 		6518AD6A2C09A84E009148D4 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		6518AD6C2C09B5D3009148D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		651BEB4F2C08F41300414B64 /* manotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = manotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,7 +76,7 @@
 		65723ECB2C0E118600BE2B31 /* Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
 		65723ECF2C0E12D400BE2B31 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		65723ED12C0E1A9700BE2B31 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
-		659761142C372A3700C2F199 /* FolderPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderPopup.swift; sourceTree = "<group>"; };
+		659761142C372A3700C2F199 /* ShortInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortInput.swift; sourceTree = "<group>"; };
 		659761162C372E4A00C2F199 /* InputOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputOverlay.swift; sourceTree = "<group>"; };
 		65B81CAB2C4BA842002CC136 /* PopupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
 		65B9EAD72C11936F00FCFDEB /* TreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
@@ -212,9 +214,10 @@
 		65B81CAA2C4BA80B002CC136 /* popup */ = {
 			isa = PBXGroup;
 			children = (
-				659761142C372A3700C2F199 /* FolderPopup.swift */,
+				659761142C372A3700C2F199 /* ShortInput.swift */,
 				659761162C372E4A00C2F199 /* InputOverlay.swift */,
 				65B81CAB2C4BA842002CC136 /* PopupContainer.swift */,
+				65183C2D2C53BA4700E633B4 /* LongInput.swift */,
 			);
 			path = popup;
 			sourceTree = "<group>";
@@ -359,7 +362,8 @@
 				65723ED02C0E12D400BE2B31 /* ItemList.swift in Sources */,
 				651BEB552C08F41300414B64 /* ContentView.swift in Sources */,
 				65B9EAD82C11936F00FCFDEB /* TreeNode.swift in Sources */,
-				659761152C372A3700C2F199 /* FolderPopup.swift in Sources */,
+				659761152C372A3700C2F199 /* ShortInput.swift in Sources */,
+				65183C2E2C53BA4700E633B4 /* LongInput.swift in Sources */,
 				65723EC42C0E065C00BE2B31 /* RootView.swift in Sources */,
 				65723EBF2C0E052400BE2B31 /* ContextProvider.swift in Sources */,
 				651BEB532C08F41300414B64 /* ManotesApp.swift in Sources */,

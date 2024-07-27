@@ -17,8 +17,13 @@ struct PopupContainer: View {
 
             InputOverlay(showPanel: $showPanel, folderName: $folderName, overlayAction: $ovelayAction, isNewFolderNameFocused: $isNewFolderNameFocused)
                 .zIndex(showPanel ? 1 : 0)
-            FolderPopup(showPanel: $showPanel, folderName: $folderName, overlayAction: $ovelayAction, isNewFolderNameFocused: $isNewFolderNameFocused)
-                .zIndex(showPanel ? 2 : 0)
+            if ovelayAction == OverlayAction.moveNode || ovelayAction == OverlayAction.newFolder {
+                ShortInput(showPanel: $showPanel, folderName: $folderName, overlayAction: $ovelayAction, isNewFolderNameFocused: $isNewFolderNameFocused)
+                    .zIndex(showPanel ? 2 : 0)
+            } else if ovelayAction == OverlayAction.newNote || ovelayAction == OverlayAction.editNote {
+                LongInput(showPanel: $showPanel, folderName: $folderName, overlayAction: $ovelayAction, isNewFolderNameFocused: $isNewFolderNameFocused)
+                    .zIndex(showPanel ? 2 : 0)
+            }
             Toggle("Light", isOn: $showPanel)
                 .onChange(of: showPanel) {
                     isNewFolderNameFocused=showPanel

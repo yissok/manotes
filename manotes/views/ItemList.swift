@@ -3,6 +3,9 @@ import SwiftData
 
 struct ItemList: View {
     @EnvironmentObject var contextProvider: ContextProvider
+    @Environment(\.editMode) var editMode
+    
+    @State private var editModeSt=false
     
     @State private var showPanel = false
     @State private var presentNoteInput = false
@@ -14,17 +17,27 @@ struct ItemList: View {
     var nodesGlobal:[TreeNode]
     var parent:TreeNode?
     @State private var selectedNode:TreeNode?
+    @State private var selectedNodes = Set<String>()
 
     var body: some View {
         let parentName:String=(parent==nil ? LB_ROOT:parent?.name)!
         var filteredTags:[TreeNode]=nodesGlobal.filter { $0.content == nil && $0.parent == parent }
         var filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.parent == parent }
-        printTreeNodeNames(treeNodes: nodesGlobal)
+//        printTreeNodeNames(treeNodes: nodesGlobal)
         return ZStack
         {
             VStack {
                 Text(parentName)
-                List {
+                List(filteredTags+filteredNotes, id: \.id, selection: $selectedNodes) {node in
+                    if node.content==nil{
+                        Tag(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
+                    }
+                    else
+                    {
+                        Note(item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
+                            .listRowBackground(node.enc ? Color.red : Color.green)
+                    }
+                    /*
                     ForEach(filteredTags, id: \.id) { node in
                         Tag(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
                     }
@@ -47,28 +60,66 @@ struct ItemList: View {
                             deleteAt(filteredNotesTemp, indexes)
                         }
                     }
+                     */
                 }
             }
+            .toolbar {
+                EditButton()
+            }.onChange(of: editMode!.wrappedValue, perform: { value in
+                withAnimation {
+                    editModeSt.toggle()
+                }
+                if value.isEditing {
+                    print("editing")
+                } else {
+                    print("done")
+                }
+              })
             .toolbar {
                 ToolbarItemGroup(placement: .bottomBar) {
                     HStack{
                         Button{
-                            
-                            withAnimation {
-                                showPanel.toggle()
-                                ovelayAction=OverlayAction.newFolder
+                            if editModeSt {
+                                var i=0
+                                print("move")
+                                selectedNodes.forEach { st in
+                                    i += 1
+                                    print("\(i): \(nodesGlobal.filter{$0.id==st}.first!.name)")
+                                }
+                            } else {
+                                withAnimation {
+                                    showPanel.toggle()
+                                    ovelayAction=OverlayAction.newFolder
+                                }
                             }
                         } label: {
-                            Image(systemName: "folder.badge.plus")
+                            if editModeSt {
+                                Text("Move Selected")
+                            } else {
+                                Image(systemName: "folder.badge.plus")
+                            }
                         }
                         .foregroundColor(Color.yellow)
                         .allowsHitTesting(!showPanel)//make buttons untouchable when popup is active
                         Spacer()
                         Button{
-                            presentNoteInput=true
-                            handleNewNoteInput(parentName,nodesGlobal,"iam a test note".base64Encoded!, contextProvider.context!)
+                            if editModeSt {
+                                var i=0
+                                print("delete")
+                                selectedNodes.forEach { st in
+                                    i += 1
+                                    print("\(i): \(nodesGlobal.filter{$0.id==st}.first!.name)")
+                                }
+                            } else {
+                                presentNoteInput=true
+                                handleNewNoteInput(parentName,nodesGlobal,"iam a test note".base64Encoded!, contextProvider.context!)
+                            }
                         } label: {
-                            Image(systemName: "square.and.pencil")
+                            if editModeSt {
+                                Text("Delete Selected")
+                            } else {
+                                Image(systemName: "square.and.pencil")
+                            }
                         }
                         .foregroundColor(Color.yellow)
                         .allowsHitTesting(!showPanel)//make buttons untouchable when popup is active

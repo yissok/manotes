@@ -8,12 +8,12 @@ struct Tag: View {
     @Binding var showPanel:Bool
     @Binding var ovelayAction:OverlayAction
     @Binding var selectedNode:TreeNode?
+    @State private var isActive: Bool = false
     
     var body: some View {
         return HStack{
-            NavigationLink(item.name) {
-                ItemList(nodesGlobal: nodesGlobal, parent: item)
-            }
+            Text(item.name)
+            NavigationLink(destination: ItemList(nodesGlobal: nodesGlobal, parent: item)) {}
             Spacer()
             MoveBtn(item: item, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
         }

@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 import Combine
 
-struct FolderPopup: View {
+struct ShortInput: View {
     @Environment(\.colorScheme) var colorScheme
 
     @Binding var showPanel:Bool
