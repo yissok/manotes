@@ -59,6 +59,7 @@ struct RootView: View {
                     .foregroundColor(Color.yellow)
                 }
                 ItemList(nodesGlobal: nodesGlobal, parent: root)
+                Text(getFile() ?? "na")
             }
         }
 //        .onAppear(perform: start)
@@ -76,7 +77,10 @@ struct RootView: View {
                 print("Background")
             }
         }
-        
+        func getFile() -> String? {
+            guard let url = Bundle.main.url(forResource: "README", withExtension: "md") else { return nil }
+            return try? String(contentsOf: url, encoding: .utf8)
+        }
         
         func pickLatestFileHistory() {
             print("pickLatestFileHistory: ",versionNumber)
