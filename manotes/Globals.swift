@@ -27,6 +27,7 @@ enum OverlayAction {
     case unset
     case newFolder
     case moveNode
+    case bulkMove
     case newNote
     case editNote
 }

@@ -40,7 +40,7 @@ struct RootView: View {
         }
         preStart()
         let root = initRoot()
-        return NavigationStack{
+        return NavigationView{
             VStack{
                 HStack{
                     Text(String(versionNumber!))
@@ -59,9 +59,15 @@ struct RootView: View {
                     .foregroundColor(Color.yellow)
                 }
                 ItemList(nodesGlobal: nodesGlobal, parent: root)
-                Text(getFile() ?? "na")
+                ScrollView {
+                    VStack {
+                        Text(getFile() ?? "na")
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
 //        .onAppear(perform: start)
         .onOpenURL { (url) in
             //when being called by url from other app
@@ -78,7 +84,7 @@ struct RootView: View {
             }
         }
         func getFile() -> String? {
-            guard let url = Bundle.main.url(forResource: "README", withExtension: "md") else { return nil }
+            guard let url = Bundle.main.url(forResource: "TODO", withExtension: "md") else { return nil }
             return try? String(contentsOf: url, encoding: .utf8)
         }
         

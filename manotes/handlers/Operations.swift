@@ -5,13 +5,12 @@ import SwiftData
 
 func generateSerialTree(_ parent: String,_ tags: [TreeNode], _ name: String?, _ content: String?, _ context: ModelContext) -> String {
     let lowCParent=parent.lowercased()
-    print("adding tag")
     let parentTag = tags.filter { $0.name.caseInsensitiveCompare(lowCParent) == .orderedSame }.first ?? nil
     let tree=parentChain(parentTag)+addNoteOrTagOrExcl(content, name)
     print("executing: "+tree)
     return tree
 }
-func generateSerialTreeForMoving(_ toMove: String, _ destination: String,_ tags: [TreeNode], _ context: ModelContext) -> String {
+func generateSerialTreeForMoving(_ toMove: String, _ destination: String,_ tags: [TreeNode], _ context: ModelContext, isNote: Bool) -> String {
     let lowCDestination=destination.lowercased()
     print("generateSerialTreeForMoving")
     var toMoveNode = tags.filter { $0.name == toMove }.first!
@@ -21,9 +20,17 @@ func generateSerialTreeForMoving(_ toMove: String, _ destination: String,_ tags:
     if destNode.name == "" {
         return ""
     }
-    let destNodeChain = parentChain(destNode).replacingOccurrences(of: LB_ROOT+"-", with: "")+"<>"
+    let destNodeChain = parentChain(destNode).replacingOccurrences(of: LB_ROOT+"-", with: "")+"<>"+getChainToGetBackToRoot(parentChain(isNote ? destNode.parent : destNode))
     print("generateSerialTreeForMoving: "+toMoveNodeChain+backToRootChain+destNodeChain)
     return toMoveNodeChain+backToRootChain+destNodeChain
+}
+
+func generateSerialTreeForBulkMoving(_ destination: String,_ tags: [TreeNode], _ context: ModelContext, _ selectedNodes:Set<TreeNode>) -> [String] {
+    var multiMove:[String]=[]
+    selectedNodes.forEach { toMoveItem in
+        multiMove.append(generateSerialTreeForMoving(toMoveItem.name, destination, tags, context, isNote: toMoveItem.content != nil))
+    }
+    return multiMove
 }
 
 func getChainToGetBackToRoot(_ chain: String) -> String {
@@ -83,7 +90,7 @@ func deleteItem(_ item: TreeNode, _ context: ModelContext) {
 }
 
 func removeChildReference(_ item: TreeNode, _ context: ModelContext) {
-    print("delete ref")
+    print("delete ref from \(item.name)'s parent")
     if let index = item.parent?.children!.firstIndex(of: item) {
         item.parent?.children!.remove(at: index)
         try! context.save()

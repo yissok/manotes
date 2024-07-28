@@ -2,15 +2,20 @@ import Foundation
 import SwiftData
 
 
-func handleNewTagInput(_ currentTag: String,_ tags: [TreeNode], _ name: String, _ context: ModelContext, _ ovelayAction: OverlayAction) {
+func handleNewTagInput(_ currentTag: String,_ tags: [TreeNode], _ name: String, _ context: ModelContext, _ ovelayAction: OverlayAction, _ selectedNodes:Set<TreeNode>) {
     let lowCName=name.lowercased()
     switch ovelayAction {
         case OverlayAction.newFolder:
             let serial = generateSerialTree(currentTag, tags, lowCName, nil, context)
             TreeNodeSerial(nodesGlobal: tags, context: context).insertTree(serial)
         case OverlayAction.moveNode:
-            let serial = generateSerialTreeForMoving(currentTag, lowCName, tags, context)
+        let serial = generateSerialTreeForMoving(currentTag, lowCName, tags, context, isNote: tags.filter { $0.name == currentTag }.first!.content != nil)
             TreeNodeSerial(nodesGlobal: tags, context: context).insertTree(serial)
+        case OverlayAction.bulkMove:
+            let serials:[String] = generateSerialTreeForBulkMoving(lowCName, tags, context, selectedNodes)
+            serials.forEach { serial in
+                TreeNodeSerial(nodesGlobal: tags, context: context).insertTree(serial)
+            }
         default:
             print("refusing to generate tree input")
     }

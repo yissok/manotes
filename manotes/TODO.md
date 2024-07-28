@@ -1,18 +1,9 @@
-# RULES
-- any note has only one tag
-- the name of a note is its tag
-- the parent of a note is its tag
-- any tag is unique 
-- folders have child folders and notes
-- folders have one parent
-- tag and folders are the same thing
-
 # TODO
 
 NEXT EPISODE:
 - new unenc note within app textarea
-- have readme as part of app
 - delete in bulk
+- move in bulk
 - order last modified
 - remove double tag
 - not enc work
@@ -49,6 +40,8 @@ NEXT EPISODE:
     - allow to keep current state of tree and forget all history
 
 GRAVE:
+- fix weird selection glitch when popping back from child folder
+- have readme as part of app
 - delete index issue caused by animation fix
 - strange quick animation when deleting first item
 - courier font for everything

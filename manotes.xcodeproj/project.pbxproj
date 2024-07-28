@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		650A76582C562A7100464E71 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 650A76572C562A7100464E71 /* README.md */; };
+		650A76582C562A7100464E71 /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = 650A76572C562A7100464E71 /* TODO.md */; };
 		650FC1522C52C754007254B6 /* MoveBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FC1512C52C754007254B6 /* MoveBtn.swift */; };
 		650FC1542C52CFD0007254B6 /* deletePlayground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FC1532C52CFD0007254B6 /* deletePlayground.swift */; };
 		65183C2E2C53BA4700E633B4 /* LongInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65183C2D2C53BA4700E633B4 /* LongInput.swift */; };
@@ -52,7 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		650A76572C562A7100464E71 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = manotes/README.md; sourceTree = "<group>"; };
+		650A76572C562A7100464E71 /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = TODO.md; path = manotes/TODO.md; sourceTree = "<group>"; };
 		650FC1512C52C754007254B6 /* MoveBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveBtn.swift; sourceTree = "<group>"; };
 		650FC1532C52CFD0007254B6 /* deletePlayground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = deletePlayground.swift; sourceTree = "<group>"; };
 		65183C2D2C53BA4700E633B4 /* LongInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongInput.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 		651BEB462C08F41300414B64 = {
 			isa = PBXGroup;
 			children = (
-				650A76572C562A7100464E71 /* README.md */,
+				650A76572C562A7100464E71 /* TODO.md */,
 				651BEB512C08F41300414B64 /* manotes */,
 				651BEB642C08F41600414B64 /* manotesTests */,
 				651BEB6E2C08F41600414B64 /* manotesUITests */,
@@ -329,7 +329,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				650A76582C562A7100464E71 /* README.md in Resources */,
+				650A76582C562A7100464E71 /* TODO.md in Resources */,
 				651BEB5C2C08F41500414B64 /* Preview Assets.xcassets in Resources */,
 				651BEB592C08F41500414B64 /* Assets.xcassets in Resources */,
 			);

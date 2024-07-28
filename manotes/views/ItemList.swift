@@ -17,7 +17,8 @@ struct ItemList: View {
     var nodesGlobal:[TreeNode]
     var parent:TreeNode?
     @State private var selectedNode:TreeNode?
-    @State private var selectedNodes = Set<String>()
+    @State private var selectedNodesIds = Set<String>()
+    @State private var selectedNodes = Set<TreeNode>()
 
     var body: some View {
         let parentName:String=(parent==nil ? LB_ROOT:parent?.name)!
@@ -28,7 +29,7 @@ struct ItemList: View {
         {
             VStack {
                 Text(parentName)
-                List(selection: $selectedNodes) {
+                List(selection: $selectedNodesIds) {
                     ForEach(filteredTags, id: \.id) { node in
                         Tag(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
                     }
@@ -53,9 +54,14 @@ struct ItemList: View {
                     }
                 }
             }
+            .onAppear(perform: {
+                selectedNodesIds.removeAll()
+            })
             .toolbar {
                 EditButton()
-            }.onChange(of: editMode!.wrappedValue, perform: { value in
+            }
+            .environment(\.editMode, editMode)
+            .onChange(of: editMode!.wrappedValue, perform: { value in
                 withAnimation {
                     editModeSt.toggle()
                 }
@@ -72,12 +78,17 @@ struct ItemList: View {
                             if editModeSt {
                                 var i=0
                                 print("move")
-                                selectedNodes.forEach { st in
+                                selectedNodesIds.forEach { st in
                                     i += 1
                                     let toBeMoved = nodesGlobal.filter{$0.id==st}.first
                                     if toBeMoved != nil{
+                                        selectedNodes.insert(toBeMoved!)
                                         print("\(i): \(toBeMoved!.name )")
                                     }
+                                }
+                                withAnimation {
+                                    showPanel.toggle()
+                                    ovelayAction=OverlayAction.bulkMove
                                 }
                             } else {
                                 withAnimation {
@@ -99,11 +110,13 @@ struct ItemList: View {
                             if editModeSt {
                                 var i=0
                                 print("delete")
-                                selectedNodes.forEach { st in
+                                selectedNodesIds.forEach { st in
                                     i += 1
-                                    let toBeMoved = nodesGlobal.filter{$0.id==st}.first
-                                    if toBeMoved != nil{
-                                        print("\(i): \(toBeMoved!.name )")
+                                    let toBeDeleted = nodesGlobal.filter{$0.id==st}.first
+                                    if toBeDeleted != nil{
+                                        let toBeDeletedName = toBeDeleted!.name
+                                        handleDeletionInput(toBeDeletedName, nodesGlobal, contextProvider.context!)
+                                        print("\(i): \(toBeDeletedName )")
                                     }
                                 }
                             } else {
@@ -135,7 +148,7 @@ struct ItemList: View {
                     .allowsHitTesting(!showPanel)//make buttons untouchable when popup is active
                 }
             }
-            PopupContainer(showPanel: $showPanel, folderName: $folderName, ovelayAction: $ovelayAction, nodesGlobal: nodesGlobal, parentName: parentName, selectedNode: $selectedNode)
+            PopupContainer(showPanel: $showPanel, folderName: $folderName, ovelayAction: $ovelayAction, nodesGlobal: nodesGlobal, parentName: parentName, selectedNode: $selectedNode, selectedNodes: $selectedNodes)
 //            deletePlayground()
         }
                      

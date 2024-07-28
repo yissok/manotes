@@ -16,7 +16,6 @@ struct Note: View {
         let formatterTime = DateFormatter()
         formatterTime.dateFormat = "HH:mm:ss"
         formatterTime.timeZone = TimeZone.current
-        print(TimeZone.current.abbreviation())
         return HStack{
             VStack(alignment: .trailing) {
                 Text(formatterDate.string(from: Date(timeIntervalSince1970: Double(item.name)! / 1000.0)))
@@ -28,7 +27,7 @@ struct Note: View {
             .padding(.trailing, 5)
             Text(item.enc ?
                      item.content ?? "no_content" :
-                     (item.content?.base64Decoded?.replacingOccurrences(of: item.parent!.name+" ", with: "") ?? "no_content")!
+                    (item.content?.base64Decoded ?? "no_content")!
             )
             Spacer()
             MoveBtn(item: item, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
