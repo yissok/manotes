@@ -65,6 +65,8 @@ func addNoteOrTagOrExcl(_ content: String?, _ name: String?) -> String {
 
 func deleteTag(_ item: TreeNode, _ context: ModelContext) {
     item.children!.forEach { child in
+//        if child.name=="bb" || child.name=="bchild" {
+//            return        }
         deleteTag(child, context)
     }
     if (item.content==nil) {

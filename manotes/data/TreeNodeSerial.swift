@@ -86,6 +86,11 @@ class TreeNodeSerial {
     }
     
     func invalidLoop() -> Bool{
+        if movingNode {
+            if element == nodeToMove.name {
+                return true
+            }
+        }
         return nodeToMove.name != "" && element == (nodeToMove.name+"<>")
     }
     

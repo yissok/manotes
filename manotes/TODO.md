@@ -38,6 +38,7 @@ NEXT EPISODE:
     - allow to keep current state of tree and forget all history
 
 GRAVE:
+- disable moving node in child of itself
 - disable moving node in itself
 - delete in bulk
 - move in bulk

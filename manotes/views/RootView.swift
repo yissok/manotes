@@ -107,6 +107,9 @@ struct RootView: View {
             nodesGlobal.filter { $0.parent==nil &&  $0.name != LB_ROOT }.forEach { item in
                 deleteTag(item, contextProvider.context!)
             }
+//            nodesGlobal.filter {$0.name == "bb" }.forEach { item in
+//                deleteTag(item, contextProvider.context!)
+//            }
         }
         
         func removeHeadlessNodes() {
