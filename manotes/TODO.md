@@ -2,8 +2,6 @@
 
 NEXT EPISODE:
 - new unenc note within app textarea
-- delete in bulk
-- move in bulk
 - order last modified
 - remove double tag
 - not enc work
@@ -40,6 +38,9 @@ NEXT EPISODE:
     - allow to keep current state of tree and forget all history
 
 GRAVE:
+- disable moving node in itself
+- delete in bulk
+- move in bulk
 - fix weird selection glitch when popping back from child folder
 - have readme as part of app
 - delete index issue caused by animation fix

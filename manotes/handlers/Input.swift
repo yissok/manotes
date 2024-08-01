@@ -9,7 +9,7 @@ func handleNewTagInput(_ currentTag: String,_ tags: [TreeNode], _ name: String, 
             let serial = generateSerialTree(currentTag, tags, lowCName, nil, context)
             TreeNodeSerial(nodesGlobal: tags, context: context).insertTree(serial)
         case OverlayAction.moveNode:
-        let serial = generateSerialTreeForMoving(currentTag, lowCName, tags, context, isNote: tags.filter { $0.name == currentTag }.first!.content != nil)
+            let serial = generateSerialTreeForMoving(currentTag, lowCName, tags, context, isNote: tags.filter { $0.name == currentTag }.first!.content != nil)
             TreeNodeSerial(nodesGlobal: tags, context: context).insertTree(serial)
         case OverlayAction.bulkMove:
             let serials:[String] = generateSerialTreeForBulkMoving(lowCName, tags, context, selectedNodes)

@@ -24,7 +24,7 @@ struct ItemList: View {
         let parentName:String=(parent==nil ? LB_ROOT:parent?.name)!
         var filteredTags:[TreeNode]=nodesGlobal.filter { $0.content == nil && $0.parent == parent }
         var filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.parent == parent }
-//        printTreeNodeNames(treeNodes: nodesGlobal)
+        printTreeNodeNames(treeNodes: nodesGlobal)
         return ZStack
         {
             VStack {

@@ -86,7 +86,7 @@ class TreeNodeSerial {
     }
     
     func invalidLoop() -> Bool{
-        return nodeToMove.name != "" && element == nodeToMove.name
+        return nodeToMove.name != "" && element == (nodeToMove.name+"<>")
     }
     
     func goParentDir() -> FlowContinuation{
@@ -107,6 +107,9 @@ class TreeNodeSerial {
             return FlowContinuation.skip
         }
         deleteTag(matching.first!, context)
+        if matching.first!.content == nil {
+            // TODO: rewrite file with all tagfolders
+        }
         return FlowContinuation.proceed
     }
     
@@ -153,7 +156,8 @@ class TreeNodeSerial {
         currentNode.children!.append(folderNode)
         stack.append(folderNode)
         currentNode = folderNode
-        context.insert(folderNode)
+        context.insert(folderNode)// why not adding to nodes global
+        // TODO: append this node to file of all tagfolder names
         return FlowContinuation.proceed
     }
     
