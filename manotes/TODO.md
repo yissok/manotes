@@ -1,12 +1,8 @@
 # TODO
 
 NEXT EPISODE:
-- new unenc note within app textarea
-- order last modified
-- remove double tag
-- not enc work
-    - allow to tap view note
-    - allow user to edit note (disallow enc edit)
+- compress all shortcuts to 1
+    - keep updating a specific file in manotes icloud with all tagfolders
 - ui options
     - change top 3 dots select
         - edit
@@ -27,10 +23,18 @@ NEXT EPISODE:
         - copy
         - move
         - TAGSONLY: view all notes in this folder
+- tap note to view
+- not enc work
+    - new note from app
+    - allow to tap view note
+    - allow user to edit note (disallow enc edit)
+- order last modified
 - delete protection on folder level (you are deleting folders containing 143 notes, are you sure)
 - arrows for undo redo
     - when going backin time and settling on previous version, when making new change in there, the whole downstream redo tree will be deleted, add warning popup (if you commit this change you won't be able to click redo)
-- minimise across code filtering queries
+- CODE QUALITY
+    - minimise across code filtering queries
+    - simplify RootView and ListView
 - squash history
 - version stuff
     - pull from icloud repo             ------at every startup and before each write action, do a pull on the version file and update if increased in the meantime         ------when pulling, you will know exactly the paths of the files you are missing because you can retrieve last version in o1 and you already have the old version in userdefaults, so loop through paths old version -> file last version
@@ -38,6 +42,8 @@ NEXT EPISODE:
     - allow to keep current state of tree and forget all history
 
 GRAVE:
+- any enc shortcut
+- remove double tag
 - disable moving node in child of itself
 - disable moving node in itself
 - delete in bulk

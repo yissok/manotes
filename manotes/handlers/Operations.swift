@@ -6,7 +6,7 @@ import SwiftData
 func generateSerialTree(_ parent: String,_ tags: [TreeNode], _ name: String?, _ content: String?, _ context: ModelContext) -> String {
     let lowCParent=parent.lowercased()
     let parentTag = tags.filter { $0.name.caseInsensitiveCompare(lowCParent) == .orderedSame }.first ?? nil
-    let tree=parentChain(parentTag)+addNoteOrTagOrExcl(content, name)
+    let tree=parentChain(parentTag)+addNoteOrTagOrExcl(content, name, parentTag?.name)
     print("executing: "+tree)
     return tree
 }
@@ -49,12 +49,15 @@ func parentChain(_ parentTag: TreeNode?) -> String {
     return parentChain(parentTag!.parent!)+"-"+parentTag!.name
 }
 
-func addNoteOrTagOrExcl(_ content: String?, _ name: String?) -> String {
+func addNoteOrTagOrExcl(_ content: String?, _ name: String?, _ parentTag: String?) -> String {
     var tmpContent = content
     var isEncrypted = false
     if tmpContent != nil {
         if tmpContent!.starts(with: NOENC_LABEL) {
             tmpContent=tmpContent!.replacingOccurrences(of: NOENC_LABEL, with: "")
+            if parentTag != nil {
+                tmpContent = tmpContent!.decodeUrl().base64Decoded?.components(separatedBy: " ").dropFirst().joined(separator: " ").base64Encoded?.encodeUrl()
+            }
         } else if tmpContent!.starts(with: YESENC_LABEL){
             tmpContent=tmpContent!.replacingOccurrences(of: YESENC_LABEL, with: "")
             isEncrypted=true
