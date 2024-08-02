@@ -14,10 +14,22 @@ struct Tag: View {
         return HStack{
             Text(item.name)
             NavigationLink(destination: ItemList(nodesGlobal: nodesGlobal, parent: item)) {}
-            Spacer()
-            MoveBtn(item: item, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
         }
         .frame(minHeight: rowHeight, maxHeight: rowHeight)
+        .contextMenu {
+                Button(action: {
+                    showPanel.toggle()
+                    ovelayAction=OverlayAction.moveNode
+                    selectedNode=item
+                }) {
+                    Label("Move", systemImage: "arrow.up.and.down.and.arrow.left.and.right")
+                }
+                Button(role: .destructive, action: {
+                    handleDeletionInput(item.name, nodesGlobal,contextProvider.context!)
+                }) {
+                    Label("Delete", systemImage: "trash")
+                }
+        }
         
     }
 }

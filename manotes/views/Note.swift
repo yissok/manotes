@@ -3,6 +3,7 @@ import SwiftData
 
 struct Note: View {
     @EnvironmentObject var contextProvider: ContextProvider
+    var nodesGlobal:[TreeNode]
     let item: TreeNode
     @Binding var showPanel:Bool
     @Binding var ovelayAction:OverlayAction
@@ -30,17 +31,36 @@ struct Note: View {
                     (item.content?.base64Decoded ?? "no_content")!
             )
             Spacer()
-            MoveBtn(item: item, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
-            Button{
-                callShortcutWith(item.content ?? "no_content")
-            } label: {
-                Image(systemName: "pencil")
-            }
-            .foregroundColor(Color.yellow)
-            .buttonStyle(PlainButtonStyle())
         }
         .frame(minHeight: rowHeight, maxHeight: rowHeight)
-        
-        
+        .contextMenu {
+            Button(action: {
+                
+            }) {
+                Label("Edit", systemImage: "pencil")
+            }
+            Button(action: {
+                callShortcutWith(item.content ?? "no_content")
+            }) {
+                Label("View", systemImage: "eye")
+            }
+            Button(action: {
+                
+            }) {
+                Label("Copy", systemImage: "doc.on.doc")
+            }
+            Button(action: {
+                showPanel.toggle()
+                ovelayAction=OverlayAction.moveNode
+                selectedNode=item
+            }) {
+                Label("Move", systemImage: "arrow.up.and.down.and.arrow.left.and.right")
+            }
+            Button(role: .destructive, action: {
+                handleDeletionInput(item.name, nodesGlobal,contextProvider.context!)
+            }) {
+                Label("Delete", systemImage: "trash")
+            }
+        }
     }
 }

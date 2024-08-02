@@ -1,6 +1,33 @@
 # TODO
 
 NEXT EPISODE:
+- logic for ui options
+    - bulk
+        - export
+            - content
+            - content & metadata
+        - import (to current folder)
+        - settings
+    - item
+        - unenc edit mode
+        - unenc/enc view mode
+        - copy
+- tap note to view
+- new note from app
+- order last modified
+- delete protection on folder level (you are deleting folders containing 143 notes, are you sure)
+- arrows for undo redo
+    - when going backin time and settling on previous version, when making new change in there, the whole downstream redo tree will be deleted, add warning popup (if you commit this change you won't be able to click redo)
+- CODE QUALITY
+    - minimise across code filtering queries
+    - simplify RootView and ListView
+- squash history
+- version stuff
+    - pull from icloud repo             ------at every startup and before each write action, do a pull on the version file and update if increased in the meantime         ------when pulling, you will know exactly the paths of the files you are missing because you can retrieve last version in o1 and you already have the old version in userdefaults, so loop through paths old version -> file last version
+    - allow to navigate to whatever version
+    - allow to keep current state of tree and forget all history
+
+GRAVE:
 - ui options
     - change top 3 dots select
         - export
@@ -18,25 +45,6 @@ NEXT EPISODE:
         - copy
         - move
         - TAGSONLY: view all notes in this folder
-- tap note to view
-- not enc work
-    - new note from app
-    - allow to tap view note
-    - allow user to edit note (disallow enc edit)
-- order last modified
-- delete protection on folder level (you are deleting folders containing 143 notes, are you sure)
-- arrows for undo redo
-    - when going backin time and settling on previous version, when making new change in there, the whole downstream redo tree will be deleted, add warning popup (if you commit this change you won't be able to click redo)
-- CODE QUALITY
-    - minimise across code filtering queries
-    - simplify RootView and ListView
-- squash history
-- version stuff
-    - pull from icloud repo             ------at every startup and before each write action, do a pull on the version file and update if increased in the meantime         ------when pulling, you will know exactly the paths of the files you are missing because you can retrieve last version in o1 and you already have the old version in userdefaults, so loop through paths old version -> file last version
-    - allow to navigate to whatever version
-    - allow to keep current state of tree and forget all history
-
-GRAVE:
 - ui opts 3 dots
     - edit
         - will allow to bulk move or bulk delete

@@ -42,7 +42,7 @@ struct ItemList: View {
                         }
                     }
                     ForEach(filteredNotes, id: \.id) { node in
-                        Note(item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
+                        Note(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
                             .listRowBackground(node.enc ? Color.red : Color.green)
                     }
                     .onDelete { indexes in
