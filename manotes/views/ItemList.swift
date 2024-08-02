@@ -3,8 +3,8 @@ import SwiftData
 
 struct ItemList: View {
     @EnvironmentObject var contextProvider: ContextProvider
-    @Environment(\.editMode) var editMode
-    
+    @State var editMode: EditMode = .inactive //<- Declare the @State var for editMode
+
     @State private var editModeSt=false
     
     @State private var showPanel = false
@@ -58,10 +58,14 @@ struct ItemList: View {
                 selectedNodesIds.removeAll()
             })
             .toolbar {
-                EditButton()
+                if !showPanel {
+                    if editMode == .active {
+                        EditButton()
+                    }
+                }
             }
-            .environment(\.editMode, editMode)
-            .onChange(of: editMode!.wrappedValue, perform: { value in
+            .environment(\.editMode, $editMode)
+            .onChange(of: $editMode.wrappedValue, perform: { value in
                 withAnimation {
                     editModeSt.toggle()
                 }
@@ -137,21 +141,55 @@ struct ItemList: View {
             }
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
-                    Button{
-                        if filteredNotes.count>0{
-                            callShortcutWith(parentName+"\n"+stackContent(filteredNotes) ?? "no_content")
+                    Group {
+                        if !showPanel {
+                            Menu {
+                                Button("Decrypt All", action: decryptAll)
+                                Button("Edit", action: toggleEditMode)
+                                Menu("Export") {
+                                    Button("As filesystem .zip", action: fsExport)
+                                    Button("As manotes format", action: manotesExport)
+                                }
+                                Button("Import", action: importTree)
+                                Button("Settings", action: settingsView)
+                            } label: {
+                                Label("", systemImage: "ellipsis.circle")
+                            }
+                            .tint(.yellow)
+                            .transition(.opacity)
+                        } else{
+                            Label("", systemImage: "ellipsis.circle").opacity(0)
+                                .navigationBarBackButtonHidden(true)
                         }
-                    } label: {
-                        Image(systemName: "ellipsis.circle")
                     }
-                    .foregroundColor(Color.yellow)
-                    .allowsHitTesting(!showPanel)//make buttons untouchable when popup is active
+                    .animation(.easeInOut, value: showPanel) // Apply the animation
+
                 }
             }
             PopupContainer(showPanel: $showPanel, folderName: $folderName, ovelayAction: $ovelayAction, nodesGlobal: nodesGlobal, parentName: parentName, selectedNode: $selectedNode, selectedNodes: $selectedNodes)
 //            deletePlayground()
         }
-                     
+        
+        func toggleEditMode() {
+            withAnimation {
+                if editMode == .active {
+                    editMode = .inactive
+                } else {
+                    editMode = .active
+                }
+            }
+        }
+        
+        func decryptAll() {
+            if filteredNotes.count>0{
+                callShortcutWith(parentName+"\n"+stackContent(filteredNotes) ?? "no_content")
+            }
+        }
+        func fsExport() { }
+        func manotesExport() { }
+        func importTree() { }
+        func settingsView() { }
+        
          func stackContent(_ filteredNotes: [TreeNode]) -> String {
              var res=""
              filteredNotes.filter{$0.enc}.forEach { note in

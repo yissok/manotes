@@ -1,13 +1,8 @@
 # TODO
 
 NEXT EPISODE:
-- compress all shortcuts to 1
-    - keep updating a specific file in manotes icloud with all tagfolders
 - ui options
     - change top 3 dots select
-        - edit
-            - will allow to bulk move or bulk delete
-        - decrypt
         - export
             - content
             - content & metadata
@@ -42,6 +37,11 @@ NEXT EPISODE:
     - allow to keep current state of tree and forget all history
 
 GRAVE:
+- ui opts 3 dots
+    - edit
+        - will allow to bulk move or bulk delete
+    - decrypt
+- compress all shortcuts to 1
 - any enc shortcut
 - remove double tag
 - disable moving node in child of itself

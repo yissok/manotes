@@ -135,7 +135,8 @@ struct RootView: View {
                             if let fileContent = try? String(contentsOf: fileURL, encoding: .utf8) {
                                 print("File content: \(fileContent)")
                                 handleShortcutInput(fileContent, nodesGlobal, contextProvider.context!, noteDate: extractFilenameWithoutExtension(from: fileURL.absoluteString)!)
-                                try FileManager.default.removeItem(at: fileURL)
+//not deleting for debug purposes
+//                                try FileManager.default.removeItem(at: fileURL)
                             }
                         }
                     }
