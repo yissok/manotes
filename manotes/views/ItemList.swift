@@ -43,7 +43,7 @@ struct ItemList: View {
                     }
                     ForEach(filteredNotes, id: \.id) { node in
                         Note(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
-                            .listRowBackground(node.enc ? Color.red : Color.green)
+                            .listRowBackground(Color.secondary)
                     }
                     .onDelete { indexes in
                         let filteredNotesTemp=filteredNotes
@@ -125,7 +125,7 @@ struct ItemList: View {
                                 }
                             } else {
                                 presentNoteInput=true
-                                handleNewNoteInput(parentName,nodesGlobal,"iam a test note".base64Encoded!, contextProvider.context!)
+                                handleNewNoteInput(parentName,nodesGlobal,"iam a test noteiam a test noteiam a test note".base64Encoded!, contextProvider.context!)
                             }
                         } label: {
                             if editModeSt {

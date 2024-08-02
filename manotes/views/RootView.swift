@@ -137,6 +137,26 @@ struct RootView: View {
                                 handleShortcutInput(fileContent, nodesGlobal, contextProvider.context!, noteDate: extractFilenameWithoutExtension(from: fileURL.absoluteString)!)
 //not deleting for debug purposes
 //                                try FileManager.default.removeItem(at: fileURL)
+                                let destinationURL = iCloudURL.appendingPathComponent("input_backups")
+
+                                if !FileManager.default.fileExists(atPath: destinationURL.path) {
+                                    do {
+                                        try FileManager.default.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: nil)
+                                    } catch {
+                                        print("Failed to create directory: \(error)")
+                                    }
+                                }
+
+                                if FileManager.default.fileExists(atPath: fileURL.path) {
+                                    do {
+                                        try FileManager.default.moveItem(at: fileURL, to: destinationURL.appendingPathComponent(fileURL.lastPathComponent))
+                                        print("File moved successfully.")
+                                    } catch {
+                                        print("Failed to move file: \(error)")
+                                    }
+                                } else {
+                                    print("The file does not exist at the specified path.")
+                                }
                             }
                         }
                     }

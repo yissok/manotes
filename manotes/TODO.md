@@ -1,6 +1,12 @@
 # TODO
 
 NEXT EPISODE:
+- support multiline inputs
+- new syntax for tree language for overwriting note
+- tap note to view
+    - edit option in view
+- new note from app
+- delete protection on folder level (you are deleting folders containing 143 notes, are you sure)
 - logic for ui options
     - bulk
         - export
@@ -9,15 +15,7 @@ NEXT EPISODE:
         - import (to current folder)
         - settings
     - item
-        - unenc edit mode
-        - unenc/enc view mode
         - copy
-- tap note to view
-- new note from app
-- order last modified
-- delete protection on folder level (you are deleting folders containing 143 notes, are you sure)
-- arrows for undo redo
-    - when going backin time and settling on previous version, when making new change in there, the whole downstream redo tree will be deleted, add warning popup (if you commit this change you won't be able to click redo)
 - CODE QUALITY
     - minimise across code filtering queries
     - simplify RootView and ListView
@@ -26,6 +24,9 @@ NEXT EPISODE:
     - pull from icloud repo             ------at every startup and before each write action, do a pull on the version file and update if increased in the meantime         ------when pulling, you will know exactly the paths of the files you are missing because you can retrieve last version in o1 and you already have the old version in userdefaults, so loop through paths old version -> file last version
     - allow to navigate to whatever version
     - allow to keep current state of tree and forget all history
+- order last modified
+- arrows for undo redo
+    - when going backin time and settling on previous version, when making new change in there, the whole downstream redo tree will be deleted, add warning popup (if you commit this change you won't be able to click redo)
 
 GRAVE:
 - ui options

@@ -17,11 +17,13 @@ struct Note: View {
         let formatterTime = DateFormatter()
         formatterTime.dateFormat = "HH:mm:ss"
         formatterTime.timeZone = TimeZone.current
+        let dayDate = formatterDate.string(from: Date(timeIntervalSince1970: Double(item.name)! / 1000.0))
+        let hourDate = formatterTime.string(from: Date(timeIntervalSince1970: Double(item.name)! / 1000.0))
         return HStack{
             VStack(alignment: .trailing) {
-                Text(formatterDate.string(from: Date(timeIntervalSince1970: Double(item.name)! / 1000.0)))
+                Text(dayDate)
                     .bold()
-                Text(formatterTime.string(from: Date(timeIntervalSince1970: Double(item.name)! / 1000.0)))
+                Text(hourDate)
                     .bold()
             }
             .padding(.leading, -10)
@@ -30,7 +32,13 @@ struct Note: View {
                      item.content ?? "no_content" :
                     (item.content?.base64Decoded ?? "no_content")!
             )
+            if item.enc{
+                Label("", systemImage: "lock")
+                    .foregroundColor(Color.yellow)
+            }
             Spacer()
+            NavigationLink(destination: NoteView(note: item, dayDate: dayDate, hourDate: hourDate)) { EmptyView()}
+                .frame(width: 0.5, height: 0,  alignment: .trailing)
         }
         .frame(minHeight: rowHeight, maxHeight: rowHeight)
         .contextMenu {

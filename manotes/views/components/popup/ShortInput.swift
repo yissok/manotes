@@ -3,7 +3,6 @@ import SwiftData
 import Combine
 
 struct ShortInput: View {
-    @Environment(\.colorScheme) var colorScheme
 
     @Binding var showPanel:Bool
     @Binding var folderName: String
@@ -18,8 +17,8 @@ struct ShortInput: View {
         self._zSwap = State<Bool>(wrappedValue: showPanel.wrappedValue)
     }
     let height:CGFloat=60
-    let horizPadSpace:CGFloat=100
     let fontSz:CGFloat=20
+    let horizPadSpace:CGFloat=100
     
     var body: some View {
         return
@@ -27,7 +26,7 @@ struct ShortInput: View {
                 TextField(overlayAction==OverlayAction.newFolder ? "Folder" : "Destination", text: $folderName)
                     .frame(maxWidth: .infinity)
                     .frame(height: height)
-                    .font(Font.system(size: fontSz, design: .default))
+                    .font(Font.system(size: fontSz))
                     .textFieldStyle(PlainTextFieldStyle())
                     .padding([.horizontal], 20)
                     .background(Color(.systemBackground))
@@ -53,13 +52,7 @@ struct ShortInput: View {
                             unshow(showPanel: $showPanel, zSwap: $zSwap, isNewFolderNameFocused: $isNewFolderNameFocused)
                         }
                     }) {
-                        Text(overlayAction==OverlayAction.newFolder ? "Add" : "Move")
-                            .frame(height: height)
-                            .frame(maxWidth: .infinity)
-                            .font(Font.system(size: fontSz, design: .default))
-                            .background(Color(.systemBackground))
-                            .foregroundColor(colorScheme == .dark ? .white : .black)
-                            .cornerRadius(8)
+                        BigButton(content: overlayAction==OverlayAction.newFolder ? "Add" : "Move", bgColor: nil)
                     }
                 }
                 .padding([.horizontal], horizPadSpace)
