@@ -26,7 +26,7 @@ struct ShortInput: View {
                 TextField(overlayAction==OverlayAction.newFolder ? "Folder" : "Destination", text: $folderName)
                     .frame(maxWidth: .infinity)
                     .frame(height: height)
-                    .font(Font.system(size: fontSz))
+                    .font(Font.system(size: fontSz, design: .monospaced))
                     .textFieldStyle(PlainTextFieldStyle())
                     .padding([.horizontal], 20)
                     .background(Color(.systemBackground))

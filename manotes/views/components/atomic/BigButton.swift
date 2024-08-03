@@ -10,7 +10,7 @@ struct BigButton: View {
         Text(content)
             .frame(height: height)
             .frame(maxWidth: .infinity)
-            .font(Font.system(size: fontSz))
+            .font(Font.system(size: fontSz, design: .monospaced))
             .background(bgColor == nil ? Color(.systemBackground) : bgColor)
             .foregroundColor(colorScheme == .dark ? .white : .black)
             .cornerRadius(8)

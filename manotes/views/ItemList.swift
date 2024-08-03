@@ -140,7 +140,7 @@ struct ItemList: View {
                 }
             }
             .toolbar {
-                ToolbarItemGroup(placement: .topBarTrailing) {
+                HStack{//you have to keep this else somehow list gets pushed down a step
                     Group {
                         if !showPanel {
                             Menu {
@@ -154,16 +154,21 @@ struct ItemList: View {
                                 Button("Settings", action: settingsView)
                             } label: {
                                 Label("", systemImage: "ellipsis.circle")
+                                    .transition(.opacity)
                             }
                             .tint(.yellow)
                             .transition(.opacity)
                         } else{
-                            Label("", systemImage: "ellipsis.circle").opacity(0)
-                                .navigationBarBackButtonHidden(true)
+                            Menu {
+                            } label: {
+                                Label("", systemImage: "ellipsis.circle")
+                                    .transition(.opacity).opacity(0)
+                            }
+                            .tint(.yellow)
+                            .navigationBarBackButtonHidden(true)
                         }
                     }
                     .animation(.easeInOut, value: showPanel) // Apply the animation
-
                 }
             }
             PopupContainer(showPanel: $showPanel, folderName: $folderName, ovelayAction: $ovelayAction, nodesGlobal: nodesGlobal, parentName: parentName, selectedNode: $selectedNode, selectedNodes: $selectedNodes)
