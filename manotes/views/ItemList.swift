@@ -24,7 +24,7 @@ struct ItemList: View {
         let parentName:String=(parent==nil ? LB_ROOT:parent?.name)!
         var filteredTags:[TreeNode]=nodesGlobal.filter { $0.content == nil && $0.parent == parent }
         var filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.parent == parent }
-        printTreeNodeNames(treeNodes: nodesGlobal)
+//        printTreeNodeNames(treeNodes: nodesGlobal)
         return ZStack
         {
             VStack {
@@ -41,9 +41,8 @@ struct ItemList: View {
                             deleteAt(filteredTagsTemp, indexes)
                         }
                     }
-                    ForEach(filteredNotes, id: \.id) { node in
-                        Note(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
-                            .listRowBackground(Color.secondary)
+                    ForEach(Array(zip(filteredNotes.indices, filteredNotes)), id: \.1.id) { index, node in
+                        Note(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode, index:index)
                     }
                     .onDelete { indexes in
                         let filteredNotesTemp=filteredNotes

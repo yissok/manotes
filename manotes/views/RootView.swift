@@ -59,12 +59,13 @@ struct RootView: View {
                     .foregroundColor(Color.yellow)
                 }
                 ItemList(nodesGlobal: nodesGlobal, parent: root)
-                ScrollView {
-                    VStack {
-                        Text(getFile() ?? "na")
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                }
+                //readme
+//                ScrollView {
+//                    VStack {
+//                        Text(getFile() ?? "na")
+//                            .fixedSize(horizontal: false, vertical: true)
+//                    }
+//                }
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

@@ -2,13 +2,16 @@ import SwiftUI
 import SwiftData
 
 struct Note: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var contextProvider: ContextProvider
     var nodesGlobal:[TreeNode]
     let item: TreeNode
     @Binding var showPanel:Bool
     @Binding var ovelayAction:OverlayAction
     @Binding var selectedNode:TreeNode?
+    var index:Int
     
+    @State private var dynamicHeight: CGFloat = .zero
     
     var body: some View {
         let formatterDate = DateFormatter()
@@ -20,18 +23,20 @@ struct Note: View {
         let dayDate = formatterDate.string(from: Date(timeIntervalSince1970: Double(item.name)! / 1000.0))
         let hourDate = formatterTime.string(from: Date(timeIntervalSince1970: Double(item.name)! / 1000.0))
         return HStack{
-            VStack(alignment: .trailing) {
-                Text(dayDate)
-                    .bold()
-                Text(hourDate)
-                    .bold()
-            }
-            .padding(.leading, -10)
-            .padding(.trailing, 5)
+//            VStack(alignment: .trailing) {
+//                Text(dayDate)
+//                    .bold()
+//                Text(hourDate)
+//                    .bold()
+//            }
+//            .padding(.leading, -10)
+//            .padding(.trailing, 5)
             Text(item.enc ?
                      item.content ?? "no_content" :
                     (item.content?.base64Decoded ?? "no_content")!
             )
+            .lineLimit(nil)
+            .fixedSize(horizontal: false, vertical: true)
             if item.enc{
                 Label("", systemImage: "lock")
                     .foregroundColor(Color.yellow)
@@ -39,8 +44,8 @@ struct Note: View {
             Spacer()
             NavigationLink(destination: NoteView(note: item, dayDate: dayDate, hourDate: hourDate)) { EmptyView()}
                 .frame(width: 0.5, height: 0,  alignment: .trailing)
-        }
-        .frame(minHeight: rowHeight, maxHeight: rowHeight)
+                .opacity(0)
+        }.listRowBackground(getColRow())
         .contextMenu {
             Button(action: {
                 
@@ -70,5 +75,12 @@ struct Note: View {
                 Label("Delete", systemImage: "trash")
             }
         }
+    }
+    func getColRow() -> Color {
+        return colorScheme == .dark ?
+            (index % 2 == 0 ?   Color(red: 96/255, green: 72/255, blue: 31/255) :
+                                Color(red: 58/255, green: 43/255, blue: 19/255)) :
+            (index % 2 == 0 ?   Color(red: 211/255, green: 178/255, blue: 120/255) :
+                                Color(red: 224/255, green: 199/255, blue: 158/255))
     }
 }
