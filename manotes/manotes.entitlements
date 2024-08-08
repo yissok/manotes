@@ -13,9 +13,15 @@
 		<string>CloudDocuments</string>
 		<string>CloudKit</string>
 	</array>
+	<key>com.apple.developer.siri</key>
+	<true/>
 	<key>com.apple.developer.ubiquity-container-identifiers</key>
 	<array>
 		<string>iCloud.com.yissok.manotes</string>
+	</array>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.note.buds</string>
 	</array>
 </dict>
 </plist>

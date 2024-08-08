@@ -1,6 +1,7 @@
 # TODO
 
 NEXT EPISODE:
+- convert everything to core data
 - support multiline inputs
 - new syntax for tree language for overwriting note
 - tap note to view
@@ -29,6 +30,7 @@ NEXT EPISODE:
     - when going backin time and settling on previous version, when making new change in there, the whole downstream redo tree will be deleted, add warning popup (if you commit this change you won't be able to click redo)
 
 GRAVE:
+- add shortcut action noenc
 - ui options
     - change top 3 dots select
         - export
