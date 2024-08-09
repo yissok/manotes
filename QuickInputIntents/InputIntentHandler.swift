@@ -42,7 +42,9 @@ class InputIntentHandler: NSObject, InputIntentHandling {
 //        
 //        handleShortcutInput("aaaa", nodesGlobal, containerSUI.mainContext, noteDate: "1722969113881")
         let context = ModelContext(modelContainer)
-        let text = "NOENC_app_"+intent.inp!.base64Encoded!
+        
+        let firstWord = intent.inp!.components(separatedBy: " ").first
+        let text = "NOENC_\(firstWord ?? "nun")_"+intent.inp!.base64Encoded!
         let trees = loadTrees(modelContext: context)
         printTreeNodeNames(treeNodes: trees)
         let dateFormatter = DateFormatter()

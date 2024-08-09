@@ -1,6 +1,32 @@
 import SwiftUI
 import SwiftData
 
+
+
+struct SheetView: View {
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        
+        Button("Export", action: exportTree)
+            .font(.title)
+            .padding()
+        Button("Import", action: importTree)
+            .font(.title)
+            .padding()
+        Button("Press to dismiss") {
+            dismiss()
+        }
+        .font(.title)
+        .padding()
+    }
+    
+    
+    func exportTree() { }
+    func importTree() { }
+}
+
+
 struct ItemList: View {
     @EnvironmentObject var contextProvider: ContextProvider
     @State var editMode: EditMode = .inactive //<- Declare the @State var for editMode
@@ -19,6 +45,8 @@ struct ItemList: View {
     @State private var selectedNode:TreeNode?
     @State private var selectedNodesIds = Set<String>()
     @State private var selectedNodes = Set<TreeNode>()
+    @State private var showingSettingsSheet = false
+
 
     var body: some View {
         let parentName:String=(parent==nil ? LB_ROOT:parent?.name)!
@@ -137,20 +165,19 @@ struct ItemList: View {
                         .allowsHitTesting(!showPanel)//make buttons untouchable when popup is active
                     }
                 }
+                
             }
             .toolbar {
                 HStack{//you have to keep this else somehow list gets pushed down a step
                     Group {
                         if !showPanel {
                             Menu {
-                                Button("Decrypt All", action: decryptAll)
+                                Button("Decrypt", action: decryptAll)
                                 Button("Edit", action: toggleEditMode)
-                                Menu("Export") {
-                                    Button("As filesystem .zip", action: fsExport)
-                                    Button("As manotes format", action: manotesExport)
+                                Button("Settings") {
+                                    showingSettingsSheet.toggle()
+                                    print(showingSettingsSheet)
                                 }
-                                Button("Import", action: importTree)
-                                Button("Settings", action: settingsView)
                             } label: {
                                 Label("", systemImage: "ellipsis.circle")
                                     .transition(.opacity)
@@ -166,6 +193,9 @@ struct ItemList: View {
                             .tint(.yellow)
                             .navigationBarBackButtonHidden(true)
                         }
+                    }
+                    .sheet(isPresented: $showingSettingsSheet) {
+                        SheetView()
                     }
                     .animation(.easeInOut, value: showPanel) // Apply the animation
                 }
@@ -189,10 +219,6 @@ struct ItemList: View {
                 callShortcutWith(parentName+"\n"+stackContent(filteredNotes) ?? "no_content")
             }
         }
-        func fsExport() { }
-        func manotesExport() { }
-        func importTree() { }
-        func settingsView() { }
         
          func stackContent(_ filteredNotes: [TreeNode]) -> String {
              var res=""
@@ -217,4 +243,3 @@ struct ItemList: View {
         
     }
 }
-

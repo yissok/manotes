@@ -56,7 +56,12 @@ func addNoteOrTagOrExcl(_ content: String?, _ name: String?, _ parentTag: String
         if tmpContent!.starts(with: NOENC_LABEL) {
             tmpContent=tmpContent!.replacingOccurrences(of: NOENC_LABEL, with: "")
             if parentTag != nil {
-                tmpContent = tmpContent!.decodeUrl().base64Decoded?.components(separatedBy: " ").dropFirst().joined(separator: " ").base64Encoded?.encodeUrl()
+                let sentence = tmpContent!.decodeUrl().base64Decoded?.components(separatedBy: " ")
+                if sentence?.count==1 {
+//                    tmpContent=tmpContent?.encodeUrl()
+                } else {
+                    tmpContent = sentence!.dropFirst().joined(separator: " ").base64Encoded?.encodeUrl()
+                }
             }
         } else if tmpContent!.starts(with: YESENC_LABEL){
             tmpContent=tmpContent!.replacingOccurrences(of: YESENC_LABEL, with: "")

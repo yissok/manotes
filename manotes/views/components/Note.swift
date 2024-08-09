@@ -12,6 +12,7 @@ struct Note: View {
     var index:Int
     
     @State private var dynamicHeight: CGFloat = .zero
+    @State private var isActive: Bool = false
     
     var body: some View {
         let formatterDate = DateFormatter()
@@ -40,12 +41,20 @@ struct Note: View {
             if item.enc{
                 Label("", systemImage: "lock")
                     .foregroundColor(Color.yellow)
+            } else {
+                NavigationLink(destination: NoteView(note: item, dayDate: dayDate, hourDate: hourDate), isActive: $isActive) { EmptyView()}
+                    .frame(width: 0, height: 0,  alignment: .trailing)
+                    .opacity(0)
             }
-            Spacer()
-            NavigationLink(destination: NoteView(note: item, dayDate: dayDate, hourDate: hourDate)) { EmptyView()}
-                .frame(width: 0.5, height: 0,  alignment: .trailing)
-                .opacity(0)
-        }.listRowBackground(getColRow())
+        }
+        .onTapGesture {
+            if item.enc {
+                callShortcutWith(item.content ?? "no_content")
+            } else {
+                isActive=true
+            }
+        }
+        .listRowBackground(getColRow())
         .contextMenu {
             Button(action: {
                 
