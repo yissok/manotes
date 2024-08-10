@@ -11,7 +11,8 @@ class TreeNodeSerial {
     var stack: [TreeNode]
     var element: String
     var noteDate: String
-    
+    var noteAdded: TreeNode
+
     init(nodesGlobal: [TreeNode], context:ModelContext) {
         self.nodesGlobal = nodesGlobal
         self.context = context
@@ -21,6 +22,7 @@ class TreeNodeSerial {
         stack=[]
         element=""
         noteDate="0"
+        noteAdded=TreeNode(content: "", name: "", parent: nil)
     }
     
     convenience init(nodesGlobal: [TreeNode], context:ModelContext, noteDate: String) {
@@ -47,13 +49,13 @@ class TreeNodeSerial {
         case stop
     }
     
-    func insertTree(_ serialisedTree: String) -> [TreeNode] {
+    func insertTree(_ serialisedTree: String) -> TreeNode {
         var elements = serialisedTree.split(separator: "-")
         for elementSub in elements {
             var toBeContinued = FlowContinuation.proceed
             element = String(elementSub)
             if invalidLoop() {
-                return []
+                return TreeNode(content: "", name: "", parent: nil)
             }
             if element == "_" {
                 toBeContinued = goParentDir()
@@ -68,7 +70,7 @@ class TreeNodeSerial {
             }
             switch toBeContinued {
                 case FlowContinuation.stop:
-                    return []
+                    return TreeNode(content: "", name: "", parent: nil)
                 case FlowContinuation.skip:
                     continue
                 default:
@@ -78,11 +80,11 @@ class TreeNodeSerial {
                 try context.save()
             } catch {
                 print("Failed to save context: \(error)")
-                return []
+                return TreeNode(content: "", name: "", parent: nil)
             }
         }
         commit(serialisedTree)
-        return nodesGlobal
+        return noteAdded
     }
     
     func invalidLoop() -> Bool{
@@ -121,6 +123,7 @@ class TreeNodeSerial {
     func addNote() -> FlowContinuation {
         let note = unwrapNote(noteStr: String(element), noteDate: noteDate)
         let noteNode = TreeNode(content: (note.enc ? "@" : "")+note.content!, name: note.name, parent: currentNode)
+        noteAdded = noteNode
         currentNode.children!.append(noteNode)
         context.insert(noteNode)
         return FlowContinuation.proceed

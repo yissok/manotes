@@ -298,7 +298,6 @@
 				651BEB542C08F41300414B64 /* ContentView.swift */,
 				65723EC32C0E065C00BE2B31 /* RootView.swift */,
 				65723ECF2C0E12D400BE2B31 /* ItemList.swift */,
-				65B098FC2C5D6B6C00D6B53E /* NoteView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -337,6 +336,7 @@
 				65B098FE2C5D708300D6B53E /* atomic */,
 				65723ED12C0E1A9700BE2B31 /* Tag.swift */,
 				65723EC52C0E075E00BE2B31 /* Note.swift */,
+				65B098FC2C5D6B6C00D6B53E /* NoteView.swift */,
 				65B81CAA2C4BA80B002CC136 /* popup */,
 				650FC1512C52C754007254B6 /* MoveBtn.swift */,
 			);

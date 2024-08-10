@@ -22,9 +22,9 @@ func handleNewTagInput(_ currentTag: String,_ tags: [TreeNode], _ name: String, 
     
 }
 
-func handleNewNoteInput(_ currentTag: String,_ tags: [TreeNode], _ content: String, _ context: ModelContext) {
+func handleNewNoteInput(_ currentTag: String,_ tags: [TreeNode], _ content: String, _ context: ModelContext) -> TreeNode {
     let serial = generateSerialTree(currentTag, tags, nil, content, context)
-    TreeNodeSerial(nodesGlobal: tags, context: context).insertTree(serial)
+    return TreeNodeSerial(nodesGlobal: tags, context: context).insertTree(serial)
 }
 
 func handleDeletionInput(_ currentTag: String,_ tags: [TreeNode], _ context: ModelContext) {

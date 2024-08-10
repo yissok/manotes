@@ -140,7 +140,11 @@ func unwrapNote(noteStr: String, noteDate: String) -> TreeNode{
     var noteName:String
     let note = noteStr.split(separator: ":")
     if noteDate=="0"{
-        noteName = note.count==1 ? String(Int(Date().timeIntervalSince1970.truncate(places: 3)*1000)) : String(note[0])
+        if note.count>1 {
+            noteName=String(note[0])
+        } else {
+            noteName=String(Int(Date().timeIntervalSince1970.truncate(places: 3)*1000))
+        }
     } else {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy_HH-mm-ss"
@@ -150,6 +154,13 @@ func unwrapNote(noteStr: String, noteDate: String) -> TreeNode{
         print("Time in seconds: \(Int(timeInterval))")
         noteName = note.count==1 ? String(Int(timeInterval)*1000) : String(note[0])
     }
-    let noteContent = note.count==1 ? String(note[0]) : String(note[1])
+    var noteContent:String
+    if note.count==1 {
+        noteContent=String(note[0])
+    } else if note.count==2{
+        noteContent=String(note[1])
+    } else {
+        noteContent=""
+    }
     return TreeNode(content: noteContent.decodeUrl(), name: noteName, parent: nil)
 }

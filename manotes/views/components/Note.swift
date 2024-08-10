@@ -42,7 +42,7 @@ struct Note: View {
                 Label("", systemImage: "lock")
                     .foregroundColor(Color.yellow)
             } else {
-                NavigationLink(destination: NoteView(note: item, dayDate: dayDate, hourDate: hourDate), isActive: $isActive) { EmptyView()}
+                NavigationLink(destination: NoteView(note: item, isNew: false), isActive: $isActive) { EmptyView()}
                     .frame(width: 0, height: 0,  alignment: .trailing)
                     .opacity(0)
             }

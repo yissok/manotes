@@ -46,6 +46,8 @@ struct ItemList: View {
     @State private var selectedNodesIds = Set<String>()
     @State private var selectedNodes = Set<TreeNode>()
     @State private var showingSettingsSheet = false
+    @State private var showingNewNoteSheet = false
+    @State private var newNote:TreeNode=TreeNode(content: "", name: "", parent: nil)
 
 
     var body: some View {
@@ -57,6 +59,7 @@ struct ItemList: View {
         {
             VStack {
                 Text(parentName)
+                    .font(.title)
                 List(selection: $selectedNodesIds) {
                     ForEach(filteredTags, id: \.id) { node in
                         Tag(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
@@ -152,7 +155,8 @@ struct ItemList: View {
                                 }
                             } else {
                                 presentNoteInput=true
-                                handleNewNoteInput(parentName,nodesGlobal,"iam a test noteiam a test noteiam a test note".base64Encoded!, contextProvider.context!)
+                                newNote = handleNewNoteInput(parentName,nodesGlobal,"".base64Encoded!, contextProvider.context!)
+                                showingNewNoteSheet.toggle()
                             }
                         } label: {
                             if editModeSt {
@@ -163,6 +167,9 @@ struct ItemList: View {
                         }
                         .foregroundColor(Color.yellow)
                         .allowsHitTesting(!showPanel)//make buttons untouchable when popup is active
+                        .sheet(isPresented: $showingNewNoteSheet) {
+                            NoteView(note: newNote, isNew: true)
+                        }
                     }
                 }
                 
