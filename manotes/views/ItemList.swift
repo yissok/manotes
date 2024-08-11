@@ -54,6 +54,7 @@ struct ItemList: View {
         let parentName:String=(parent==nil ? LB_ROOT:parent?.name)!
         var filteredTags:[TreeNode]=nodesGlobal.filter { $0.content == nil && $0.parent == parent }
         var filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.parent == parent }
+//        var filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.content != "" && $0.parent == parent }
 //        printTreeNodeNames(treeNodes: nodesGlobal)
         return ZStack
         {
@@ -156,7 +157,10 @@ struct ItemList: View {
                             } else {
                                 presentNoteInput=true
                                 newNote = handleNewNoteInput(parentName,nodesGlobal,"".base64Encoded!, contextProvider.context!)
-                                showingNewNoteSheet.toggle()
+                                print(newNote.parent?.name)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                                    showingNewNoteSheet.toggle()
+                                }
                             }
                         } label: {
                             if editModeSt {
@@ -169,6 +173,12 @@ struct ItemList: View {
                         .allowsHitTesting(!showPanel)//make buttons untouchable when popup is active
                         .sheet(isPresented: $showingNewNoteSheet) {
                             NoteView(note: newNote, isNew: true)
+                        }
+                        .onChange(of: showingNewNoteSheet) { newValue in
+                            if !newValue {
+                                // This will be called when the sheet is dismissed
+                                onSheetDismissed()
+                            }
                         }
                     }
                 }
@@ -211,6 +221,16 @@ struct ItemList: View {
 //            deletePlayground()
         }
         
+        func onSheetDismissed() {
+            // Your callback logic here
+            print("The sheet was dismissed")
+            if let index = nodesGlobal.firstIndex(where: { $0.content == "" }) {
+                print("Index content to delete: \(nodesGlobal[index].content)")
+                handleDeletionInput(nodesGlobal[index].name, nodesGlobal,contextProvider.context!)
+            } else {
+                print("No element found with content == \"\"")
+            }
+        }
         func toggleEditMode() {
             withAnimation {
                 if editMode == .active {

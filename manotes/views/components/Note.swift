@@ -44,7 +44,7 @@ struct Note: View {
             } else {
                 NavigationLink(destination: NoteView(note: item, isNew: false), isActive: $isActive) { EmptyView()}
                     .frame(width: 0, height: 0,  alignment: .trailing)
-                    .opacity(0)
+                    .opacity(0)replace this with sheet
             }
         }
         .onTapGesture {
