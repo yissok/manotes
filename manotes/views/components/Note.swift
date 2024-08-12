@@ -32,6 +32,7 @@ struct Note: View {
 //            }
 //            .padding(.leading, -10)
 //            .padding(.trailing, 5)
+            Text(String(item.orderUnderParent))
             Text(item.enc ?
                      item.content ?? "no_content" :
                     (item.content?.base64Decoded ?? "no_content")!
@@ -51,6 +52,8 @@ struct Note: View {
                     .foregroundColor(Color.yellow)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        .background(getColRow().opacity(0.8))
         .onTapGesture {
             if item.enc {
                 callShortcutWith(item.content ?? "no_content")
@@ -102,10 +105,13 @@ struct Note: View {
         }
     }
     func getColRow() -> Color {
-        return colorScheme == .dark ?
-            (index % 2 == 0 ?   Color(red: 96/255, green: 72/255, blue: 31/255) :
-                                Color(red: 58/255, green: 43/255, blue: 19/255)) :
-            (index % 2 == 0 ?   Color(red: 211/255, green: 178/255, blue: 120/255) :
-                                Color(red: 224/255, green: 199/255, blue: 158/255))
+        return colorScheme == .dark ? Color.black : Color.white
     }
+//    func getColRow() -> Color { //brown
+//        return colorScheme == .dark ?
+//            (index % 2 == 0 ?   Color(red: 96/255, green: 72/255, blue: 31/255) :
+//                                Color(red: 58/255, green: 43/255, blue: 19/255)) :
+//            (index % 2 == 0 ?   Color(red: 211/255, green: 178/255, blue: 120/255) :
+//                                Color(red: 224/255, green: 199/255, blue: 158/255))
+//    }
 }

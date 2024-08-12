@@ -45,6 +45,16 @@ extension URL {
         }
     }
 }
+extension Array
+{
+    mutating func move(from oldIndex: Index, to newIndex: Index) {
+        // Don't work for free and use swap when indices are next to each other - this
+        // won't rebuild array and will be super efficient.
+        if oldIndex == newIndex { return }
+        if abs(newIndex - oldIndex) == 1 { return self.swapAt(oldIndex, newIndex) }
+        self.insert(self.remove(at: oldIndex), at: newIndex)
+    }
+}
 extension String {
     func numberOfOccurrencesOf(string: String) -> Int {
         return self.components(separatedBy:string).count - 1
@@ -162,5 +172,5 @@ func unwrapNote(noteStr: String, noteDate: String) -> TreeNode{
     } else {
         noteContent=""
     }
-    return TreeNode(content: noteContent.decodeUrl(), name: noteName, parent: nil)
+    return TreeNode(content: noteContent.decodeUrl(), name: noteName, parent: nil, orderUnderParent: 0)
 }

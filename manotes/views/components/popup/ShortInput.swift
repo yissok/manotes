@@ -27,7 +27,7 @@ struct ShortInput: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: height)
                     .font(Font.system(size: fontSz, design: .monospaced))
-                    .textFieldStyle(PlainTextFieldStyle())
+//                    .textFieldStyle(PlainTextFieldStyle())
                     .padding([.horizontal], 20)
                     .background(Color(.systemBackground))
                     .focused($isNewFolderNameFocused)

@@ -31,7 +31,7 @@ struct RootView: View {
         func initRoot() -> TreeNode {
             let rootList: [TreeNode]=nodesGlobal.filter({ $0.name == LB_ROOT })
             if rootList.isEmpty {
-                let root = TreeNode(content: nil, name: LB_ROOT, parent: nil)
+                let root = TreeNode(content: nil, name: LB_ROOT, parent: nil, orderUnderParent: 0) 
                 contextProvider.context!.insert(root)
                 return root
             } else {

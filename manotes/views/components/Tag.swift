@@ -12,7 +12,7 @@ struct Tag: View {
     
     var body: some View {
         return HStack{
-            Text(item.name).bold()
+            Text(item.name)
             NavigationLink(destination: ItemList(nodesGlobal: nodesGlobal, parent: item)) {}
         }
         .frame(minHeight: rowHeight, maxHeight: rowHeight)

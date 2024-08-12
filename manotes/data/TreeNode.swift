@@ -9,11 +9,12 @@ class TreeNode: Identifiable, Hashable {
     var children: [TreeNode]? = []
     var parent: TreeNode?=nil
     var enc: Bool=true
+    var orderUnderParent: Int=0
     
     @Relationship(inverse: \TreeNode.parent) var childrenINVERSE: [TreeNode]?
     @Relationship(inverse: \TreeNode.children) var parentINVERSE: TreeNode?
     
-    init(content: String?, name: String, parent:TreeNode?) {
+    init(content: String?, name: String, parent:TreeNode?, orderUnderParent: Int) {
         var tmpContent = content
         if tmpContent != nil {
             if tmpContent!.starts(with: "@") {
@@ -27,6 +28,7 @@ class TreeNode: Identifiable, Hashable {
         self.content = tmpContent
         self.name = name
         self.parent = parent
+        self.orderUnderParent = orderUnderParent
         children = []
     }
 }

@@ -47,14 +47,14 @@ struct ItemList: View {
     @State private var selectedNodes = Set<TreeNode>()
     @State private var showingSettingsSheet = false
     @State private var showingNewNoteSheet = false
-    @State private var newNote:TreeNode=TreeNode(content: "", name: "", parent: nil)
+    @State private var newNote:TreeNode=TreeNode(content: "", name: "", parent: nil, orderUnderParent: 0)
 
 
     var body: some View {
         let parentName:String=(parent==nil ? LB_ROOT:parent?.name)!
         var filteredTags:[TreeNode]=nodesGlobal.filter { $0.content == nil && $0.parent == parent }
-        var filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.parent == parent }
-//        var filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.content != "" && $0.parent == parent }
+        var filteredNotes:[TreeNode]=nodesGlobal.filter { $0.content != nil && $0.parent == parent }.sorted(by: { $0.orderUnderParent < $1.orderUnderParent })
+//        var filteredNotes:[TreeNode]=parent!.children!.filter { $0.content != nil && $0.content != "" }
 //        printTreeNodeNames(treeNodes: nodesGlobal)
         return ZStack
         {
@@ -73,6 +73,9 @@ struct ItemList: View {
                             deleteAt(filteredTagsTemp, indexes)
                         }
                     }
+                    .onMove { sources, destination in
+                        move(filteredNotes, parent:parent!, from: sources, to: destination)
+                    }
                     ForEach(Array(zip(filteredNotes.indices, filteredNotes)), id: \.1.id) { index, node in
                         Note(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode, index:index)
                     }
@@ -82,6 +85,9 @@ struct ItemList: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                             deleteAt(filteredNotesTemp, indexes)
                         }
+                    }
+                    .onMove { sources, destination in
+                        move(filteredNotes, parent:parent!, from: sources, to: destination)
                     }
                 }
             }
@@ -260,6 +266,23 @@ struct ItemList: View {
           return String((0..<length).map{ _ in letters.randomElement()! })
         }
         
+        func move(_ filteredNodes:[TreeNode], parent: TreeNode, from sources: IndexSet, to destination: Int) {
+            for source in sources {
+                let destFromZero = source>destination ? destination : destination-1
+                print("parent \(parent.name)")
+                print("src \(source)")
+                print("destination \(destFromZero)")
+                print("")
+                parent.children!.filter { $0.content != nil && $0.orderUnderParent > source }.forEach { node in
+                    node.orderUnderParent -= 1
+                }
+                
+                parent.children!.filter { $0.content != nil && $0.orderUnderParent >= destFromZero }.forEach { node in
+                    node.orderUnderParent += 1
+                }
+                filteredNodes[source].orderUnderParent=destFromZero
+            }
+        }
         func deleteAt(_ filteredNodes:[TreeNode], _ indexes:IndexSet) {
             for index in indexes {
                 if let globalIndex = nodesGlobal.firstIndex(of: filteredNodes[index]) {

@@ -17,12 +17,12 @@ class TreeNodeSerial {
         self.nodesGlobal = nodesGlobal
         self.context = context
         currentNode=nodesGlobal.filter { $0.name == LB_ROOT }.first!
-        nodeToMove=TreeNode(content: "", name: "", parent: nil)
+        nodeToMove=TreeNode(content: "", name: "", parent: nil, orderUnderParent: 0)
         movingNode=false
         stack=[]
         element=""
         noteDate="0"
-        noteAdded=TreeNode(content: "", name: "", parent: nil)
+        noteAdded=TreeNode(content: "", name: "", parent: nil, orderUnderParent: 0)
     }
     
     convenience init(nodesGlobal: [TreeNode], context:ModelContext, noteDate: String) {
@@ -55,7 +55,7 @@ class TreeNodeSerial {
             var toBeContinued = FlowContinuation.proceed
             element = String(elementSub)
             if invalidLoop() {
-                return TreeNode(content: "", name: "", parent: nil)
+                return TreeNode(content: "", name: "", parent: nil, orderUnderParent: 0)
             }
             if element == "_" {
                 toBeContinued = goParentDir()
@@ -70,7 +70,7 @@ class TreeNodeSerial {
             }
             switch toBeContinued {
                 case FlowContinuation.stop:
-                    return TreeNode(content: "", name: "", parent: nil)
+                    return TreeNode(content: "", name: "", parent: nil, orderUnderParent: 0)
                 case FlowContinuation.skip:
                     continue
                 default:
@@ -80,7 +80,7 @@ class TreeNodeSerial {
                 try context.save()
             } catch {
                 print("Failed to save context: \(error)")
-                return TreeNode(content: "", name: "", parent: nil)
+                return TreeNode(content: "", name: "", parent: nil, orderUnderParent: 0)
             }
         }
         commit(serialisedTree)
@@ -122,7 +122,7 @@ class TreeNodeSerial {
     
     func addNote() -> FlowContinuation {
         let note = unwrapNote(noteStr: String(element), noteDate: noteDate)
-        let noteNode = TreeNode(content: (note.enc ? "@" : "")+note.content!, name: note.name, parent: currentNode)
+        let noteNode = TreeNode(content: (note.enc ? "@" : "")+note.content!, name: note.name, parent: currentNode, orderUnderParent: nodesGlobal.filter { $0.content != nil && $0.parent == currentNode }.max(by: { $0.orderUnderParent < $1.orderUnderParent })!.orderUnderParent+1)
         noteAdded = noteNode
         currentNode.children!.append(noteNode)
         context.insert(noteNode)
@@ -160,7 +160,7 @@ class TreeNodeSerial {
             print("refusing to add duplicate folder"+element)
             return FlowContinuation.skip
         }
-        let folderNode:TreeNode=TreeNode(content: nil, name: String(element), parent: currentNode)
+        let folderNode:TreeNode=TreeNode(content: nil, name: String(element), parent: currentNode, orderUnderParent: 0)
         currentNode.children!.append(folderNode)
         stack.append(folderNode)
         currentNode = folderNode

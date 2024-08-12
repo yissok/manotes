@@ -16,7 +16,7 @@ func generateSerialTreeForMoving(_ toMove: String, _ destination: String,_ tags:
     var toMoveNode = tags.filter { $0.name == toMove }.first!
     let toMoveNodeChain=parentChain(toMoveNode)+"<>"
     let backToRootChain = getChainToGetBackToRoot(toMoveNodeChain)
-    var destNode =  tags.filter { $0.name == lowCDestination }.first ?? TreeNode(content: "", name: "", parent: nil)
+    var destNode =  tags.filter { $0.name == lowCDestination }.first ?? TreeNode(content: "", name: "", parent: nil, orderUnderParent: 0)
     if destNode.name == "" {
         return ""
     }
