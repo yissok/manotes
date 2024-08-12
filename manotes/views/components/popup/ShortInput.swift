@@ -33,13 +33,11 @@ struct ShortInput: View {
                     .focused($isNewFolderNameFocused)
                     .cornerRadius(10)
                     .onTapGesture {
-                        withAnimation {
-                            isNewFolderNameFocused=true
-                        }
+                        isNewFolderNameFocused=true
                     }
                     .padding([.horizontal], horizPadSpace)
                     .onReceive(Just(folderName)) { newValue in
-                        let allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+                        let allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
                         let filtered = newValue.filter { allowedCharacters.contains($0) }
                         if filtered != newValue {
                             self.folderName = filtered
@@ -48,9 +46,7 @@ struct ShortInput: View {
                 
                 HStack {
                     Button(action: {
-                        withAnimation {
-                            unshow(showPanel: $showPanel, zSwap: $zSwap, isNewFolderNameFocused: $isNewFolderNameFocused)
-                        }
+                        unshow(showPanel: $showPanel, zSwap: $zSwap, isNewFolderNameFocused: $isNewFolderNameFocused)
                     }) {
                         BigButton(content: overlayAction==OverlayAction.newFolder ? "Add" : "Move", bgColor: nil)
                     }
@@ -58,12 +54,9 @@ struct ShortInput: View {
                 .padding([.horizontal], horizPadSpace)
                 Spacer()
             }
-            .background(Color(.systemBackground).opacity(0)) // Set the background to transparent
+            .background(Color(.systemBackground).opacity(0))
             .cornerRadius(10)
             .shadow(radius: 10)
             .opacity(showPanel ? 1 : 0)
-            .transition(.opacity)
-            .animation(.easeInOut(duration: 0.1), value: showPanel)
-        
     }
 }

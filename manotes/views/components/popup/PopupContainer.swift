@@ -25,12 +25,12 @@ struct PopupContainer: View {
                 ShortInput(showPanel: $showPanel, folderName: $folderName, overlayAction: $ovelayAction, isNewFolderNameFocused: $isNewFolderNameFocused)
                     .zIndex(showPanel ? 2 : 0)
             } else if ovelayAction == OverlayAction.newNote || ovelayAction == OverlayAction.editNote {
-                LongInput(showPanel: $showPanel, folderName: $folderName, overlayAction: $ovelayAction, isNewFolderNameFocused: $isNewFolderNameFocused)
+                ShortInput(showPanel: $showPanel, folderName: $folderName, overlayAction: $ovelayAction, isNewFolderNameFocused: $isNewFolderNameFocused)
                     .zIndex(showPanel ? 2 : 0)
             }
             Toggle("Light", isOn: $showPanel)
                 .onChange(of: showPanel) {
-                    isNewFolderNameFocused=showPanel
+                    isNewFolderNameFocused.toggle()
                     if !showPanel && folderName != "" {
                         handleNewTagInput(ovelayAction==OverlayAction.newFolder ? parentName : (selectedNode==nil ? "bulkop" : selectedNode!.name),nodesGlobal,folderName, contextProvider.context!, ovelayAction, selectedNodes)
                         selectedNodes=Set<TreeNode>()

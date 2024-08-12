@@ -12,7 +12,7 @@ struct Note: View {
     var index:Int
     
     @State private var dynamicHeight: CGFloat = .zero
-    @State private var isActive: Bool = false
+    @State private var showingNewNoteSheet = false
     
     var body: some View {
         let formatterDate = DateFormatter()
@@ -38,20 +38,24 @@ struct Note: View {
             )
             .lineLimit(nil)
             .fixedSize(horizontal: false, vertical: true)
+            .sheet(isPresented: $showingNewNoteSheet) {
+                NoteView(note: item, isNew: false)
+            }
+            .onChange(of: showingNewNoteSheet, {
+                if !showingNewNoteSheet {
+                    onSheetDismissed()
+                }
+            })
             if item.enc{
                 Label("", systemImage: "lock")
                     .foregroundColor(Color.yellow)
-            } else {
-                NavigationLink(destination: NoteView(note: item, isNew: false), isActive: $isActive) { EmptyView()}
-                    .frame(width: 0, height: 0,  alignment: .trailing)
-                    .opacity(0)replace this with sheet
             }
         }
         .onTapGesture {
             if item.enc {
                 callShortcutWith(item.content ?? "no_content")
             } else {
-                isActive=true
+                showingNewNoteSheet.toggle()
             }
         }
         .listRowBackground(getColRow())
@@ -83,6 +87,18 @@ struct Note: View {
             }) {
                 Label("Delete", systemImage: "trash")
             }
+        }
+    }
+    
+    
+    func onSheetDismissed() {
+        // Your callback logic here
+        print("The sheet was dismissed")
+        if let index = nodesGlobal.firstIndex(where: { $0.content == "" }) {
+            print("Index content to delete: \(nodesGlobal[index].content)")
+            handleDeletionInput(nodesGlobal[index].name, nodesGlobal,contextProvider.context!)
+        } else {
+            print("No element found with content == \"\"")
         }
     }
     func getColRow() -> Color {
