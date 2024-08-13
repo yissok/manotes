@@ -2,31 +2,6 @@ import SwiftUI
 import SwiftData
 
 
-
-struct SheetView: View {
-    @Environment(\.dismiss) var dismiss
-
-    var body: some View {
-        
-        Button("Export", action: exportTree)
-            .font(.title)
-            .padding()
-        Button("Import", action: importTree)
-            .font(.title)
-            .padding()
-        Button("Press to dismiss") {
-            dismiss()
-        }
-        .font(.title)
-        .padding()
-    }
-    
-    
-    func exportTree() { }
-    func importTree() { }
-}
-
-
 struct ItemList: View {
     @EnvironmentObject var contextProvider: ContextProvider
     @State var editMode: EditMode = .inactive //<- Declare the @State var for editMode
@@ -48,6 +23,7 @@ struct ItemList: View {
     @State private var showingSettingsSheet = false
     @State private var showingNewNoteSheet = false
     @State private var newNote:TreeNode=TreeNode(content: "", name: "", parent: nil, orderUnderParent: 0)
+    @State private var noteText:String=""
 
 
     var body: some View {
@@ -59,36 +35,13 @@ struct ItemList: View {
         return ZStack
         {
             VStack {
-                Text(parentName)
-                    .font(.title)
+                if parentName != LB_ROOT{
+                    Text(parentName)
+                        .font(.title)
+                }
                 List(selection: $selectedNodesIds) {
-                    ForEach(filteredTags, id: \.id) { node in
-                        Tag(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode)
-                    }
-                    .onDelete { indexes in
-                        let filteredTagsTemp=filteredTags
-                        filteredTags.remove(atOffsets: indexes)
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            deleteAt(filteredTagsTemp, indexes)
-                        }
-                    }
-                    .onMove { sources, destination in
-                        move(filteredNotes, parent:parent!, from: sources, to: destination)
-                    }
-                    ForEach(Array(zip(filteredNotes.indices, filteredNotes)), id: \.1.id) { index, node in
-                        Note(nodesGlobal: nodesGlobal, item: node, showPanel: $showPanel, ovelayAction: $ovelayAction, selectedNode: $selectedNode, index:index)
-                    }
-                    .onDelete { indexes in
-                        let filteredNotesTemp=filteredNotes
-                        filteredNotes.remove(atOffsets: indexes)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            deleteAt(filteredNotesTemp, indexes)
-                        }
-                    }
-                    .onMove { sources, destination in
-                        move(filteredNotes, parent:parent!, from: sources, to: destination)
-                    }
+                    FilteredFolders(nodesGlobal: nodesGlobal, filteredTags: filteredTags, parent: parent)
+                    FilteredNotes(noteT: $noteText, nodesGlobal: nodesGlobal, filteredNotes: filteredNotes, parent: parent)
                 }
             }
             .onAppear(perform: {
@@ -114,81 +67,8 @@ struct ItemList: View {
               })
             .toolbar {
                 ToolbarItemGroup(placement: .bottomBar) {
-                    HStack{
-                        Button{
-                            if editModeSt {
-                                var i=0
-                                print("move")
-                                selectedNodesIds.forEach { st in
-                                    i += 1
-                                    let toBeMoved = nodesGlobal.filter{$0.id==st}.first
-                                    if toBeMoved != nil{
-                                        selectedNodes.insert(toBeMoved!)
-                                        print("\(i): \(toBeMoved!.name )")
-                                    }
-                                }
-                                withAnimation {
-                                    showPanel.toggle()
-                                    ovelayAction=OverlayAction.bulkMove
-                                }
-                            } else {
-                                withAnimation {
-                                    showPanel.toggle()
-                                    ovelayAction=OverlayAction.newFolder
-                                }
-                            }
-                        } label: {
-                            if editModeSt {
-                                Text("Move Selected")
-                            } else {
-                                Image(systemName: "folder.badge.plus")
-                            }
-                        }
-                        .foregroundColor(Color.yellow)
-                        .allowsHitTesting(!showPanel)//make buttons untouchable when popup is active
-                        Spacer()
-                        Button{
-                            if editModeSt {
-                                var i=0
-                                print("delete")
-                                selectedNodesIds.forEach { st in
-                                    i += 1
-                                    let toBeDeleted = nodesGlobal.filter{$0.id==st}.first
-                                    if toBeDeleted != nil{
-                                        let toBeDeletedName = toBeDeleted!.name
-                                        handleDeletionInput(toBeDeletedName, nodesGlobal, contextProvider.context!)
-                                        print("\(i): \(toBeDeletedName )")
-                                    }
-                                }
-                            } else {
-                                presentNoteInput=true
-                                newNote = handleNewNoteInput(parentName,nodesGlobal,"".base64Encoded!, contextProvider.context!)
-                                print(newNote.parent?.name)
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                                    showingNewNoteSheet.toggle()
-                                }
-                            }
-                        } label: {
-                            if editModeSt {
-                                Text("Delete Selected")
-                            } else {
-                                Image(systemName: "square.and.pencil")
-                            }
-                        }
-                        .foregroundColor(Color.yellow)
-                        .allowsHitTesting(!showPanel)//make buttons untouchable when popup is active
-                        .sheet(isPresented: $showingNewNoteSheet) {
-                            NoteView(note: newNote, isNew: true)
-                        }
-                        .onChange(of: showingNewNoteSheet) { newValue in
-                            if !newValue {
-                                // This will be called when the sheet is dismissed
-                                onSheetDismissed()
-                            }
-                        }
-                    }
+                    BottomToolbar( editMode: $editMode, editModeSt: $editModeSt, showPanel: $showPanel, presentNoteInput: $presentNoteInput, ovelayAction: $ovelayAction, nodesGlobal: nodesGlobal, selectedNode: $selectedNode, selectedNodesIds: $selectedNodesIds, selectedNodes: $selectedNodes, showingNewNoteSheet: $showingNewNoteSheet, newNote: $newNote, noteText: $noteText, parentName:parentName)
                 }
-                
             }
             .toolbar {
                 HStack{//you have to keep this else somehow list gets pushed down a step
@@ -218,24 +98,13 @@ struct ItemList: View {
                         }
                     }
                     .sheet(isPresented: $showingSettingsSheet) {
-                        SheetView()
+                        SettingsSheetView()
                     }
                     .animation(.easeInOut, value: showPanel) // Apply the animation
                 }
             }
             PopupContainer(showPanel: $showPanel, folderName: $folderName, ovelayAction: $ovelayAction, nodesGlobal: nodesGlobal, parentName: parentName, selectedNode: $selectedNode, selectedNodes: $selectedNodes)
 //            deletePlayground()
-        }
-        
-        func onSheetDismissed() {
-            // Your callback logic here
-            print("The sheet was dismissed")
-            if let index = nodesGlobal.firstIndex(where: { $0.content == "" }) {
-                print("Index content to delete: \(nodesGlobal[index].content)")
-                handleDeletionInput(nodesGlobal[index].name, nodesGlobal,contextProvider.context!)
-            } else {
-                print("No element found with content == \"\"")
-            }
         }
         func toggleEditMode() {
             withAnimation {
@@ -266,30 +135,6 @@ struct ItemList: View {
           return String((0..<length).map{ _ in letters.randomElement()! })
         }
         
-        func move(_ filteredNodes:[TreeNode], parent: TreeNode, from sources: IndexSet, to destination: Int) {
-            for source in sources {
-                let destFromZero = source>destination ? destination : destination-1
-                print("parent \(parent.name)")
-                print("src \(source)")
-                print("destination \(destFromZero)")
-                print("")
-                parent.children!.filter { $0.content != nil && $0.orderUnderParent > source }.forEach { node in
-                    node.orderUnderParent -= 1
-                }
-                
-                parent.children!.filter { $0.content != nil && $0.orderUnderParent >= destFromZero }.forEach { node in
-                    node.orderUnderParent += 1
-                }
-                filteredNodes[source].orderUnderParent=destFromZero
-            }
-        }
-        func deleteAt(_ filteredNodes:[TreeNode], _ indexes:IndexSet) {
-            for index in indexes {
-                if let globalIndex = nodesGlobal.firstIndex(of: filteredNodes[index]) {
-                    handleDeletionInput(nodesGlobal[globalIndex].name, nodesGlobal,contextProvider.context!)
-                }
-            }
-        }
-        
     }
 }
+

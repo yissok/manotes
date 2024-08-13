@@ -12,7 +12,7 @@ struct BigButton: View {
             .frame(maxWidth: .infinity)
             .font(Font.system(size: fontSz, design: .monospaced))
             .background(bgColor == nil ? Color(.systemBackground) : bgColor)
-            .foregroundColor(.white)
+            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             .cornerRadius(8)
     }
 }

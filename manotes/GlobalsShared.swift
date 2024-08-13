@@ -6,21 +6,23 @@ let UN_ID="manotes_uniqueidddddd"
 let APP_NAME_URL="manotesURL"
 let SHORTCUT_NAME="manoteSHTCT"
 let INPUT_LABEL="input"
-let LB_ROOT = "root";
+let LB_ROOT = "root"
 let NOENC_LABEL="NOENC_"
 let YESENC_LABEL="YESENC_"
 
 var shtctcall = "shortcuts://run-shortcut?name="+SHORTCUT_NAME+"&input="
 
-let UD_VERSION_NUMBER = "versionNumber";
+let UD_VERSION_NUMBER = "versionNumber"
 
-let DIR_HISTORY = "history";
+let DIR_HISTORY = "history"
 
-let SERIAL_SEPARATOR = "-";
-let SERIAL_BACKWARDS = "_";
-let NOTE_DELIMITER = ":";
+let SERIAL_SEPARATOR = "-"
+let SERIAL_BACKWARDS = "_"
+let NOTE_DELIMITER = ":"
 
 let rowHeight:CGFloat=30
+
+let devMode=false
 
 
 enum OverlayAction {

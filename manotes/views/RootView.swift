@@ -42,21 +42,23 @@ struct RootView: View {
         let root = initRoot()
         return NavigationView{
             VStack{
-                HStack{
-                    Text(String(versionNumber!))
-                    Button{
-                        versionNumber=0
-                        deleteAllHistory()
-                    } label: {
-                        Image(systemName: "delete.left")
+                if devMode{
+                    HStack{
+                        Text(String(versionNumber!))
+                        Button{
+                            versionNumber=0
+                            deleteAllHistory()
+                        } label: {
+                            Image(systemName: "delete.left")
+                        }
+                        .foregroundColor(Color.yellow)
+                        Button{
+                            removeEverything()
+                        } label: {
+                            Image(systemName: "eraser.fill")
+                        }
+                        .foregroundColor(Color.yellow)
                     }
-                    .foregroundColor(Color.yellow)
-                    Button{
-                        removeEverything()
-                    } label: {
-                        Image(systemName: "eraser.fill")
-                    }
-                    .foregroundColor(Color.yellow)
                 }
                 ItemList(nodesGlobal: nodesGlobal, parent: root)
                 //readme

@@ -46,6 +46,10 @@
 		65723ECC2C0E118600BE2B31 /* Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65723ECB2C0E118600BE2B31 /* Operations.swift */; };
 		65723ED02C0E12D400BE2B31 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65723ECF2C0E12D400BE2B31 /* ItemList.swift */; };
 		65723ED22C0E1A9700BE2B31 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65723ED12C0E1A9700BE2B31 /* Tag.swift */; };
+		658885FB2C6B9B88001E7339 /* FilteredNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658885FA2C6B9B88001E7339 /* FilteredNotes.swift */; };
+		658885FD2C6B9EA3001E7339 /* FilteredFolders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658885FC2C6B9EA3001E7339 /* FilteredFolders.swift */; };
+		658885FF2C6B9F5D001E7339 /* BottomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658885FE2C6B9F5D001E7339 /* BottomToolbar.swift */; };
+		658886012C6BA5FB001E7339 /* SettingsSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658886002C6BA5FB001E7339 /* SettingsSheetView.swift */; };
 		659761152C372A3700C2F199 /* ShortInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659761142C372A3700C2F199 /* ShortInput.swift */; };
 		659761172C372E4A00C2F199 /* InputOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659761162C372E4A00C2F199 /* InputOverlay.swift */; };
 		65B098FD2C5D6B6C00D6B53E /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B098FC2C5D6B6C00D6B53E /* NoteView.swift */; };
@@ -141,6 +145,10 @@
 		65723ECB2C0E118600BE2B31 /* Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
 		65723ECF2C0E12D400BE2B31 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		65723ED12C0E1A9700BE2B31 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		658885FA2C6B9B88001E7339 /* FilteredNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredNotes.swift; sourceTree = "<group>"; };
+		658885FC2C6B9EA3001E7339 /* FilteredFolders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredFolders.swift; sourceTree = "<group>"; };
+		658885FE2C6B9F5D001E7339 /* BottomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomToolbar.swift; sourceTree = "<group>"; };
+		658886002C6BA5FB001E7339 /* SettingsSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheetView.swift; sourceTree = "<group>"; };
 		659761142C372A3700C2F199 /* ShortInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortInput.swift; sourceTree = "<group>"; };
 		659761162C372E4A00C2F199 /* InputOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputOverlay.swift; sourceTree = "<group>"; };
 		65B098FC2C5D6B6C00D6B53E /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
@@ -298,6 +306,9 @@
 				651BEB542C08F41300414B64 /* ContentView.swift */,
 				65723EC32C0E065C00BE2B31 /* RootView.swift */,
 				65723ECF2C0E12D400BE2B31 /* ItemList.swift */,
+				658885FA2C6B9B88001E7339 /* FilteredNotes.swift */,
+				658885FC2C6B9EA3001E7339 /* FilteredFolders.swift */,
+				658885FE2C6B9F5D001E7339 /* BottomToolbar.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -339,6 +350,7 @@
 				65B098FC2C5D6B6C00D6B53E /* NoteView.swift */,
 				65B81CAA2C4BA80B002CC136 /* popup */,
 				650FC1512C52C754007254B6 /* MoveBtn.swift */,
+				658886002C6BA5FB001E7339 /* SettingsSheetView.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -549,13 +561,16 @@
 				6559F56D2C61169C008E0543 /* Intents.intentdefinition in Sources */,
 				65723ED22C0E1A9700BE2B31 /* Tag.swift in Sources */,
 				65723EC92C0E0EA500BE2B31 /* Output.swift in Sources */,
+				658885FB2C6B9B88001E7339 /* FilteredNotes.swift in Sources */,
 				6518AD6B2C09A84E009148D4 /* Globals.swift in Sources */,
 				659761172C372E4A00C2F199 /* InputOverlay.swift in Sources */,
 				65723EBD2C0E037800BE2B31 /* Input.swift in Sources */,
+				658885FD2C6B9EA3001E7339 /* FilteredFolders.swift in Sources */,
 				6554DE692C4D796500E8CCBE /* TreeNodeSerial.swift in Sources */,
 				65723ED02C0E12D400BE2B31 /* ItemList.swift in Sources */,
 				651BEB552C08F41300414B64 /* ContentView.swift in Sources */,
 				65B099002C5D70A400D6B53E /* BigButton.swift in Sources */,
+				658885FF2C6B9F5D001E7339 /* BottomToolbar.swift in Sources */,
 				65B9EAD82C11936F00FCFDEB /* TreeNode.swift in Sources */,
 				659761152C372A3700C2F199 /* ShortInput.swift in Sources */,
 				65183C2E2C53BA4700E633B4 /* LongInput.swift in Sources */,
@@ -564,6 +579,7 @@
 				6559F56F2C6117CA008E0543 /* AppIntent.swift in Sources */,
 				65723EBF2C0E052400BE2B31 /* ContextProvider.swift in Sources */,
 				65360E102C64CCE800C98BEB /* GlobalsShared.swift in Sources */,
+				658886012C6BA5FB001E7339 /* SettingsSheetView.swift in Sources */,
 				651BEB532C08F41300414B64 /* ManotesApp.swift in Sources */,
 				65723EC62C0E075E00BE2B31 /* Note.swift in Sources */,
 				650FC1522C52C754007254B6 /* MoveBtn.swift in Sources */,

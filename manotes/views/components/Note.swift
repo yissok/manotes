@@ -13,16 +13,17 @@ struct Note: View {
     
     @State private var dynamicHeight: CGFloat = .zero
     @State private var showingNewNoteSheet = false
+    @Binding var noteText:String
     
     var body: some View {
-        let formatterDate = DateFormatter()
-        formatterDate.dateFormat = "d MMM yy"
-        formatterDate.timeZone = TimeZone.current
-        let formatterTime = DateFormatter()
-        formatterTime.dateFormat = "HH:mm:ss"
-        formatterTime.timeZone = TimeZone.current
-        let dayDate = formatterDate.string(from: Date(timeIntervalSince1970: Double(item.name)! / 1000.0))
-        let hourDate = formatterTime.string(from: Date(timeIntervalSince1970: Double(item.name)! / 1000.0))
+//        let formatterDate = DateFormatter()
+//        formatterDate.dateFormat = "d MMM yy"
+//        formatterDate.timeZone = TimeZone.current
+//        let formatterTime = DateFormatter()
+//        formatterTime.dateFormat = "HH:mm:ss"
+//        formatterTime.timeZone = TimeZone.current
+//        let dayDate = formatterDate.string(from: Date(timeIntervalSince1970: Double(item.name)! / 1000.0))
+//        let hourDate = formatterTime.string(from: Date(timeIntervalSince1970: Double(item.name)! / 1000.0))
         return HStack{
 //            VStack(alignment: .trailing) {
 //                Text(dayDate)
@@ -32,7 +33,7 @@ struct Note: View {
 //            }
 //            .padding(.leading, -10)
 //            .padding(.trailing, 5)
-            Text(String(item.orderUnderParent))
+//            Text(String(item.orderUnderParent))
             Text(item.enc ?
                      item.content ?? "no_content" :
                     (item.content?.base64Decoded ?? "no_content")!
@@ -40,11 +41,11 @@ struct Note: View {
             .lineLimit(nil)
             .fixedSize(horizontal: false, vertical: true)
             .sheet(isPresented: $showingNewNoteSheet) {
-                NoteView(note: item, isNew: false)
+                NoteView(note: item, isNew: false, noteT: $noteText)
             }
             .onChange(of: showingNewNoteSheet, {
                 if !showingNewNoteSheet {
-                    onSheetDismissed()
+                    onSheetDismissed(nodesGlobal, contextProvider, item, noteText)
                 }
             })
             if item.enc{
@@ -58,6 +59,7 @@ struct Note: View {
             if item.enc {
                 callShortcutWith(item.content ?? "no_content")
             } else {
+                noteText = item.content!.base64Decoded ?? item.content!
                 showingNewNoteSheet.toggle()
             }
         }
@@ -94,16 +96,6 @@ struct Note: View {
     }
     
     
-    func onSheetDismissed() {
-        // Your callback logic here
-        print("The sheet was dismissed")
-        if let index = nodesGlobal.firstIndex(where: { $0.content == "" }) {
-            print("Index content to delete: \(nodesGlobal[index].content)")
-            handleDeletionInput(nodesGlobal[index].name, nodesGlobal,contextProvider.context!)
-        } else {
-            print("No element found with content == \"\"")
-        }
-    }
     func getColRow() -> Color {
         return colorScheme == .dark ? Color.black : Color.white
     }

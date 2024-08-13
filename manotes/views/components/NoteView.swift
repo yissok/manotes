@@ -6,13 +6,13 @@ struct NoteView: View {
     @State private var isNew:Bool
     
     @FocusState var isFocused: Bool
-    @State private var noteText:String
+    @Binding var noteText:String
     @Environment(\.dismiss) var dismiss
     
-    init(note:TreeNode, isNew: Bool) {
+    init(note:TreeNode, isNew: Bool, noteT:Binding<String>) {
         self.isNew = isNew
         self.note = note
-        noteText = note.content!.base64Decoded ?? note.content!
+        self._noteText = noteT 
     }
     
     var body: some View {
@@ -28,17 +28,17 @@ struct NoteView: View {
                 isFocused = true
             }
         }
-        if note.content!.base64Decoded != noteText {
-            Button{
-                note.content=noteText.base64Encoded
-                contextProvider.context?.insert(note)
-                dismiss()
-            } label: {
-                BigButton(content: "Save", bgColor: Color(.secondaryLabel))
-            }
-            .foregroundColor(Color.yellow)
-            .padding()
-        }
+//        if note.content!.base64Decoded != noteText {
+//            Button{
+//                note.content=noteText.base64Encoded
+//                contextProvider.context?.insert(note)
+//                dismiss()
+//            } label: {
+//                BigButton(content: "Save", bgColor: Color(.secondaryLabel))
+//            }
+//            .foregroundColor(Color.yellow)
+//            .padding()
+//        }
 //        Button("Close") {
 //            dismiss()
 //        }
